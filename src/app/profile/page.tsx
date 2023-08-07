@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <>
-      Profile Page
-    </>
-  )
+  return <>Profile Page</>
 }

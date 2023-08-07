@@ -64,13 +64,13 @@ npm install
 
 **4. Start server:**
 
-  - if you want to open the application in development mode, then use
+- if you want to open the application in development mode, then use
 
 ```bash
 npm run dev
 ```
 
-  - and if you want to open the application in build mode, then use
+- and if you want to open the application in build mode, then use
 
 ```bash
 npm run build
