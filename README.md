@@ -14,33 +14,33 @@ Overall, this eCommerce application provides a seamless shopping experience for 
 
 The application is built using modern web technologies such as:
 
-* <p>
-  <img src="https://img.shields.io/badge/next-v%2013-black" alt="label next">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/next-v%2013-black" alt="label next">
+  </p>
 
-* <p>
-  <img src="https://img.shields.io/badge/react-v%2018-blue" alt="label react">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/react-v%2018-blue" alt="label react">
+  </p>
 
-* <p>
-  <img src="https://img.shields.io/badge/typescript-v%205.1.6-Navy%20blue" alt="label typescript">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/typescript-v%205.1.6-Navy%20blue" alt="label typescript">
+  </p>
 
-* <p>
-  <img src="https://img.shields.io/badge/eslint-v%208.46.0-violet" alt="label eslint">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/eslint-v%208.46.0-violet" alt="label eslint">
+  </p>
 
-* <p>
-  <img src="https://img.shields.io/badge/prettier-v%203.0.1-red" alt="label prettier">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/prettier-v%203.0.1-red" alt="label prettier">
+  </p>
 
-* <p>
-  <img src="https://img.shields.io/badge/Git%20hook%20Husky-v%208.0.3-green" alt="label husky">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/Git%20hook%20Husky-v%208.0.3-green" alt="label husky">
+  </p>
 
-* <p>
-  <img src="https://img.shields.io/badge/jest-v%2029.6.2-green" alt="label jest">
-</p>
+- <p>
+    <img src="https://img.shields.io/badge/jest-v%2029.6.2-green" alt="label jest">
+  </p>
 
 ## Installing
 
@@ -62,13 +62,22 @@ cd E-commerce_app
 npm install
 ```
 
-**4. Start development server:**
+**4. Start server:**
+
+  - if you want to open the application in development mode, then use
 
 ```bash
-npm start
+npm run dev
 ```
 
-**5. Open your browser and go to link _[http://localhost:3000](http://localhost:3000)_ and you will see the application.**
+  - and if you want to open the application in build mode, then use
+
+```bash
+npm run build
+npm run start
+```
+
+**5. Open your browser and follow the link to the suggested localhost and you will see the application.**
 
 ## Use Scripts
 
