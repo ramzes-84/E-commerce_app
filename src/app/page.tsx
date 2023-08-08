@@ -1,4 +1,7 @@
+import { getCustomers } from '@/service/api/client'
 import Image from 'next/image'
+
+getCustomers()
 
 export default function Home() {
   return (
