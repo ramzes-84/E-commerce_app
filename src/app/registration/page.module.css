@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.input:valid {
+  background-color: rgb(192 231 185 / 70%);
+}
+
+.input:invalid {
+  background-color: rgb(252 165 165 / 70%);
+}
+
+.sentFormBtn {
+  display: block;
+  margin: 0 auto;
+}
