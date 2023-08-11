@@ -1,3 +1,5 @@
 export default function Page() {
-  return <h1>Hello, Registration Page!</h1>
+  return (
+    <h1>Hello, Registration Page!</h1>
+  )
 }

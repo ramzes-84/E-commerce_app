@@ -1,3 +1,5 @@
 export default function Page() {
-  return <h1>Hello, Account Page!</h1>
+  return (
+    <h1>Hello, Account Page!</h1>
+  )
 }
