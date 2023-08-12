@@ -36,7 +36,7 @@ export default function Page() {
   // }, [email])
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
     const response = await registerUser(formData)
     console.log(response)
 

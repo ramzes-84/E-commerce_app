@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 export default function SelectCountry() {
-  const [selectedCountry, setSelectedCountry] = React.useState('');
+  const [selectedCountry, setSelectedCountry] = React.useState('')
 
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const countryCode = event.target.value;
-    setSelectedCountry(countryCode);
+    const countryCode = event.target.value
+    setSelectedCountry(countryCode)
   }
   return (
     <select name="country" form="formRegistr" value={selectedCountry} onChange={handleCountryChange}>

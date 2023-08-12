@@ -56,7 +56,7 @@ export const registerUser = async (formData: IFormData) => {
   }
 
   const response = await apiRoot.customers().post({ body: customerDraft }).execute()
-  console.log(response);
-  
+  console.log(response)
+
   return response
 }
