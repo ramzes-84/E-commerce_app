@@ -3,7 +3,7 @@ import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-
 
 // Create apiRoot from the imported ClientBuilder and include your Project key
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey: process.env.CTP_PROJECT_KEY || '{projectKey}',
+  projectKey: 'cyber-ducks-app',
 })
 
 // Example function to check API params
@@ -56,6 +56,7 @@ export const registerUser = async (formData: IFormData) => {
   }
 
   const response = await apiRoot.customers().post({ body: customerDraft }).execute()
-
+  console.log(response);
+  
   return response
 }

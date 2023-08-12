@@ -7,16 +7,16 @@ import {
   type HttpMiddlewareOptions, // Required for sending HTTP requests
 } from '@commercetools/sdk-client-v2'
 
-const projectKey = process.env.CTP_PROJECT_KEY || '{projectKey}'
-const scopes = process.env.CTP_SCOPES?.split(' ').map((item) => item) || ['{scope}']
+const projectKey = 'cyber-ducks-app'
+const scopes = process.env.CTP_SCOPES?.split(' ').map((item) => item) || ['manage_project:cyber-ducks-app']
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: process.env.CTP_AUTH_URL || 'https://auth.{region}.commercetools.com',
+  host: 'https://auth.europe-west1.gcp.commercetools.com',
   projectKey: projectKey,
   credentials: {
-    clientId: process.env.CTP_CLIENT_ID || '{clientID}',
-    clientSecret: process.env.CTP_CLIENT_SECRET || '{clientSecret}',
+    clientId: '3at1oL0-vzq_T_uT5VxRZFIr',
+    clientSecret: 'FLOVl-K13DJovX_6B7FWrLm83TNV3Xom',
   },
   scopes,
   fetch,
@@ -24,7 +24,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
 
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: process.env.CTP_API_URL || 'https://api.{region}.commercetools.com',
+  host: 'https://api.europe-west1.gcp.commercetools.com',
   fetch,
 }
 

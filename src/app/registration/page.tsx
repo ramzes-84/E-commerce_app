@@ -35,7 +35,8 @@ export default function Page() {
   //   emailRef.current = email
   // }, [email])
 
-  const handleRegistration = async () => {
+  const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const response = await registerUser(formData)
     console.log(response)
 
@@ -49,7 +50,7 @@ export default function Page() {
   return (
     <>
       <div className={style.container}>
-        <form action="POST" onSubmit={handleRegistration}>
+        <form id="formRegistr" onSubmit={handleRegistration}>
           <h2 className="text-center">Registration</h2>
           <div>
             <div>
@@ -165,13 +166,14 @@ export default function Page() {
                 <label>
                   Country:
                   <SelectCountry />
-                  <input
+                  {/* <input
                     className={style.input}
                     type="text"
                     name="country"
+                    pattern='^[A-Z]{2}$'
                     value={formData.country}
                     onChange={handleChange}
-                  />
+                  /> */}
                 </label>
               </div>
             </div>
