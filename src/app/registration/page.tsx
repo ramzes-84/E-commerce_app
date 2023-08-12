@@ -1,29 +1,43 @@
 'use client'
 
-import style from './page.module.css'
-import React from 'react'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { IFormData, apiRoot, registerUser } from '@/service/api/client';
+import style from './page.module.css';
+import React from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Page() {
-  const [email, setEmail] = React.useState('')
+  const [formData, setFormData] = React.useState<IFormData>({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    streetName: '',
+    city: '',
+    postalCode: '',
+    country: '',
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData: IFormData) => ({
+      ...prevFormData,
+      [name]: value.trim(),
+    }));
+  };
+
   const [passwordVisible, setPasswordVisible] = React.useState(false)
-  const [password, setPassword] = React.useState('')
-  const [firstname, setFirstname] = React.useState('')
-  const [lastname, setLastname] = React.useState('')
-  const [birthdate, setBirthdate] = React.useState('')
-  const [street, setStreet] = React.useState('')
-  const [city, setCity] = React.useState('')
-  const [postalcode, setPostalcode] = React.useState('')
-  const [country, setCountry] = React.useState('')
 
-  const emailRef = React.useRef(email)
+  // const emailRef = React.useRef(email)
 
-  React.useEffect(() => {
-    emailRef.current = email
-  }, [email])
+  // React.useEffect(() => {
+  //   emailRef.current = email
+  // }, [email])
 
-  const handleRegistration = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const response = await registerUser(formData);
+    console.log(response);
 
     let user // при настройке API здесь будем искать нужного user и сравнивать со значением поля email
   }
@@ -35,7 +49,7 @@ export default function Page() {
   return (
     <>
       <div className={style.container}>
-        <form action="" onSubmit={handleRegistration}>
+        <form action="POST"  onSubmit={handleRegistration}>
           <h2 className="text-center">Registration</h2>
           <div>
             <div>
@@ -46,8 +60,8 @@ export default function Page() {
                   name="email"
                   multiple={false}
                   pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value.trim())}
+                  value={formData.email}
+                  onChange={handleChange}
                   className={style.input}
                 />
               </label>
@@ -60,12 +74,12 @@ export default function Page() {
                   name="password"
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
                   minLength={8}
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value.trim())}
+                  value={formData.password}
+                  onChange={handleChange}
                   className={style.input}
                 />
               </label>
-              <button onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</button>
+              <span onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
             </div>
             <div>
               <label>
@@ -73,9 +87,9 @@ export default function Page() {
                 <input
                   type="text"
                   name="firstName"
-                  value={firstname}
+                  value={formData.firstName}
                   pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                  onChange={(event) => setFirstname(event.target.value.trim())}
+                  onChange={handleChange}
                   className={style.input}
                 />
               </label>
@@ -86,9 +100,9 @@ export default function Page() {
                 <input
                   type="text"
                   name="lastName"
-                  value={lastname}
+                  value={formData.lastName}
                   pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                  onChange={(event) => setLastname(event.target.value.trim())}
+                  onChange={handleChange}
                   className={style.input}
                 />
               </label>
@@ -99,20 +113,10 @@ export default function Page() {
                 <input
                   className={style.input}
                   type="date"
-                  name="birthdate"
-                  pattern="^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
-                  value={birthdate}
-                  onChange={(event) => {
-                    setBirthdate(event.target.value)
-                    const birthdate = new Date(event.target.value)
-                    const today = new Date()
-                    const age = today.getFullYear() - birthdate.getFullYear()
-                    if (age < 14) {
-                      event.target.setCustomValidity('Вы должны быть старше 14 лет')
-                    } else {
-                      event.target.setCustomValidity('')
-                    }
-                  }}
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  min="1900-01-01" max={new Date(new Date().setFullYear(new Date().getFullYear() - 14)).toISOString().split('T')[0]}
+                  onChange={handleChange}
                 />
               </label>
             </div>
@@ -124,10 +128,10 @@ export default function Page() {
                   <input
                     className={style.input}
                     type="text"
-                    name="street"
-                    pattern="^[a-zA-Zа-яА-Я].*"
-                    value={street}
-                    onChange={(event) => setStreet(event.target.value.trim())}
+                    name="streetName"
+                    pattern="^.+$"
+                    value={formData.streetName}
+                    onChange={handleChange}
                   />
                 </label>
               </div>
@@ -139,8 +143,8 @@ export default function Page() {
                     type="text"
                     name="city"
                     pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                    value={city}
-                    onChange={(event) => setCity(event.target.value.trim())}
+                    value={formData.city}
+                    onChange={handleChange}
                   />
                 </label>
               </div>
@@ -150,9 +154,9 @@ export default function Page() {
                   <input
                     className={style.input}
                     type="text"
-                    name="postalcode"
-                    value={postalcode}
-                    onChange={(event) => setPostalcode(event.target.value.trim())}
+                    name="postalCode"
+                    value={formData.postalCode}
+                    onChange={handleChange}
                   />
                 </label>
               </div>
@@ -163,14 +167,14 @@ export default function Page() {
                     className={style.input}
                     type="text"
                     name="country"
-                    value={country}
-                    onChange={(event) => setCountry(event.target.value.trim())}
+                    value={formData.country}
+                    onChange={handleChange}
                   />
                 </label>
               </div>
             </div>
           </div>
-          <button className={style.sentFormBtn}>Register</button>
+          <button type='submit' className={style.sentFormBtn}>Register</button>
         </form>
       </div>
     </>
