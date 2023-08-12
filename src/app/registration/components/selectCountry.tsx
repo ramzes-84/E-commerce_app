@@ -1,5 +1,4 @@
 export default function SelectCountry() {
-
   return (
     <select name="" id="">
       <option value="BY">Belarus</option>
