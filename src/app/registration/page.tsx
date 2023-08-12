@@ -1,9 +1,9 @@
 'use client'
 
-import { IFormData, apiRoot, registerUser } from '@/service/api/client';
-import style from './page.module.css';
-import React from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { IFormData, apiRoot, registerUser } from '@/service/api/client'
+import style from './page.module.css'
+import React from 'react'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 export default function Page() {
   const [formData, setFormData] = React.useState<IFormData>({
@@ -16,15 +16,15 @@ export default function Page() {
     city: '',
     postalCode: '',
     country: '',
-  });
+  })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFormData((prevFormData: IFormData) => ({
       ...prevFormData,
       [name]: value.trim(),
-    }));
-  };
+    }))
+  }
 
   const [passwordVisible, setPasswordVisible] = React.useState(false)
 
@@ -35,9 +35,9 @@ export default function Page() {
   // }, [email])
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const response = await registerUser(formData);
-    console.log(response);
+    event.preventDefault()
+    const response = await registerUser(formData)
+    console.log(response)
 
     let user // при настройке API здесь будем искать нужного user и сравнивать со значением поля email
   }
@@ -49,7 +49,7 @@ export default function Page() {
   return (
     <>
       <div className={style.container}>
-        <form action="POST"  onSubmit={handleRegistration}>
+        <form action="POST" onSubmit={handleRegistration}>
           <h2 className="text-center">Registration</h2>
           <div>
             <div>
@@ -115,7 +115,8 @@ export default function Page() {
                   type="date"
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
-                  min="1900-01-01" max={new Date(new Date().setFullYear(new Date().getFullYear() - 14)).toISOString().split('T')[0]}
+                  min="1900-01-01"
+                  max={new Date(new Date().setFullYear(new Date().getFullYear() - 14)).toISOString().split('T')[0]}
                   onChange={handleChange}
                 />
               </label>
@@ -174,7 +175,9 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <button type='submit' className={style.sentFormBtn}>Register</button>
+          <button type="submit" className={style.sentFormBtn}>
+            Register
+          </button>
         </form>
       </div>
     </>

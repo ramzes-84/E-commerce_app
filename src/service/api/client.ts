@@ -13,32 +13,32 @@ export const getCustomers = async () => {
 }
 
 export interface IFormData {
-  email: string,
-  password: string,
-  firstName: string,
-  lastName: string,
-  dateOfBirth: string,
-  streetName: string,
-  city: string,
-  postalCode: string,
-  country: string,
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  dateOfBirth: string
+  streetName: string
+  city: string
+  postalCode: string
+  country: string
 }
 
 interface CustomerDraft {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth?: string;
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  dateOfBirth?: string
   addresses?: {
-    streetName?: string;
-    city?: string;
-    postalCode?: string;
-    country: string;
-  }[];
+    streetName?: string
+    city?: string
+    postalCode?: string
+    country: string
+  }[]
 }
 
-export const registerUser = async (formData: IFormData)=> {
+export const registerUser = async (formData: IFormData) => {
   const customerDraft: CustomerDraft = {
     email: formData.email,
     password: formData.password,
@@ -53,9 +53,9 @@ export const registerUser = async (formData: IFormData)=> {
         country: formData.country,
       },
     ],
-  };
+  }
 
-  const response = await apiRoot.customers().post({body: customerDraft});
+  const response = await apiRoot.customers().post({ body: customerDraft })
 
-  return response;
+  return response
 }
