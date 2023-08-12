@@ -4,6 +4,7 @@ import { IFormData, apiRoot, registerUser } from '@/service/api/client'
 import style from './page.module.css'
 import React from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import SelectCountry from './components/selectCountry'
 
 export default function Page() {
   const [formData, setFormData] = React.useState<IFormData>({
@@ -34,8 +35,7 @@ export default function Page() {
   //   emailRef.current = email
   // }, [email])
 
-  const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleRegistration = async () => {
     const response = await registerUser(formData)
     console.log(response)
 
@@ -164,6 +164,7 @@ export default function Page() {
               <div>
                 <label>
                   Country:
+                  <SelectCountry />
                   <input
                     className={style.input}
                     type="text"
