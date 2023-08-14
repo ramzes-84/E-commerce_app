@@ -1,10 +1,23 @@
 'use client'
 
-import { IFormData, apiRoot, registerUser } from '@/service/api/client'
+import { apiRoot, registerUser } from '@/service/api/client'
 import style from './page.module.css'
 import React from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import SelectCountry from './components/selectCountry'
+import PostalCode from './components/postalCode'
+
+export interface IFormData {
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  dateOfBirth: string
+  streetName: string
+  city: string
+  postalCode: string
+  country: string
+}
 
 export default function Page() {
   const [formData, setFormData] = React.useState<IFormData>({
@@ -19,7 +32,7 @@ export default function Page() {
     country: '',
   })
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
     setFormData((prevFormData: IFormData) => ({
       ...prevFormData,
@@ -29,18 +42,10 @@ export default function Page() {
 
   const [passwordVisible, setPasswordVisible] = React.useState(false)
 
-  // const emailRef = React.useRef(email)
-
-  // React.useEffect(() => {
-  //   emailRef.current = email
-  // }, [email])
-
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const response = await registerUser(formData)
     console.log(response)
-
-    let user // при настройке API здесь будем искать нужного user и сравнивать со значением поля email
   }
 
   const togglePasswordVisibility = () => {
@@ -153,32 +158,18 @@ export default function Page() {
               <div>
                 <label>
                   Postal code:
-                  <input
-                    className={style.input}
-                    type="text"
-                    name="postalCode"
-                    value={formData.postalCode}
-                    onChange={handleChange}
-                  />
+                  <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData}/>
                 </label>
               </div>
               <div>
                 <label>
                   Country:
-                  <SelectCountry />
-                  {/* <input
-                    className={style.input}
-                    type="text"
-                    name="country"
-                    pattern='^[A-Z]{2}$'
-                    value={formData.country}
-                    onChange={handleChange}
-                  /> */}
+                  <SelectCountry country={formData.country} setFormData={setFormData}/>
                 </label>
               </div>
             </div>
           </div>
-          <button type="submit" className={style.sentFormBtn}>
+          <button type="submit" className={style.sentFormBtn} disabled={!(formData.email && formData.password && formData.firstName && formData.lastName && formData.country)}>
             Register
           </button>
         </form>

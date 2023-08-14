@@ -1,22 +1,31 @@
+'use client'
+
+import style from '../page.module.css'
 import React from 'react'
+import { IFormData } from '../page';
 
-export default function SelectCountry() {
-  const [selectedCountry, setSelectedCountry] = React.useState('')
+interface CountryProps {
+  country: string;
+  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+}
 
-  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const countryCode = event.target.value
-    setSelectedCountry(countryCode)
+export default function SelectCountry({country, setFormData}: CountryProps) {
+  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    setFormData(prevState => ({
+      ...prevState,
+      country: event.target.value
+    }));
   }
   return (
-    <select name="country" form="formRegistr" value={selectedCountry} onChange={handleCountryChange}>
-      <option value="II">Select a country</option>
+    <select className={style.input} name="country" form="formRegistr" value={country} onChange={handleCountryChange}>
+      <option >Select a country</option>
       <option value="BY">Belarus</option>
       <option value="CZ">Czechia</option>
       <option value="DE">Germany</option>
       <option value="KZ">Kazakhstan</option>
       <option value="RU">Russia</option>
       <option value="ES">Spain</option>
-      <option value="US">Unated States</option>
+      <option value="US">United States</option>
     </select>
   )
 }

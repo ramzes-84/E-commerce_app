@@ -1,3 +1,4 @@
+import { IFormData } from '@/app/registration/page'
 import { ctpClient } from './BuildClient'
 import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
 
@@ -10,18 +11,6 @@ export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
 export const getCustomers = async () => {
   const customersList = await apiRoot.customers().get().execute()
   return customersList
-}
-
-export interface IFormData {
-  email: string
-  password: string
-  firstName: string
-  lastName: string
-  dateOfBirth: string
-  streetName: string
-  city: string
-  postalCode: string
-  country: string
 }
 
 interface CustomerDraft {
