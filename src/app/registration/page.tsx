@@ -45,7 +45,6 @@ export default function Page() {
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const response = await registerUser(formData)
-    console.log(response)
   }
 
   const togglePasswordVisibility = () => {
@@ -158,18 +157,24 @@ export default function Page() {
               <div>
                 <label>
                   Postal code:
-                  <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData}/>
+                  <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData} />
                 </label>
               </div>
               <div>
                 <label>
                   Country:
-                  <SelectCountry country={formData.country} setFormData={setFormData}/>
+                  <SelectCountry country={formData.country} setFormData={setFormData} />
                 </label>
               </div>
             </div>
           </div>
-          <button type="submit" className={style.sentFormBtn} disabled={!(formData.email && formData.password && formData.firstName && formData.lastName && formData.country)}>
+          <button
+            type="submit"
+            className={style.sentFormBtn}
+            disabled={
+              !(formData.email && formData.password && formData.firstName && formData.lastName && formData.country)
+            }
+          >
             Register
           </button>
         </form>

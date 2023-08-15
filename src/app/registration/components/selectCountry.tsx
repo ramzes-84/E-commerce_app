@@ -2,23 +2,23 @@
 
 import style from '../page.module.css'
 import React from 'react'
-import { IFormData } from '../page';
+import { IFormData } from '../page'
 
 interface CountryProps {
-  country: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  country: string
+  setFormData: React.Dispatch<React.SetStateAction<IFormData>>
 }
 
-export default function SelectCountry({country, setFormData}: CountryProps) {
+export default function SelectCountry({ country, setFormData }: CountryProps) {
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      country: event.target.value
-    }));
+      country: event.target.value,
+    }))
   }
   return (
     <select className={style.input} name="country" form="formRegistr" value={country} onChange={handleCountryChange}>
-      <option >Select a country</option>
+      <option>Select a country</option>
       <option value="BY">Belarus</option>
       <option value="CZ">Czechia</option>
       <option value="DE">Germany</option>
