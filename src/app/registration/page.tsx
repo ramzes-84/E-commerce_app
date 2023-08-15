@@ -57,7 +57,9 @@ export default function Page() {
     const streetValid = streetRegex.test(formData.streetName)
     const cityValid = cityRegex.test(formData.city)
     const postalCodeValid = postalCodeRegex.test(formData.postalCode)
-    setFormValid(emailValid && passwordValid && firstNameValid && lastNameValid && streetValid && cityValid && postalCodeValid)
+    setFormValid(
+      emailValid && passwordValid && firstNameValid && lastNameValid && streetValid && cityValid && postalCodeValid
+    )
   }, [formData])
 
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -190,11 +192,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            className={style.sentFormBtn}
-            disabled={!formValid}
-          >
+          <button type="submit" className={style.sentFormBtn} disabled={!formValid}>
             Register
           </button>
         </form>

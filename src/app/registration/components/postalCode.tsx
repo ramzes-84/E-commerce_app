@@ -11,30 +11,28 @@ interface PostalCodeProps {
 }
 
 export default function PostalCode({ country, postalCode, setFormData }: PostalCodeProps) {
-  const [error, setError] = useState('');
-  
+  const [error, setError] = useState('')
+
   const handlePostalCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
+    const value = event.target.value.trim()
     setFormData((prevState) => ({
       ...prevState,
       postalCode: value,
-    }));
+    }))
 
     if (country === 'BY' || country === 'RU' || country === 'KZ') {
       if (!/^[1-90]{6}$/.test(value)) {
-        setError('Неверный почтовый индекс');
-        return;
+        setError('Неверный почтовый индекс')
+        return
       }
     } else {
       if (!/^[1-90]{5}$/.test(value)) {
-        setError('Неверный почтовый индекс');
-        return;
+        setError('Неверный почтовый индекс')
+        return
       }
     }
-    setError('');
+    setError('')
   }
-
-
 
   return (
     <>
