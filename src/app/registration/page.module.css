@@ -8,6 +8,7 @@
   margin-bottom: 10px;
   border-radius: 4px;
   outline: none;
+  box-shadow: 5px 7px 6px 1px rgb(211 238 206 / 45%);
 }
 
 .input:valid {
@@ -21,4 +22,30 @@
 .sentFormBtn {
   display: block;
   margin: 0 auto;
+  padding: 5px 25px;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+  background-color: rgb(192 231 185 / 70%);
+  border: none;
+}
+
+.sentFormBtn:disabled {
+  background-color: rgba(230, 231, 229, 0.7);
+  color: rgb(121, 142, 117);
+}
+
+.selectCountry {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 2px 0px;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 5px 7px 6px 1px rgb(211 238 206 / 45%);
+}
+
+.selectCountry:valid {
+  background-color: rgb(192 231 185 / 70%);
 }

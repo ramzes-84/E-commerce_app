@@ -1,8 +1,8 @@
 'use client'
 
-import { apiRoot, registerUser } from '@/service/api/client'
+import { registerUser } from '@/service/api/client'
 import style from './page.module.css'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import SelectCountry from './components/selectCountry'
 import PostalCode from './components/postalCode'
@@ -20,7 +20,7 @@ export interface IFormData {
 }
 
 export default function Page() {
-  const [formData, setFormData] = React.useState<IFormData>({
+  const [formData, setFormData] = useState<IFormData>({
     email: '',
     password: '',
     firstName: '',
@@ -32,6 +32,8 @@ export default function Page() {
     country: '',
   })
 
+  const [formValid, setFormValid] = useState(false)
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
     setFormData((prevFormData: IFormData) => ({
@@ -40,11 +42,31 @@ export default function Page() {
     }))
   }
 
-  const [passwordVisible, setPasswordVisible] = React.useState(false)
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
+    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
+    const streetRegex = /^.+$/
+    const cityRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
+    const postalCodeRegex = /^[1-90]{5,}$/
+    const emailValid = emailRegex.test(formData.email)
+    const passwordValid = passwordRegex.test(formData.password)
+    const firstNameValid = firstNameRegex.test(formData.firstName)
+    const lastNameValid = lastNameRegex.test(formData.lastName)
+    const streetValid = streetRegex.test(formData.streetName)
+    const cityValid = cityRegex.test(formData.city)
+    const postalCodeValid = postalCodeRegex.test(formData.postalCode)
+    setFormValid(emailValid && passwordValid && firstNameValid && lastNameValid && streetValid && cityValid && postalCodeValid)
+  }, [formData])
+
+  const [passwordVisible, setPasswordVisible] = useState(false)
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const response = await registerUser(formData)
+    if (formValid) {
+      await registerUser(formData)
+    }
   }
 
   const togglePasswordVisibility = () => {
@@ -55,7 +77,7 @@ export default function Page() {
     <>
       <div className={style.container}>
         <form id="formRegistr" onSubmit={handleRegistration}>
-          <h2 className="text-center">Registration</h2>
+          <h2 className="text-center uppercase">Registration</h2>
           <div>
             <div>
               <label>
@@ -171,9 +193,7 @@ export default function Page() {
           <button
             type="submit"
             className={style.sentFormBtn}
-            disabled={
-              !(formData.email && formData.password && formData.firstName && formData.lastName && formData.country)
-            }
+            disabled={!formValid}
           >
             Register
           </button>

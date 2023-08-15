@@ -17,7 +17,7 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
     }))
   }
   return (
-    <select className={style.input} name="country" form="formRegistr" value={country} onChange={handleCountryChange}>
+    <select className={style.selectCountry} name="country" form="formRegistr" value={country} onChange={handleCountryChange}>
       <option>Select a country</option>
       <option value="BY">Belarus</option>
       <option value="CZ">Czechia</option>
