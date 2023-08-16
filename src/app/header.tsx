@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 export default function Navbar() {
   const [navbarOpen, setNavbarOpen] = React.useState(false)
+
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 mb-3">
