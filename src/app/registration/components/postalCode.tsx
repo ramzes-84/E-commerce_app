@@ -19,7 +19,10 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
       ...prevState,
       postalCode: value,
     }))
-
+    if (!value) {
+      setError('');
+      return
+    }
     if (country === 'BY' || country === 'RU' || country === 'KZ') {
       if (!/^[1-90]{6}$/.test(value)) {
         setError('Неверный почтовый индекс')
@@ -36,16 +39,18 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
 
   return (
     <>
-      {error && <p className={'text-xs'}>{error}</p>}
-      <input
-        className={style.input}
-        type="text"
-        name="postalCode"
-        value={postalCode}
-        onChange={handlePostalCodeChange}
-        pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
-        title="Enter postal code without spaces, dashes and periods in the format 12345 for US/CZ/ES/DE or 123456 for RU/KZ/BY"
-      />
+    <label>
+      Postal code:
+        {error && <p className='error-message text-xs text-red-800'>{error}</p>}
+        <input
+          className={style.input}
+          type="text"
+          name="postalCode"
+          value={postalCode}
+          onChange={handlePostalCodeChange}
+          pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
+        />
+    </label>
     </>
   )
 }

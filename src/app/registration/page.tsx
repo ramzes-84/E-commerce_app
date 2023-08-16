@@ -3,9 +3,15 @@
 import { registerUser } from '@/service/api/client'
 import style from './page.module.css'
 import React, { useEffect, useState } from 'react'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import SelectCountry from './components/selectCountry'
 import PostalCode from './components/postalCode'
+import EmailValid from './components/emailValid'
+import PasswordValid from './components/passwordValid'
+import FirstNameValid from './components/firstNameValid'
+import LastNameValid from './components/lastNameValid'
+import StreetValid from './components/streetValid'
+import CityValid from './components/cityValid'
+import DataOfBirthValid from './components/dataOfBirthValid'
 
 export interface IFormData {
   email: string
@@ -34,14 +40,6 @@ export default function Page() {
 
   const [formValid, setFormValid] = useState(false)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = event.target
-    setFormData((prevFormData: IFormData) => ({
-      ...prevFormData,
-      [name]: value.trim(),
-    }))
-  }
-
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
@@ -50,6 +48,7 @@ export default function Page() {
     const streetRegex = /^.+$/
     const cityRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
     const postalCodeRegex = /^[1-90]{5,}$/
+    const countryRegex = /^.+$/
     const emailValid = emailRegex.test(formData.email)
     const passwordValid = passwordRegex.test(formData.password)
     const firstNameValid = firstNameRegex.test(formData.firstName)
@@ -57,22 +56,17 @@ export default function Page() {
     const streetValid = streetRegex.test(formData.streetName)
     const cityValid = cityRegex.test(formData.city)
     const postalCodeValid = postalCodeRegex.test(formData.postalCode)
+    const countryValid = countryRegex.test(formData.country)
     setFormValid(
-      emailValid && passwordValid && firstNameValid && lastNameValid && streetValid && cityValid && postalCodeValid
+      emailValid && passwordValid && firstNameValid && lastNameValid && streetValid && cityValid && postalCodeValid && countryValid
     )
   }, [formData])
-
-  const [passwordVisible, setPasswordVisible] = useState(false)
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (formValid) {
       await registerUser(formData)
     }
-  }
-
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible)
   }
 
   return (
@@ -82,113 +76,33 @@ export default function Page() {
           <h2 className="text-center uppercase">Registration</h2>
           <div>
             <div>
-              <label>
-                Email:
-                <input
-                  type="email"
-                  name="email"
-                  multiple={false}
-                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={style.input}
-                />
-              </label>
+              <EmailValid email={formData.email} setFormData={setFormData}/>
             </div>
             <div>
-              <label>
-                Password:
-                <input
-                  type={passwordVisible ? 'text' : 'password'}
-                  name="password"
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-                  minLength={8}
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={style.input}
-                />
-              </label>
-              <span onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
+              <PasswordValid password={formData.password} setFormData={setFormData}/>
             </div>
             <div>
-              <label>
-                First Name:
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                  onChange={handleChange}
-                  className={style.input}
-                />
-              </label>
+              <FirstNameValid firstName={formData.firstName} setFormData={setFormData}/>
             </div>
             <div>
-              <label>
-                Last Name:
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                  onChange={handleChange}
-                  className={style.input}
-                />
-              </label>
+              <LastNameValid lastName={formData.lastName} setFormData={setFormData}/>
             </div>
             <div>
-              <label>
-                Date of birth:
-                <input
-                  className={style.input}
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  min="1900-01-01"
-                  max={new Date(new Date().setFullYear(new Date().getFullYear() - 14)).toISOString().split('T')[0]}
-                  onChange={handleChange}
-                />
-              </label>
+              <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData}/>
             </div>
             <div className="adress-field">
               <h3 className="ml-2.5">Address fields:</h3>
               <div>
-                <label>
-                  Street:
-                  <input
-                    className={style.input}
-                    type="text"
-                    name="streetName"
-                    pattern="^.+$"
-                    value={formData.streetName}
-                    onChange={handleChange}
-                  />
-                </label>
+                <StreetValid streetName={formData.streetName} setFormData={setFormData}/>
               </div>
               <div>
-                <label>
-                  City:
-                  <input
-                    className={style.input}
-                    type="text"
-                    name="city"
-                    pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                    value={formData.city}
-                    onChange={handleChange}
-                  />
-                </label>
+                <CityValid city={formData.city} setFormData={setFormData}/>
               </div>
               <div>
-                <label>
-                  Postal code:
                   <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData} />
-                </label>
               </div>
               <div>
-                <label>
-                  Country:
                   <SelectCountry country={formData.country} setFormData={setFormData} />
-                </label>
               </div>
             </div>
           </div>

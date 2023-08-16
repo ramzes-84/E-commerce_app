@@ -17,6 +17,8 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
     }))
   }
   return (
+    <label>
+      Country:
     <select
       className={style.selectCountry}
       name="country"
@@ -33,5 +35,6 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
       <option value="ES">Spain</option>
       <option value="US">United States</option>
     </select>
+    </label>
   )
 }
