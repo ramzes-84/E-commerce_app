@@ -1,12 +1,11 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
+import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
 
 export default function Navbar() {
-  const [navbarOpen, setNavbarOpen] = React.useState(false)
-
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 mb-3">
@@ -66,5 +65,5 @@ export default function Navbar() {
         </div>
       </nav>
     </>
-  )
+  );
 }
