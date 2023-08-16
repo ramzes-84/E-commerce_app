@@ -1,15 +1,15 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import Navbar from './header'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import Navbar from './header';
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 it('CheckboxWithLabel changes the text after click', () => {
-  render(<Navbar />)
+  render(<Navbar />);
 
-  const buttonMenu = screen.getByAltText('menu')
-  expect(screen.getByTestId('nav')).toHaveClass('hidden')
-  fireEvent.click(buttonMenu)
+  const buttonMenu = screen.getByAltText('menu');
+  expect(screen.getByTestId('nav')).toHaveClass('hidden');
+  fireEvent.click(buttonMenu);
 
-  expect(screen.getByTestId('nav')).toHaveClass('flex')
-  expect(screen.getByTestId('nav')).not.toHaveClass('hidden')
-})
+  expect(screen.getByTestId('nav')).toHaveClass('flex');
+  expect(screen.getByTestId('nav')).not.toHaveClass('hidden');
+});

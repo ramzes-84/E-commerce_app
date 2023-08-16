@@ -1,14 +1,14 @@
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 import {
   ClientBuilder,
 
   // Import middlewares
   type AuthMiddlewareOptions, // Required for auth
   type HttpMiddlewareOptions, // Required for sending HTTP requests
-} from '@commercetools/sdk-client-v2'
+} from '@commercetools/sdk-client-v2';
 
-const projectKey = process.env.CTP_PROJECT_KEY || '{projectKey}'
-const scopes = process.env.CTP_SCOPES?.split(' ').map((item) => item) || ['{scope}']
+const projectKey = process.env.CTP_PROJECT_KEY || '{projectKey}';
+const scopes = process.env.CTP_SCOPES?.split(' ').map((item) => item) || ['{scope}'];
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
@@ -20,17 +20,17 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   },
   scopes,
   fetch,
-}
+};
 
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: process.env.CTP_API_URL || 'https://api.{region}.commercetools.com',
   fetch,
-}
+};
 
 // Export the ClientBuilder
 export const ctpClient = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware() // Include middleware for logging
-  .build()
+  .build();

@@ -1,13 +1,13 @@
-import { render, screen } from '@testing-library/react'
-import Home from './page'
-import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react';
+import Home from './page';
+import '@testing-library/jest-dom';
 
 describe('Main page', () => {
   it('renders a greeting', () => {
-    render(<Home />)
+    render(<Home />);
 
-    const greet = screen.getByText('Hello, Main page!')
+    const greet = screen.getByText('Hello, Main page!');
 
-    expect(greet).toBeInTheDocument()
-  })
-})
+    expect(greet).toBeInTheDocument();
+  });
+});
