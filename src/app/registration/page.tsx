@@ -85,7 +85,7 @@ export default function Page() {
             <div>
               <EmailValid email={formData.email} setFormData={setFormData} />
             </div>
-            <div className='relative'>
+            <div className="relative">
               <PasswordValid password={formData.password} setFormData={setFormData} />
             </div>
             <div>

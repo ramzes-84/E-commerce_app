@@ -52,7 +52,9 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
           className={style.input}
         />
       </label>
-      <span className='absolute bottom-3.5 right-1' onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
+      <span className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
+        {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+      </span>
     </>
   )
 }
