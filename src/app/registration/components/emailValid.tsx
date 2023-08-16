@@ -33,9 +33,9 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
 
   return (
     <>
-      <label>
+      <label className={style.labelInput}>
         Email:
-        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="email"
           name="email"

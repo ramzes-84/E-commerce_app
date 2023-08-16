@@ -50,3 +50,17 @@
 .selectCountry:valid {
   background-color: rgb(192 231 185 / 70%);
 }
+
+.errorMessage {
+  position: absolute;
+  bottom: 25px;
+  left: 115px;
+  width: 100%;
+  color: rgb(153 27 27);
+  font-size: 0.75rem/* 12px */;
+  line-height: 1rem/* 16px */;
+}
+
+.labelInput {
+  position: relative;
+}

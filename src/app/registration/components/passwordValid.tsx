@@ -39,9 +39,9 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
 
   return (
     <>
-      <label>
+      <label className={style.labelInput}>
         Password:
-        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type={passwordVisible ? 'text' : 'password'}
           name="password"
@@ -52,7 +52,7 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
           className={style.input}
         />
       </label>
-      <span onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
+      <span className='absolute bottom-3.5 right-1' onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
     </>
   )
 }

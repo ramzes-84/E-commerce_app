@@ -33,9 +33,9 @@ export default function CityValid({ city, setFormData }: CityProps) {
 
   return (
     <>
-      <label>
+      <label className={style.labelInput}>
         City:
-        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        {error && <p className={style.errorMessage}>{error}</p>}
         <input
           className={style.input}
           type="text"
