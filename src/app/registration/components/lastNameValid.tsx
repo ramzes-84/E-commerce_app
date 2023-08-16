@@ -14,12 +14,14 @@ export default function LastNameValid({ lastName, setFormData }: LastNameProps) 
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim()
-    setFormData((prevState): IFormData => ({
-      ...prevState,
-      lastName: value,
-    }))
+    setFormData(
+      (prevState): IFormData => ({
+        ...prevState,
+        lastName: value,
+      })
+    )
     if (!value) {
-      setError('');
+      setError('')
       return
     }
     if (!/^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/.test(value)) {
@@ -32,17 +34,17 @@ export default function LastNameValid({ lastName, setFormData }: LastNameProps) 
   return (
     <>
       <label>
-                Last Name:
-                {error && <p className='error-message text-xs text-red-800'>{error}</p>}
-                <input
-                  type="text"
-                  name="lastName"
-                  value={lastName}
-                  pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                  onChange={handleNameChange}
-                  className={style.input}
-                />
-              </label>
+        Last Name:
+        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        <input
+          type="text"
+          name="lastName"
+          value={lastName}
+          pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
+          onChange={handleNameChange}
+          className={style.input}
+        />
+      </label>
     </>
   )
 }

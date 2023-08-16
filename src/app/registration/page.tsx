@@ -58,7 +58,14 @@ export default function Page() {
     const postalCodeValid = postalCodeRegex.test(formData.postalCode)
     const countryValid = countryRegex.test(formData.country)
     setFormValid(
-      emailValid && passwordValid && firstNameValid && lastNameValid && streetValid && cityValid && postalCodeValid && countryValid
+      emailValid &&
+        passwordValid &&
+        firstNameValid &&
+        lastNameValid &&
+        streetValid &&
+        cityValid &&
+        postalCodeValid &&
+        countryValid
     )
   }, [formData])
 
@@ -76,33 +83,33 @@ export default function Page() {
           <h2 className="text-center uppercase">Registration</h2>
           <div>
             <div>
-              <EmailValid email={formData.email} setFormData={setFormData}/>
+              <EmailValid email={formData.email} setFormData={setFormData} />
             </div>
             <div>
-              <PasswordValid password={formData.password} setFormData={setFormData}/>
+              <PasswordValid password={formData.password} setFormData={setFormData} />
             </div>
             <div>
-              <FirstNameValid firstName={formData.firstName} setFormData={setFormData}/>
+              <FirstNameValid firstName={formData.firstName} setFormData={setFormData} />
             </div>
             <div>
-              <LastNameValid lastName={formData.lastName} setFormData={setFormData}/>
+              <LastNameValid lastName={formData.lastName} setFormData={setFormData} />
             </div>
             <div>
-              <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData}/>
+              <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData} />
             </div>
             <div className="adress-field">
               <h3 className="ml-2.5">Address fields:</h3>
               <div>
-                <StreetValid streetName={formData.streetName} setFormData={setFormData}/>
+                <StreetValid streetName={formData.streetName} setFormData={setFormData} />
               </div>
               <div>
-                <CityValid city={formData.city} setFormData={setFormData}/>
+                <CityValid city={formData.city} setFormData={setFormData} />
               </div>
               <div>
-                  <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData} />
+                <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData} />
               </div>
               <div>
-                  <SelectCountry country={formData.country} setFormData={setFormData} />
+                <SelectCountry country={formData.country} setFormData={setFormData} />
               </div>
             </div>
           </div>

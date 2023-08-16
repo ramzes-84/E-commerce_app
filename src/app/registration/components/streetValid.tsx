@@ -14,12 +14,14 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
 
   const handleStreetChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim()
-    setFormData((prevState): IFormData => ({
-      ...prevState,
-      streetName: value,
-    }))
+    setFormData(
+      (prevState): IFormData => ({
+        ...prevState,
+        streetName: value,
+      })
+    )
     if (!value) {
-      setError('');
+      setError('')
       return
     }
     if (!/^.+$/.test(value)) {
@@ -32,17 +34,17 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
   return (
     <>
       <label>
-                  Street:
-                  {error && <p className='error-message text-xs text-red-800'>{error}</p>}
-                  <input
-                    className={style.input}
-                    type="text"
-                    name="streetName"
-                    pattern="^.+$"
-                    value={streetName}
-                    onChange={handleStreetChange}
-                  />
-                </label>
+        Street:
+        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        <input
+          className={style.input}
+          type="text"
+          name="streetName"
+          pattern="^.+$"
+          value={streetName}
+          onChange={handleStreetChange}
+        />
+      </label>
     </>
   )
 }

@@ -14,12 +14,14 @@ export default function CityValid({ city, setFormData }: CityProps) {
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim()
-    setFormData((prevState): IFormData => ({
-      ...prevState,
-      city: value,
-    }))
+    setFormData(
+      (prevState): IFormData => ({
+        ...prevState,
+        city: value,
+      })
+    )
     if (!value) {
-      setError('');
+      setError('')
       return
     }
     if (!/^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/.test(value)) {
@@ -32,17 +34,17 @@ export default function CityValid({ city, setFormData }: CityProps) {
   return (
     <>
       <label>
-                  City:
-                  {error && <p className='error-message text-xs text-red-800'>{error}</p>}
-                  <input
-                    className={style.input}
-                    type="text"
-                    name="city"
-                    pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
-                    value={city}
-                    onChange={handleCityChange}
-                  />
-                </label>
+        City:
+        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        <input
+          className={style.input}
+          type="text"
+          name="city"
+          pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
+          value={city}
+          onChange={handleCityChange}
+        />
+      </label>
     </>
   )
 }

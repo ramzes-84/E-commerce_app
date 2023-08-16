@@ -16,12 +16,14 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim()
-    setFormData((prevState): IFormData => ({
-      ...prevState,
-      password: value,
-    }))
+    setFormData(
+      (prevState): IFormData => ({
+        ...prevState,
+        password: value,
+      })
+    )
     if (!value) {
-      setError('');
+      setError('')
       return
     }
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)) {
@@ -38,19 +40,19 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
   return (
     <>
       <label>
-                Password:
-      {error && <p className='error-message text-xs text-red-800'>{error}</p>}
-                <input
-                  type={passwordVisible ? 'text' : 'password'}
-                  name="password"
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-                  minLength={8}
-                  value={password}
-                  onChange={handlePasswordChange}
-                  className={style.input}
-                />
-              </label>
-              <span onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
+        Password:
+        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        <input
+          type={passwordVisible ? 'text' : 'password'}
+          name="password"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+          minLength={8}
+          value={password}
+          onChange={handlePasswordChange}
+          className={style.input}
+        />
+      </label>
+      <span onClick={togglePasswordVisibility}>{passwordVisible ? <FaEyeSlash /> : <FaEye />}</span>
     </>
   )
 }

@@ -14,12 +14,14 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim()
-    setFormData((prevState): IFormData => ({
-      ...prevState,
-      email: value,
-    }))
+    setFormData(
+      (prevState): IFormData => ({
+        ...prevState,
+        email: value,
+      })
+    )
     if (!value) {
-      setError('');
+      setError('')
       return
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
@@ -31,19 +33,19 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
 
   return (
     <>
-    <label>
-      Email:
-        {error && <p className='error-message text-xs text-red-800'>{error}</p>}
-          <input
-            type="email"
-            name="email"
-            multiple={false}
-            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-            value={email}
-            onChange={handleEmailChange}
-            className={style.input}
-          />
-    </label>
+      <label>
+        Email:
+        {error && <p className="error-message text-xs text-red-800">{error}</p>}
+        <input
+          type="email"
+          name="email"
+          multiple={false}
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+          value={email}
+          onChange={handleEmailChange}
+          className={style.input}
+        />
+      </label>
     </>
   )
 }
