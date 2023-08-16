@@ -45,9 +45,9 @@ export default function Page() {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
     const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
     const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
-    const streetRegex = /^.+$/
-    const cityRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
-    const postalCodeRegex = /^[1-90]{5,}$/
+    const streetRegex = /^.*$/
+    const cityRegex = /^[a-zA-Zа-яА-Я]*$/
+    const postalCodeRegex = /^[1-90]{0,5}$/
     const countryRegex = /^.+$/
     const emailValid = emailRegex.test(formData.email)
     const passwordValid = passwordRegex.test(formData.password)
