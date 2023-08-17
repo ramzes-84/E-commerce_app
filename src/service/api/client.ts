@@ -1,30 +1,30 @@
-import { IFormData } from '@/app/registration/page'
-import { ctpClient } from './BuildClient'
-import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk'
+import { IFormData } from '@/app/registration/page';
+import { ctpClient } from './BuildClient';
+import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 // Create apiRoot from the imported ClientBuilder and include your Project key
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
   projectKey: process.env.CTP_PROJECT_KEY || '{projectKey}',
-})
+});
 
 // Example function to check API params
 export const getCustomers = async () => {
-  const customersList = await apiRoot.customers().get().execute()
-  return customersList
-}
+  const customersList = await apiRoot.customers().get().execute();
+  return customersList;
+};
 
 interface CustomerDraft {
-  email: string
-  password: string
-  firstName: string
-  lastName: string
-  dateOfBirth?: string
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth?: string;
   addresses?: {
-    streetName?: string
-    city?: string
-    postalCode?: string
-    country: string
-  }[]
+    streetName?: string;
+    city?: string;
+    postalCode?: string;
+    country: string;
+  }[];
 }
 
 export const registerUser = async (formData: IFormData, apiTestRoot?: { customers: () => { post: jest.Mock } }) => {
@@ -42,8 +42,8 @@ export const registerUser = async (formData: IFormData, apiTestRoot?: { customer
         country: formData.country,
       },
     ],
-  }
+  };
 
-  const response = await apiRoot.customers().post({ body: customerDraft })
-  console.log(response)
-}
+  const response = await apiRoot.customers().post({ body: customerDraft });
+  console.log(response);
+};

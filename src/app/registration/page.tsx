@@ -1,28 +1,28 @@
-'use client'
+'use client';
 
-import { registerUser } from '@/service/api/client'
-import style from './page.module.css'
-import React, { useEffect, useState } from 'react'
-import SelectCountry from './components/selectCountry/selectCountry'
-import PostalCode from './components/postalCode/postalCode'
-import EmailValid from './components/email/emailValid'
-import PasswordValid from './components/password/passwordValid'
-import FirstNameValid from './components/firstName/firstNameValid'
-import LastNameValid from './components/lastName/lastNameValid'
-import StreetValid from './components/streetValid/streetValid'
-import CityValid from './components/city/cityValid'
-import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid'
+import { registerUser } from '@/service/api/client';
+import style from './page.module.css';
+import React, { useEffect, useState } from 'react';
+import SelectCountry from './components/selectCountry/selectCountry';
+import PostalCode from './components/postalCode/postalCode';
+import EmailValid from './components/email/emailValid';
+import PasswordValid from './components/password/passwordValid';
+import FirstNameValid from './components/firstName/firstNameValid';
+import LastNameValid from './components/lastName/lastNameValid';
+import StreetValid from './components/streetValid/streetValid';
+import CityValid from './components/city/cityValid';
+import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
 
 export interface IFormData {
-  email: string
-  password: string
-  firstName: string
-  lastName: string
-  dateOfBirth: string
-  streetName: string
-  city: string
-  postalCode: string
-  country: string
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  streetName: string;
+  city: string;
+  postalCode: string;
+  country: string;
 }
 
 export default function Page() {
@@ -36,27 +36,27 @@ export default function Page() {
     city: '',
     postalCode: '',
     country: '',
-  })
+  });
 
-  const [formValid, setFormValid] = useState(false)
+  const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
-    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
-    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/
-    const streetRegex = /^.+$/
-    const cityRegex = /^[a-zA-Zа-яА-Я]{1,}$/
-    const postalCodeRegex = /^[1-90]{5,}$/
-    const countryRegex = /^.+$/
-    const emailValid = emailRegex.test(formData.email)
-    const passwordValid = passwordRegex.test(formData.password)
-    const firstNameValid = firstNameRegex.test(formData.firstName)
-    const lastNameValid = lastNameRegex.test(formData.lastName)
-    const streetValid = streetRegex.test(formData.streetName)
-    const cityValid = cityRegex.test(formData.city)
-    const postalCodeValid = postalCodeRegex.test(formData.postalCode)
-    const countryValid = countryRegex.test(formData.country)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/;
+    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/;
+    const streetRegex = /^.+$/;
+    const cityRegex = /^[a-zA-Zа-яА-Я]{1,}$/;
+    const postalCodeRegex = /^[1-90]{5,}$/;
+    const countryRegex = /^.+$/;
+    const emailValid = emailRegex.test(formData.email);
+    const passwordValid = passwordRegex.test(formData.password);
+    const firstNameValid = firstNameRegex.test(formData.firstName);
+    const lastNameValid = lastNameRegex.test(formData.lastName);
+    const streetValid = streetRegex.test(formData.streetName);
+    const cityValid = cityRegex.test(formData.city);
+    const postalCodeValid = postalCodeRegex.test(formData.postalCode);
+    const countryValid = countryRegex.test(formData.country);
     setFormValid(
       emailValid &&
         passwordValid &&
@@ -66,15 +66,15 @@ export default function Page() {
         cityValid &&
         postalCodeValid &&
         countryValid
-    )
-  }, [formData])
+    );
+  }, [formData]);
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     if (formValid) {
-      await registerUser(formData)
+      await registerUser(formData);
     }
-  }
+  };
 
   return (
     <>
@@ -119,5 +119,5 @@ export default function Page() {
         </form>
       </div>
     </>
-  )
+  );
 }

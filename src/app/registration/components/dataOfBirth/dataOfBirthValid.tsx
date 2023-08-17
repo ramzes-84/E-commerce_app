@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import style from '../../page.module.css'
-import { IFormData } from '../../page'
-import React from 'react'
+import style from '../../page.module.css';
+import { IFormData } from '../../page';
+import React from 'react';
 
 interface DataOfBirthProps {
-  dateOfBirth: string
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>
+  dateOfBirth: string;
+  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
 export default function DataOfBirthValid({ dateOfBirth, setFormData }: DataOfBirthProps) {
   const handleBirthChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value
+    const value = event.target.value;
     setFormData(
       (prevState): IFormData => ({
         ...prevState,
         dateOfBirth: value,
       })
-    )
-  }
+    );
+  };
 
   return (
     <label>
@@ -33,5 +33,5 @@ export default function DataOfBirthValid({ dateOfBirth, setFormData }: DataOfBir
         onChange={handleBirthChange}
       />
     </label>
-  )
+  );
 }

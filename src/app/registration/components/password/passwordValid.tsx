@@ -1,41 +1,41 @@
-'use client'
+'use client';
 
-import style from '../../page.module.css'
-import { IFormData } from '../../page'
-import React, { useState } from 'react'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import style from '../../page.module.css';
+import { IFormData } from '../../page';
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface PasswordProps {
-  password: string
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>
+  password: string;
+  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
 export default function PasswordValid({ password, setFormData }: PasswordProps) {
-  const [error, setError] = useState('')
-  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim()
+    const value = event.target.value.trim();
     setFormData(
       (prevState): IFormData => ({
         ...prevState,
         password: value,
       })
-    )
+    );
     if (!value) {
-      setError('')
-      return
+      setError('');
+      return;
     }
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)) {
-      setError('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number')
-      return
+      setError('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number');
+      return;
     }
-    setError('')
-  }
+    setError('');
+  };
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible)
-  }
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     <>
@@ -56,5 +56,5 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
       </button>
     </>
-  )
+  );
 }

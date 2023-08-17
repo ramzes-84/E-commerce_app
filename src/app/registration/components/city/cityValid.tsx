@@ -1,35 +1,35 @@
-'use client'
+'use client';
 
-import style from '../../page.module.css'
-import { IFormData } from '../../page'
-import React, { useState } from 'react'
+import style from '../../page.module.css';
+import { IFormData } from '../../page';
+import React, { useState } from 'react';
 
 interface CityProps {
-  city: string
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>
+  city: string;
+  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
 export default function CityValid({ city, setFormData }: CityProps) {
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim()
+    const value = event.target.value.trim();
     setFormData(
       (prevState): IFormData => ({
         ...prevState,
         city: value,
       })
-    )
+    );
     if (!value) {
-      setError('')
-      return
+      setError('');
+      return;
     }
     if (!/^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/.test(value)) {
-      setError('Must contain at least one character and no special characters or numbers')
-      return
+      setError('Must contain at least one character and no special characters or numbers');
+      return;
     }
-    setError('')
-  }
+    setError('');
+  };
 
   return (
     <>
@@ -46,5 +46,5 @@ export default function CityValid({ city, setFormData }: CityProps) {
         />
       </label>
     </>
-  )
+  );
 }

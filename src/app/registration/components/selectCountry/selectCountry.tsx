@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import style from '../../page.module.css'
-import React from 'react'
-import { IFormData } from '../../page'
+import style from '../../page.module.css';
+import React from 'react';
+import { IFormData } from '../../page';
 
 interface CountryProps {
-  country: string
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>
+  country: string;
+  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
 export default function SelectCountry({ country, setFormData }: CountryProps) {
@@ -14,8 +14,8 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
     setFormData((prevState) => ({
       ...prevState,
       country: event.target.value,
-    }))
-  }
+    }));
+  };
   return (
     <label>
       Country:
@@ -36,5 +36,5 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
         <option value="US">United States</option>
       </select>
     </label>
-  )
+  );
 }
