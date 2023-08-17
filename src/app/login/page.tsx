@@ -17,12 +17,12 @@ function LoginForm() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="name">
           E-mail:
-          <input type="email" id="name" name="name" required={true} autoComplete="username"/>
+          <input type="email" id="name" name="name" required={true} autoComplete="username" />
         </label>
         <hr />
         <label htmlFor="pass">
           Password:
-          <input type="password" id="pass" name="pass" required={true} autoComplete="current-password"/>
+          <input type="password" id="pass" name="pass" required={true} autoComplete="current-password" />
         </label>
         <hr />
         <button type="reset">Reset form</button>
