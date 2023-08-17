@@ -1,5 +1,5 @@
-'use client'
-import Image from 'next/image'
+'use client';
+import Image from 'next/image';
 
 export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
   return (
@@ -15,5 +15,5 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
         </button>
       </body>
     </html>
-  )
+  );
 }
