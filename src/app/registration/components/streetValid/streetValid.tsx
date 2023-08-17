@@ -1,7 +1,7 @@
 'use client'
 
-import style from '../page.module.css'
-import { IFormData } from '../page'
+import style from '../../page.module.css'
+import { IFormData } from '../../page'
 import React, { useState } from 'react'
 
 interface StreetProps {
@@ -20,10 +20,6 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
         streetName: value,
       })
     )
-    if (!value) {
-      setError('')
-      return
-    }
     if (!/^.+$/.test(value)) {
       setError('Must contain at least one character')
       return

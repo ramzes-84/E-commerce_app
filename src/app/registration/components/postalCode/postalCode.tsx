@@ -1,7 +1,7 @@
 'use client'
 
-import style from '../page.module.css'
-import { IFormData } from '../page'
+import style from '../../page.module.css'
+import { IFormData } from '../../page'
 import React, { useState } from 'react'
 
 interface PostalCodeProps {
@@ -25,12 +25,12 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
     }
     if (country === 'BY' || country === 'RU' || country === 'KZ') {
       if (!/^[1-90]{6}$/.test(value)) {
-        setError('Неверный почтовый индекс')
+        setError('Enter the postal code in the format of your country without spaces, commas and dashes')
         return
       }
     } else {
       if (!/^[1-90]{5}$/.test(value)) {
-        setError('Неверный почтовый индекс')
+        setError('Enter the postal code in the format of your country without spaces, commas and dashes')
         return
       }
     }

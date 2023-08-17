@@ -1,7 +1,7 @@
 'use client'
 
-import style from '../page.module.css'
-import { IFormData } from '../page'
+import style from '../../page.module.css'
+import { IFormData } from '../../page'
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
@@ -52,9 +52,9 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
           className={style.input}
         />
       </label>
-      <span className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
+      <button className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-      </span>
+      </button>
     </>
   )
 }

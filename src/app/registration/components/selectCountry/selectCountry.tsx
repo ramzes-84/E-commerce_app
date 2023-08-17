@@ -1,8 +1,8 @@
 'use client'
 
-import style from '../page.module.css'
+import style from '../../page.module.css'
 import React from 'react'
-import { IFormData } from '../page'
+import { IFormData } from '../../page'
 
 interface CountryProps {
   country: string

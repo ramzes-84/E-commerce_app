@@ -1,7 +1,7 @@
 'use client'
 
-import style from '../page.module.css'
-import { IFormData } from '../page'
+import style from '../../page.module.css'
+import { IFormData } from '../../page'
 import React, { useState } from 'react'
 
 interface LastNameProps {
