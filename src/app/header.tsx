@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
+import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
 
 export default function Navbar() {
-  const [navbarOpen, setNavbarOpen] = React.useState(false)
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 mb-3">
@@ -18,23 +18,19 @@ export default function Navbar() {
               <Image src="/icon.svg" width={45} height={45} alt="Logo" className="inline-block" />
               <Image src="/text.svg" width={180} height={50} alt="Logo" className="inline-block" />
             </Link>
-
             <button
-              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               <Image src="/menu.svg" width={50} height={50} alt="menu" className="inline-block" />
             </button>
           </div>
-          <div
-            className={'lg:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')}
-            id="example-navbar-danger"
-          >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+          <div className={'lg:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')} data-testid="nav">
+            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto font-serif">
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75 font-serif"
+                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
                   href="/catalog"
                 >
                   <span className="ml-2">Catalog</span>
@@ -42,7 +38,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75 font-serif"
+                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
                   href="/account"
                 >
                   <span className="ml-2">Account</span>
@@ -50,7 +46,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75 font-serif"
+                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
                   href="/login"
                 >
                   <span className="ml-2">Log in</span>
@@ -58,7 +54,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75 font-serif"
+                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
                   href="/registration"
                 >
                   <span className="ml-2">Register</span>
@@ -69,5 +65,5 @@ export default function Navbar() {
         </div>
       </nav>
     </>
-  )
+  );
 }

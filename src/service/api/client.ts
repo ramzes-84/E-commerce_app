@@ -4,7 +4,7 @@ import { ApiRoot, createApiBuilderFromCtpClient } from '@commercetools/platform-
 
 // Create apiRoot from the imported ClientBuilder and include your Project key
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey: 'cyber-ducks-app',
+  projectKey: process.env.CTP_PROJECT_KEY || '{projectKey}',
 })
 
 // Example function to check API params
