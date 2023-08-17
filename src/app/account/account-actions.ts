@@ -7,6 +7,9 @@ export const logout = async () => {
 };
 
 export const getUserInfo = async () => {
-  const response = await apiRoot.me().get().execute();
+  const response = await apiRoot
+    .me()
+    .get()
+    .execute();
   return response;
 };

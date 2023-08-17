@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react';
 import { getUserInfo, logout } from './account-actions';
-import { apiRoot } from '@/service/api/client';
+import Link from 'next/link';
 
 function AccountInfo() {
-  const [firstName, setFirstName] = useState('Unknown user');
-  const [lastName, setLastName] = useState('Unknown user');
+  const [userInfo, setUserInfo] = useState(<>Loading data, please wait...</>);
 
   async function handleLogout(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -14,21 +13,30 @@ function AccountInfo() {
   }
 
   getUserInfo()
-    .then((res) => res.body)
-    .then((customer) => {
-      if (customer.firstName && customer.lastName) {
-        setFirstName(customer.firstName);
-        setLastName(customer.lastName);
+    .then((res) => {
+      if(res.statusCode?.toString().startsWith('20')) {
+        setUserInfo(
+          <>
+            <p>Your name is {res.body.firstName}</p>
+            <p>Your lastname is {res.body.firstName}</p>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        )
       }
-    });
+    })
+    .catch(err => setUserInfo(
+    <>
+      <p>You are not logged in.</p>
+      <p>Please, sign in
+        <Link href="/login">
+          here 
+        </Link>
+          first.
+      </p>
+    </>));
 
   return (
-    <div>
-      <p>Hello, {firstName}</p>
-      <p>Your name is {firstName}</p>
-      <p>Your lastname is {lastName}</p>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <div>{userInfo}</div>
   );
 }
 
