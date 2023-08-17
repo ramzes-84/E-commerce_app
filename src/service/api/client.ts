@@ -27,7 +27,7 @@ interface CustomerDraft {
   }[]
 }
 
-export const registerUser = async (formData: IFormData, apiTestRoot?: {customers: () => {post: jest.Mock}}) => {
+export const registerUser = async (formData: IFormData, apiTestRoot?: { customers: () => { post: jest.Mock } }) => {
   const customerDraft: CustomerDraft = {
     email: formData.email,
     password: formData.password,

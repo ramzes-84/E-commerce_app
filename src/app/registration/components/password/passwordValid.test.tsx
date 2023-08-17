@@ -20,20 +20,22 @@ describe('PasswordValid component', () => {
   })
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const { getByLabelText, getByText } = render(<PasswordValid password="" setFormData={setFormData} />)
+    const passwordInput = getByLabelText('Password:')
 
-    fireEvent.change(passwordInput, { target: { value: '12345678' } });
-    expect(getByText('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number')).toBeInTheDocument();
-  });
+    fireEvent.change(passwordInput, { target: { value: '12345678' } })
+    expect(
+      getByText('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number')
+    ).toBeInTheDocument()
+  })
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const { getByLabelText, queryByText } = render(<PasswordValid password="" setFormData={setFormData} />)
+    const passwordInput = getByLabelText('Password:')
 
-    fireEvent.change(passwordInput, { target: { value: '12345678vV' } });
-    expect(queryByText('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number')).toBeNull();
-  });
+    fireEvent.change(passwordInput, { target: { value: '12345678vV' } })
+    expect(queryByText('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number')).toBeNull()
+  })
 
   test('toggles password visibility onclick', () => {
     const { getByLabelText, getByRole } = render(<PasswordValid password="" setFormData={setFormData} />)

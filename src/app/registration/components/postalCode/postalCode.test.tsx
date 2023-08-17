@@ -20,26 +20,32 @@ describe('PostalCode component', () => {
   })
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    const { getByLabelText, getByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />)
+    const postalCodeInput = getByLabelText('Postal code:')
 
-    fireEvent.change(postalCodeInput, { target: { value: '1234' } });
-    expect(getByText('Enter the postal code in the format of your country without spaces, commas and dashes')).toBeInTheDocument();
-  });
+    fireEvent.change(postalCodeInput, { target: { value: '1234' } })
+    expect(
+      getByText('Enter the postal code in the format of your country without spaces, commas and dashes')
+    ).toBeInTheDocument()
+  })
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<PostalCode country="BY" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    const { getByLabelText, getByText } = render(<PostalCode country="BY" postalCode="" setFormData={setFormData} />)
+    const postalCodeInput = getByLabelText('Postal code:')
 
-    fireEvent.change(postalCodeInput, { target: { value: '12345' } });
-    expect(getByText('Enter the postal code in the format of your country without spaces, commas and dashes')).toBeInTheDocument();
-  });
+    fireEvent.change(postalCodeInput, { target: { value: '12345' } })
+    expect(
+      getByText('Enter the postal code in the format of your country without spaces, commas and dashes')
+    ).toBeInTheDocument()
+  })
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    const { getByLabelText, queryByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />)
+    const postalCodeInput = getByLabelText('Postal code:')
 
-    fireEvent.change(postalCodeInput, { target: { value: '12345' } });
-    expect(queryByText('Enter the postal code in the format of your country without spaces, commas and dashes')).toBeNull();
-  });
+    fireEvent.change(postalCodeInput, { target: { value: '12345' } })
+    expect(
+      queryByText('Enter the postal code in the format of your country without spaces, commas and dashes')
+    ).toBeNull()
+  })
 })

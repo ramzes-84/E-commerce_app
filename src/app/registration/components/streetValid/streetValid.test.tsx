@@ -20,18 +20,18 @@ describe('StreetValid component', () => {
   })
 
   test('show error message', () => {
-    const { getByLabelText, queryByText } = render(<StreetValid streetName="" setFormData={setFormData} />);
-    const streetInput = getByLabelText('Street:');
+    const { getByLabelText, queryByText } = render(<StreetValid streetName="" setFormData={setFormData} />)
+    const streetInput = getByLabelText('Street:')
 
-    fireEvent.change(streetInput, { target: { value: '1!' } });
-    expect(queryByText('Must contain at least one character')).toBeNull();
-  });
+    fireEvent.change(streetInput, { target: { value: '1!' } })
+    expect(queryByText('Must contain at least one character')).toBeNull()
+  })
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<StreetValid streetName="" setFormData={setFormData} />);
-    const streetInput = getByLabelText('Street:');
+    const { getByLabelText, queryByText } = render(<StreetValid streetName="" setFormData={setFormData} />)
+    const streetInput = getByLabelText('Street:')
 
-    fireEvent.change(streetInput, { target: { value: 'Baker Street' } });
-    expect(queryByText('Must contain at least one character')).toBeNull();
-  });
+    fireEvent.change(streetInput, { target: { value: 'Baker Street' } })
+    expect(queryByText('Must contain at least one character')).toBeNull()
+  })
 })
