@@ -13,7 +13,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
   const [error, setError] = useState('');
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
+    const value = event.target.value;
     setFormData(
       (prevState): IFormData => ({
         ...prevState,
@@ -24,7 +24,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
       setError('');
       return;
     }
-    if (!/^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/.test(value)) {
+    if (!/^([a-zA-Zа-яА-Я]+-?\s*)+$/.test(value)) {
       setError('Must contain at least one character and no special characters or numbers');
       return;
     }
@@ -40,7 +40,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
           className={style.input}
           type="text"
           name="city"
-          pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
+          pattern="^([a-zA-Zа-яА-Я]+-?\s*)+$"
           value={city}
           onChange={handleCityChange}
         />

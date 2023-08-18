@@ -13,7 +13,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
   const [error, setError] = useState('');
 
   const handleStreetChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
+    const value = event.target.value;
     setFormData(
       (prevState): IFormData => ({
         ...prevState,

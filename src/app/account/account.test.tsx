@@ -6,7 +6,7 @@ describe('Account page', () => {
   it('renders a greeting', () => {
     render(<Page />);
 
-    const greet = screen.getByText('Hello, Account Page!');
+    const greet = screen.getByText('Loading data, please wait...');
 
     expect(greet).toBeInTheDocument();
   });

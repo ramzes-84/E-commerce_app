@@ -28,15 +28,15 @@ export function LoginForm() {
 
   return (
     <>
-    <div className={style.container}>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <EmailLoginValid email={formData.email} setFormData={setFormData} />
-        </div>
-        <div className="relative">
-          <PasswordValidLogin password={formData.password} setFormData={setFormData} />
-        </div>
-        {/* <label htmlFor="name">
+      <div className={style.container}>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            <EmailLoginValid email={formData.email} setFormData={setFormData} />
+          </div>
+          <div className="relative">
+            <PasswordValidLogin password={formData.password} setFormData={setFormData} />
+          </div>
+          {/* <label htmlFor="name">
           E-mail:
           <input type="email" id="name" name="name" required={true} autoComplete="username" />
         </label>
@@ -44,12 +44,16 @@ export function LoginForm() {
           Password:
           <input type="password" id="pass" name="pass" required={true} autoComplete="current-password" />
         </label> */}
-        <div className="flex">
-          <button className={style.sentFormBtn} type="reset">Reset form</button>
-          <button className={style.sentFormBtn} type="submit">Submit form</button>
-        </div>
-      </form>
-    </div>
+          <div className="flex">
+            <button className={style.sentFormBtn} type="reset">
+              Reset form
+            </button>
+            <button className={style.sentFormBtn} type="submit">
+              Submit form
+            </button>
+          </div>
+        </form>
+      </div>
     </>
   );
 }

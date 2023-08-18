@@ -13,7 +13,7 @@ export default function FirstNameValid({ firstName, setFormData }: FirstNameProp
   const [error, setError] = useState('');
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
+    const value = event.target.value;
     setFormData(
       (prevState): IFormData => ({
         ...prevState,
