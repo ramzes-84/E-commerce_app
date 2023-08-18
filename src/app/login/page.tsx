@@ -2,8 +2,22 @@
 
 import React from 'react';
 import { login } from './login-actions';
+import style from '../registration/page.module.css';
+import { useState } from 'react';
+import EmailLoginValid from './components/email/emailValidLogin';
+import PasswordValidLogin from './components/password/passwordValidLogin';
 
-function LoginForm() {
+export interface IFormDataLigin {
+  email: string;
+  password: string;
+}
+
+export function LoginForm() {
+  const [formData, setFormData] = useState<IFormDataLigin>({
+    email: '',
+    password: '',
+  });
+
   async function handleSubmit(e: { preventDefault: () => void; target: any }) {
     e.preventDefault();
     const form = e.target;
@@ -14,20 +28,28 @@ function LoginForm() {
 
   return (
     <>
+    <div className={style.container}>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="name">
+        <div>
+          <EmailLoginValid email={formData.email} setFormData={setFormData} />
+        </div>
+        <div className="relative">
+          <PasswordValidLogin password={formData.password} setFormData={setFormData} />
+        </div>
+        {/* <label htmlFor="name">
           E-mail:
           <input type="email" id="name" name="name" required={true} autoComplete="username" />
         </label>
-        <hr />
         <label htmlFor="pass">
           Password:
           <input type="password" id="pass" name="pass" required={true} autoComplete="current-password" />
-        </label>
-        <hr />
-        <button type="reset">Reset form</button>
-        <button type="submit">Submit form</button>
+        </label> */}
+        <div className="flex">
+          <button className={style.sentFormBtn} type="reset">Reset form</button>
+          <button className={style.sentFormBtn} type="submit">Submit form</button>
+        </div>
       </form>
+    </div>
     </>
   );
 }
@@ -35,7 +57,7 @@ function LoginForm() {
 export default function Page() {
   return (
     <>
-      <h1>Hello, User!</h1>
+      <h1 className="text-center uppercase mb-3">Hello, User!</h1>
       <LoginForm />
     </>
   );
