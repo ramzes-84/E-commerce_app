@@ -1,6 +1,5 @@
-import { getCategories } from "./categories-actions";
+import { getCategories } from './categories-actions';
 
 describe('Categories actions', () => {
-  it('receive categories', () => {
-  });
+  it('receive categories', () => {});
 });

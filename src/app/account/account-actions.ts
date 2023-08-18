@@ -1,6 +1,6 @@
 'use server';
 
-import { apiRoot, turnOffPasswordMode } from '@/service/api/client';
+import { apiRoot, turnOffPasswordMode } from '../../service/api/client';
 
 export const logout = async () => {
   turnOffPasswordMode();

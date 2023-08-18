@@ -1,6 +1,6 @@
 'use server';
 
-import { apiRoot } from '@/service/api/client';
+import { apiRoot } from './service/api/client';
 import { Category } from '@commercetools/platform-sdk';
 
 export const getCategories = async () => {

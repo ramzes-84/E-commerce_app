@@ -3,10 +3,9 @@ import Page from './page';
 import '@testing-library/jest-dom';
 import { getUserInfo, logout } from '../account/account-actions';
 
-jest.mock('../account/account-actions',
- () => ({getUserInfo: jest.fn().mockReturnValue(Promise.resolve(res))}))
+jest.mock('../account/account-actions', () => ({ getUserInfo: jest.fn().mockReturnValue(Promise.resolve(res)) }));
 
- const res = {
+const res = {
   statusCode: 200,
   body: {
     email: '111@test.com',
@@ -16,9 +15,8 @@ jest.mock('../account/account-actions',
     addresses: [],
     shippingAddressIds: [],
     billingAddressIds: [],
-  }
- }
-
+  },
+};
 
 describe('Account page', () => {
   it('renders a greeting', () => {
@@ -27,6 +25,6 @@ describe('Account page', () => {
     const startMessage = screen.getByText('Loading data, please wait...');
 
     expect(startMessage).toBeInTheDocument();
-    expect(getUserInfo).toHaveBeenCalled()
+    expect(getUserInfo).toHaveBeenCalled();
   });
 });
