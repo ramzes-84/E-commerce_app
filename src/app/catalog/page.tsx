@@ -1,6 +1,6 @@
 'use client';
 
-import { getCategories } from '../../categories-actions';
+import { getCategories } from './categories-actions';
 import React from 'react';
 
 export default function Page() {

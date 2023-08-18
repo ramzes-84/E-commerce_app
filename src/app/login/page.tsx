@@ -2,19 +2,19 @@
 
 import React from 'react';
 import { login } from './login-actions';
+import { useSessionData } from '@/controller/session/client';
 
 function LoginForm() {
-  async function handleSubmit(e: { preventDefault: () => void; target: any }) {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
+  async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
     await login(formJson.name as string, formJson.pass as string);
   }
 
+  const sessionData = useSessionData();
+
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form action={handleSubmit}>
         <label htmlFor="name">
           E-mail:
           <input type="email" id="name" name="name" required={true} autoComplete="username" />
@@ -28,6 +28,12 @@ function LoginForm() {
         <button type="reset">Reset form</button>
         <button type="submit">Submit form</button>
       </form>
+      {sessionData?.customerId ? (
+        <p>
+          <div>Customer Id:</div>
+          <div>{sessionData?.customerId}</div>
+        </p>
+      ) : null}
     </>
   );
 }

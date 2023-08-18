@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Page from './page';
 import '@testing-library/jest-dom';
-import { getCategories } from '../../categories-actions';
+import { getCategories } from './categories-actions';
 
 jest.mock('../../categories-actions', () => ({ getCategories: jest.fn().mockReturnValue(Promise.resolve(res)) }));
 

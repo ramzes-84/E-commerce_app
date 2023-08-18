@@ -1,12 +1,10 @@
 'use server';
 
-import { apiRoot, turnOffPasswordMode } from '../../service/api/client';
+import { createApiRoot } from '@/service/api/client';
 
-export const logout = async () => {
-  turnOffPasswordMode();
-};
+export const logout = async () => {};
 
-export const getUserInfo = async () => {
-  const response = await apiRoot.me().get().execute();
-  return response;
+type UserCredentials = { username: string; password: string };
+export const getUserInfo = async (credentials: UserCredentials) => {
+  return await createApiRoot(credentials).me().get().execute();
 };
