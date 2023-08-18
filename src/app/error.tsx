@@ -1,5 +1,5 @@
-'use client'
-import Image from 'next/image'
+'use client';
+import Image from 'next/image';
 
 export default function ErrorPage({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
@@ -13,5 +13,5 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
         Try again
       </button>
     </div>
-  )
+  );
 }
