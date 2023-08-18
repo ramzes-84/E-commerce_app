@@ -37,7 +37,7 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
         Email:
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
-          type="email"
+          type="text"
           name="email"
           multiple={false}
           pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"

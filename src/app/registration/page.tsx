@@ -42,11 +42,11 @@ export default function Page() {
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/;
-    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/;
+    const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
+    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/;
+    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/;
     const streetRegex = /^.+$/;
-    const cityRegex = /^[a-zA-Zа-яА-Я]{1,}$/;
+    const cityRegex = /^([a-zA-Zа-яА-Я]+-?\s*)+$/;
     const postalCodeRegex = /^[1-90]{5,}$/;
     const countryRegex = /^.+$/;
     const emailValid = emailRegex.test(formData.email);

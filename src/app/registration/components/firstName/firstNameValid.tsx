@@ -13,7 +13,7 @@ export default function FirstNameValid({ firstName, setFormData }: FirstNameProp
   const [error, setError] = useState('');
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
+    const value = event.target.value;
     setFormData(
       (prevState): IFormData => ({
         ...prevState,
@@ -24,7 +24,7 @@ export default function FirstNameValid({ firstName, setFormData }: FirstNameProp
       setError('');
       return;
     }
-    if (!/^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/.test(value)) {
+    if (!/^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/.test(value)) {
       setError('Must contain at least one character and no special characters or numbers');
       return;
     }
@@ -40,7 +40,7 @@ export default function FirstNameValid({ firstName, setFormData }: FirstNameProp
           type="text"
           name="firstName"
           value={firstName}
-          pattern="^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$"
+          pattern="^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$"
           onChange={handleNameChange}
           className={style.input}
         />
