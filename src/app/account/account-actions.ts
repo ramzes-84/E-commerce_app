@@ -1,6 +1,6 @@
 'use server';
 
-import { createApiRoot } from '@/service/api/client';
+import createApiRoot from '@/service/api/client/createApiRoot';
 
 export const logout = async () => {};
 

@@ -2,11 +2,11 @@
 
 import style from '../../../registration/page.module.css';
 import React, { useState } from 'react';
-import { IFormDataLigin } from '../../page';
+import { IFormDataLogin } from '../../page';
 
 interface EmailProps {
   email: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormDataLigin>>;
+  setFormData: React.Dispatch<React.SetStateAction<IFormDataLogin>>;
 }
 
 export default function EmailLoginValid({ email, setFormData }: EmailProps) {
@@ -15,7 +15,7 @@ export default function EmailLoginValid({ email, setFormData }: EmailProps) {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData(
-      (prevState): IFormDataLigin => ({
+      (prevState): IFormDataLogin => ({
         ...prevState,
         email: value,
       })

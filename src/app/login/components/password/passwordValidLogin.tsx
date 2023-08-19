@@ -3,11 +3,11 @@
 import style from '../../../registration/page.module.css';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { IFormDataLigin } from '../../page';
+import { IFormDataLogin } from '../../page';
 
 interface PasswordProps {
   password: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormDataLigin>>;
+  setFormData: React.Dispatch<React.SetStateAction<IFormDataLogin>>;
 }
 
 export default function PasswordValidLogin({ password, setFormData }: PasswordProps) {
@@ -17,7 +17,7 @@ export default function PasswordValidLogin({ password, setFormData }: PasswordPr
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData(
-      (prevState): IFormDataLigin => ({
+      (prevState): IFormDataLogin => ({
         ...prevState,
         password: value,
       })
