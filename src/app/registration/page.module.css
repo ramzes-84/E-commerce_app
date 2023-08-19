@@ -30,6 +30,8 @@
   background-color: rgb(6, 78, 59);
   border: none;
   color: white;
+  font-family: serif;
+  font-size: 1.2rem;
 }
 
 .sentFormBtn:disabled {

@@ -13,6 +13,7 @@ import CityValid from './components/city/cityValid';
 import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
 import { autoLogin, register } from './register-actions';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export interface IFormData {
   email: string;
@@ -94,30 +95,30 @@ export default function Page() {
       router.push('/');
     }, 1000);
   const styled = regSuccess ? ' bg-[#c0e7b9] ' : ' bg-red-200';
-  const msg = regError ? regError : 'Registation successful!'
+  const msg = regError ? regError : 'Registation successful!';
   return (
     <>
       <p className={msgVisible ? `${styled}` : 'hidden'}>{msg}</p>
       <div className={style.container}>
         <form id="formRegistr" onSubmit={handleRegistration}>
-        <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold">Registration</h2>
-          <div className='column-1 gap-6 md:columns-2  font-serif mb-6'>
+          <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">Registration</h2>
+          <div className="column-1 gap-6 md:columns-2  font-serif mb-6">
             <div>
-            <div>
-              <EmailValid email={formData.email} setFormData={setFormData} />
-            </div>
-            <div className="relative">
-              <PasswordValid password={formData.password} setFormData={setFormData} />
-            </div>
-            <div>
-              <FirstNameValid firstName={formData.firstName} setFormData={setFormData} />
-            </div>
-            <div>
-              <LastNameValid lastName={formData.lastName} setFormData={setFormData} />
-            </div>
-            <div>
-              <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData} />
-            </div>
+              <div>
+                <EmailValid email={formData.email} setFormData={setFormData} />
+              </div>
+              <div className="relative">
+                <PasswordValid password={formData.password} setFormData={setFormData} />
+              </div>
+              <div>
+                <FirstNameValid firstName={formData.firstName} setFormData={setFormData} />
+              </div>
+              <div>
+                <LastNameValid lastName={formData.lastName} setFormData={setFormData} />
+              </div>
+              <div>
+                <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData} />
+              </div>
             </div>
             <div className="adress-field">
               <h3 className="ml-2.5 text-lg">Address fields:</h3>
@@ -135,11 +136,29 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <button onClick={() => { setMsgVisible(false); setRegError('')}} type="submit" className={style.sentFormBtn} disabled={!formValid}>
+          <button
+            onClick={() => {
+              setMsgVisible(false);
+              setRegError('');
+            }}
+            type="submit"
+            className={style.sentFormBtn}
+            disabled={!formValid}
+          >
             Register
           </button>
         </form>
+       
       </div>
+      <div className='flex w-auto h-20 items-center justify-center my-6 '>
+          <p className='font-serif text-lg text-emerald-900 mx-10'>Already has an account?</p>
+          <Link
+                  className=" font-serif cursor-pointer leading-none px-6 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white text-lg"
+                  href="/login"
+                >
+                  Log in
+                </Link>
+        </div>
     </>
   );
 }
