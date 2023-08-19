@@ -1,6 +1,6 @@
 'use client';
 
-import style from '../registration/page.module';
+import style from '../registration/page.module.css';
 import React, { useEffect } from 'react';
 import { login } from './login-actions';
 import { useSessionData } from '@/controller/session/client';
