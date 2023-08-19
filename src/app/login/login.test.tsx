@@ -6,7 +6,7 @@ import { login } from './login-actions';
 jest.mock('../login/login-actions', () => ({ login: jest.fn().mockReturnValue(Promise.resolve('')) }));
 
 describe('Login page', () => {
-  it('renders a email input', () => {
+  it('renders page name', () => {
     render(<Page />);
 
     const greet = screen.getByText('Hello, User!');
