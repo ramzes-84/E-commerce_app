@@ -61,7 +61,7 @@ export default function LoginForm() {
                 <PasswordValidLogin password={formData.password} setFormData={setFormData} />
               </div>
               <div className="flex">
-                <span className={style.sentFormBtn} onClick={() => setFormData({email: '', password: ''})}>
+                <span className={style.sentFormBtn} onClick={() => setFormData({ email: '', password: '' })}>
                   Reset form
                 </span>
                 <button className={style.sentFormBtn} type="submit" disabled={!formValid}>
