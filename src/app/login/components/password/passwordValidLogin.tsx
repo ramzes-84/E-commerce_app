@@ -52,9 +52,9 @@ export default function PasswordValidLogin({ password, setFormData }: PasswordPr
           className={style.input}
         />
       </label>
-      <button className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
+      <span className="absolute bottom-3.5 right-1 cursor-pointer" onClick={togglePasswordVisibility}>
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-      </button>
+      </span>
     </>
   );
 }
