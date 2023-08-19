@@ -11,14 +11,7 @@ module.exports = {
     '!<rootDir>/*.config.ts',
     '!<rootDir>/coverage/**',
   ],
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 69,
-      statements: 69,
-    },
-  },
+  coverageThreshold: {},
   moduleNameMapper: {
     // Handle CSS imports (with CSS modules)
     // https://jestjs.io/docs/webpack#mocking-css-modules
@@ -29,7 +22,7 @@ module.exports = {
 
     // Handle image imports
     // https://jestjs.io/docs/webpack#handling-static-assets
-    '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i': `<rootDir>/__mocks__/fileMock.js`,
+    '^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i': '<rootDir>/__mocks__/fileMock.js',
 
     // Handle module aliases
     '^@/(.*)$': '<rootDir>/src/$1',

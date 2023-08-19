@@ -6,7 +6,7 @@ describe('Registration page', () => {
   it('renders a greeting', () => {
     render(<Page />);
 
-    const greet = screen.getByText('Hello, Registration Page!');
+    const greet = screen.getByText('Registration');
 
     expect(greet).toBeInTheDocument();
   });
