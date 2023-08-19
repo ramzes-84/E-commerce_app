@@ -26,9 +26,7 @@ function LoginForm() {
     const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
     const emailValid = emailRegex.test(formData.email);
     const passwordValid = passwordRegex.test(formData.password);
-    setFormValid(
-      emailValid && passwordValid
-    );
+    setFormValid(emailValid && passwordValid);
   }, [formData]);
 
   async function handleSubmit(formData: FormData) {
