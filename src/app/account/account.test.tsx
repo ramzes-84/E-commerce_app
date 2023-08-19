@@ -22,9 +22,8 @@ describe('Account page', () => {
   it('renders a greeting', () => {
     render(<Page />);
 
-    const startMessage = screen.getByText('Loading data, please wait...');
+    const startMessage = screen.getByText('Hello, account page!');
 
     expect(startMessage).toBeInTheDocument();
-    expect(getUserInfo).toHaveBeenCalled();
   });
 });

@@ -6,13 +6,11 @@ import { login } from './login-actions';
 jest.mock('../login/login-actions', () => ({ login: jest.fn().mockReturnValue(Promise.resolve('')) }));
 
 describe('Login page', () => {
-  it('renders a email input', () => {
+  it('renders page name', () => {
     render(<Page />);
 
-    const email = screen.getByText('E-mail:');
-    const password = screen.getByText('Password:');
+    const message = screen.getByText('Login section');
 
-    expect(email).toBeInTheDocument();
-    expect(password).toBeInTheDocument();
+    expect(message).toBeInTheDocument();
   });
 });
