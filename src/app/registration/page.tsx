@@ -1,6 +1,5 @@
 'use client';
 
-import { registerUser } from '@/service/api/client';
 import style from './page.module.css';
 import React, { useEffect, useState } from 'react';
 import SelectCountry from './components/selectCountry/selectCountry';
@@ -12,6 +11,8 @@ import LastNameValid from './components/lastName/lastNameValid';
 import StreetValid from './components/streetValid/streetValid';
 import CityValid from './components/city/cityValid';
 import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
+import { CustomerService } from '@/service/api';
+import { register } from './register-actions';
 
 export interface IFormData {
   email: string;
@@ -72,7 +73,7 @@ export default function Page() {
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (formValid) {
-      await registerUser(formData);
+      await register(formData);
     }
   };
 
