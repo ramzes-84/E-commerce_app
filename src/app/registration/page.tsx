@@ -93,14 +93,16 @@ export default function Page() {
     setTimeout(() => {
       router.push('/');
     }, 1000);
-  const styled = regSuccess ? " bg-emerald-200 " : " bg-red-200";
+  const styled = regSuccess ? ' bg-[#c0e7b9] ' : ' bg-red-200';
+  const msg = regError ? regError : 'Registation successful!'
   return (
     <>
-      <p className={msgVisible ? `${styled}` : 'hidden'}>{regError ? regError : 'Registation successful!'}</p>
+      <p className={msgVisible ? `${styled}` : 'hidden'}>{msg}</p>
       <div className={style.container}>
         <form id="formRegistr" onSubmit={handleRegistration}>
-          <h2 className="text-center uppercase">Registration</h2>
-          <div >
+        <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold">Registration</h2>
+          <div className='column-1 gap-6 md:columns-2  font-serif mb-6'>
+            <div>
             <div>
               <EmailValid email={formData.email} setFormData={setFormData} />
             </div>
@@ -116,8 +118,9 @@ export default function Page() {
             <div>
               <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData} />
             </div>
+            </div>
             <div className="adress-field">
-              <h3 className="ml-2.5">Address fields:</h3>
+              <h3 className="ml-2.5 text-lg">Address fields:</h3>
               <div>
                 <StreetValid streetName={formData.streetName} setFormData={setFormData} />
               </div>
@@ -132,7 +135,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <button type="submit" className={style.sentFormBtn} disabled={!formValid}>
+          <button onClick={() => { setMsgVisible(false); setRegError('')}} type="submit" className={style.sentFormBtn} disabled={!formValid}>
             Register
           </button>
         </form>

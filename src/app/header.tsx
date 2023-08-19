@@ -10,7 +10,7 @@ export default function Navbar() {
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 mb-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+          <div className="w-full relative flex justify-between md:w-auto md:static md:block md:justify-start">
             <Link
               className="text-sm font-bold leading-relaxed inline-block mr-4 py-2  whitespace-nowrap uppercase text-white"
               href="/"
@@ -19,15 +19,15 @@ export default function Navbar() {
               <Image src="/text.svg" width={180} height={50} alt="Logo" className="inline-block" />
             </Link>
             <button
-              className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block md:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
               <Image src="/menu.svg" width={50} height={50} alt="menu" className="inline-block" />
             </button>
           </div>
-          <div className={'lg:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')} data-testid="nav">
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto font-serif">
+          <div className={'md:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')} data-testid="nav">
+            <ul className="flex flex-col md:flex-row list-none md:ml-auto font-serif">
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"

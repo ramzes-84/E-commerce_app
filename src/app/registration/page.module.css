@@ -4,6 +4,7 @@
 }
 
 .input {
+  padding-left: 5px;
   width: 100%;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -24,13 +25,11 @@
   margin: 0 auto;
   padding: 5px 25px;
   border-radius: 5px;
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
   outline: none;
-  background-color: rgb(192 231 185 / 70%);
+  background-color: rgb(6, 78, 59);
   border: none;
+  color: white;
 }
 
 .sentFormBtn:disabled {
