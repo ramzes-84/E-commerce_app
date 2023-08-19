@@ -1,10 +1,39 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { login } from './login-actions';
 import { useSessionData } from '@/controller/session/client';
+import style from '../registration/page.module.css';
+import { useState } from 'react';
+import EmailLoginValid from './components/email/emailValidLogin';
+import PasswordValidLogin from './components/password/passwordValidLogin';
 
-export function LoginForm() {
+export interface IFormDataLogin {
+  email: string;
+  password: string;
+}
+
+export default function LoginForm() {
+  const [formData, setFormData] = useState<IFormDataLogin>({
+    email: '',
+    password: '',
+  });
+
+  const [formValid, setFormValid] = useState(false);
+
+  const [authError, setAuthError] = useState('');
+  const errorStyle = {
+    color: 'red',
+  };
+
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
+    const emailValid = emailRegex.test(formData.email);
+    const passwordValid = passwordRegex.test(formData.password);
+    setFormValid(emailValid && passwordValid);
+  }, [formData]);
+
   async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
     await login(formJson.name.toString(), formJson.pass.toString()).catch((err) =>
@@ -13,10 +42,6 @@ export function LoginForm() {
   }
 
   const sessionData = useSessionData();
-  const [authError, setAuthError] = useState('');
-  const errorStyle = {
-    color: 'red',
-  };
 
   return (
     <>
@@ -27,19 +52,24 @@ export function LoginForm() {
       ) : (
         <>
           <p style={errorStyle}>{authError}</p>
-          <form action={handleSubmit}>
-            <label htmlFor="name">
-              E-mail:
-              <input type="email" id="name" name="name" required={true} autoComplete="username" />
-            </label>
-            <hr />
-            <label htmlFor="pass">
-              Password:
-              <input type="password" id="pass" name="pass" required={true} autoComplete="current-password" />
-            </label>
-            <hr />
-            <button type="submit">Submit form</button>
-          </form>
+          <div className={style.container}>
+            <form action={handleSubmit}>
+              <div>
+                <EmailLoginValid email={formData.email} setFormData={setFormData} />
+              </div>
+              <div className="relative">
+                <PasswordValidLogin password={formData.password} setFormData={setFormData} />
+              </div>
+              <div className="flex">
+                <button className={style.sentFormBtn} type="reset">
+                  Reset form
+                </button>
+                <button className={style.sentFormBtn} type="submit" disabled={!formValid}>
+                  Submit form
+                </button>
+              </div>
+            </form>
+          </div>
         </>
       )}
     </>
