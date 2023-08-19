@@ -7,7 +7,9 @@ import { useSessionData } from '@/controller/session/client';
 export function LoginForm() {
   async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
-    await login(formJson.name.toString(), formJson.pass.toString()).catch((err) => setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`));
+    await login(formJson.name.toString(), formJson.pass.toString()).catch((err) =>
+      setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`)
+    );
   }
 
   const sessionData = useSessionData();
