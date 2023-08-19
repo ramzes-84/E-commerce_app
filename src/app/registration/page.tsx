@@ -1,6 +1,5 @@
 'use client';
 
-import { registerUser } from '@/service/api/client';
 import style from './page.module.css';
 import React, { useEffect, useState } from 'react';
 import SelectCountry from './components/selectCountry/selectCountry';
@@ -12,6 +11,8 @@ import LastNameValid from './components/lastName/lastNameValid';
 import StreetValid from './components/streetValid/streetValid';
 import CityValid from './components/city/cityValid';
 import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
+import { CustomerService } from '@/service/api';
+import { register } from './register-actions';
 
 export interface IFormData {
   email: string;
@@ -42,11 +43,11 @@ export default function Page() {
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/;
-    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ])[a-zA-Za-яА-ЯёЁ]{1,}$/;
+    const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
+    const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/;
+    const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/;
     const streetRegex = /^.+$/;
-    const cityRegex = /^[a-zA-Zа-яА-Я]{1,}$/;
+    const cityRegex = /^([a-zA-Zа-яА-Я]+-?\s*)+$/;
     const postalCodeRegex = /^[1-90]{5,}$/;
     const countryRegex = /^.+$/;
     const emailValid = emailRegex.test(formData.email);
@@ -72,7 +73,7 @@ export default function Page() {
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (formValid) {
-      await registerUser(formData);
+      await register(formData);
     }
   };
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { login } from './login-actions';
+import { useSessionData } from '@/controller/session/client';
 import style from '../registration/page.module.css';
 import { useState } from 'react';
 import EmailLoginValid from './components/email/emailValidLogin';
@@ -12,48 +13,45 @@ export interface IFormDataLigin {
   password: string;
 }
 
-export function LoginForm() {
+function LoginForm() {
   const [formData, setFormData] = useState<IFormDataLigin>({
     email: '',
     password: '',
   });
 
-  async function handleSubmit(e: { preventDefault: () => void; target: any }) {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
+  async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
     await login(formJson.name as string, formJson.pass as string);
   }
 
+  const sessionData = useSessionData();
+
   return (
     <>
-      <div className={style.container}>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div>
-            <EmailLoginValid email={formData.email} setFormData={setFormData} />
-          </div>
-          <div className="relative">
-            <PasswordValidLogin password={formData.password} setFormData={setFormData} />
-          </div>
-          {/* <label htmlFor="name">
-          E-mail:
-          <input type="email" id="name" name="name" required={true} autoComplete="username" />
-        </label>
-        <label htmlFor="pass">
-          Password:
-          <input type="password" id="pass" name="pass" required={true} autoComplete="current-password" />
-        </label> */}
-          <div className="flex">
-            <button className={style.sentFormBtn} type="reset">
-              Reset form
-            </button>
-            <button className={style.sentFormBtn} type="submit">
-              Submit form
-            </button>
-          </div>
-        </form>
-      </div>
+    <div className={style.container}>
+      <form action={handleSubmit}>
+        <div>
+          <EmailLoginValid email={formData.email} setFormData={setFormData} />
+        </div>
+        <div className="relative">
+          <PasswordValidLogin password={formData.password} setFormData={setFormData} />
+        </div>
+        <div className="flex">
+          <button className={style.sentFormBtn} type="reset">
+            Reset form
+          </button>
+          <button className={style.sentFormBtn} type="submit">
+            Submit form
+          </button>
+        </div>
+      </form>
+      {sessionData?.customerId ? (
+        <p>
+          <div>Customer Id:</div>
+          <div>{sessionData?.customerId}</div>
+        </p>
+      ) : null}
+    </div>
     </>
   );
 }
