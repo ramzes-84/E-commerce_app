@@ -2,7 +2,7 @@ import createApiRoot from '@/service/api/client/createApiRoot';
 import { ApiService } from '@/service/api/ApiService';
 import { IFormData } from '@/app/registration/page';
 
-type UserCredentials = { username: string; password: string };
+export type UserCredentials = { username: string; password: string };
 
 interface CustomerDraft {
   email: string;
