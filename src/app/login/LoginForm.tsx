@@ -1,9 +1,9 @@
 'use client';
 
+import style from '../registration/page.module';
 import React, { useEffect } from 'react';
 import { login } from './login-actions';
 import { useSessionData } from '@/controller/session/client';
-import style from '../registration/page.module.css';
 import { useState } from 'react';
 import EmailLoginValid from './components/email/emailValidLogin';
 import PasswordValidLogin from './components/password/passwordValidLogin';
