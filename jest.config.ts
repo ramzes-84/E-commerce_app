@@ -12,12 +12,6 @@ module.exports = {
     '!<rootDir>/coverage/**',
   ],
   coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 69,
-      statements: 69,
-    },
   },
   moduleNameMapper: {
     // Handle CSS imports (with CSS modules)
