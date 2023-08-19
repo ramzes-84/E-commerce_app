@@ -50,7 +50,7 @@ export default class CustomerService extends ApiService {
         },
       ],
     };
-    const result = await this.apiRoot.me().login().post({ body: customerDraft }).execute();
+    const result = await this.apiRoot.me().signup().post({ body: customerDraft }).execute();
     return result.body;
   }
 }
