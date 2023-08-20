@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { logout } from './account-actions';
+import style from '../registration/page.module.css';
 
 export function LogoutButton() {
   const router = useRouter();
@@ -8,5 +9,9 @@ export function LogoutButton() {
     router.push('/login');
   }
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button className={style.sentFormBtn} onClick={handleLogout}>
+      Logout
+    </button>
+  );
 }
