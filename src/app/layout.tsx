@@ -5,6 +5,7 @@ import { SessionProvider } from '@/controller/session/client';
 import { PropsWithChildren } from 'react';
 import { CustomerService } from '@/service/api';
 import { SessionDataStorage } from '@/controller/session/server';
+import isLogged from './isLoggedUser';
 
 export const metadata: Metadata = {
   title: 'Cyber Ducks App',
@@ -12,13 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  const { customerId } = new SessionDataStorage().getData();
 
   return (
     <html lang="en">
       <body>
         <SessionProvider>
-          <Navbar authorized={customerId ? true : false} />
+          <Navbar authorized={isLogged() ? true : false} />
           {children}
         </SessionProvider>
       </body>
