@@ -39,6 +39,11 @@ export default class CustomerService extends ApiService {
     return this.getRegisterUser(formData);
   }
 
+  public isLogged() {
+    const { customerId } = new SessionDataStorage().getData();
+  return customerId ? true : false; 
+  }
+
   public async getRegisterUser(formData: IFormData) {
     const customerDraft: CustomerDraft = {
       email: formData.email,
