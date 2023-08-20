@@ -12,5 +12,4 @@ export const login = async (name: string, password: string) => {
   const session = sessionStorage.getData();
   session.customerId = customer.id;
   sessionStorage.save(session);
- 
 };

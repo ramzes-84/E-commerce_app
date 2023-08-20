@@ -6,7 +6,6 @@ import LoginForm from './LoginForm';
 jest.mock('../login/login-actions', () => ({ login: jest.fn().mockReturnValue(Promise.resolve('')) }));
 
 describe('Login page', () => {
-  
   it('render registration form', () => {
     const { getByText, getByLabelText } = render(<LoginForm />);
 

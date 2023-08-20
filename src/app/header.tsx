@@ -4,8 +4,9 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 
-export default function Navbar({isLoged}: {isLoged:boolean}) {
+export default function Navbar({authorized}:{authorized:boolean}) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const [isLogged, setIsLogged] = React.useState(authorized);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 mb-3">
@@ -38,7 +39,11 @@ export default function Navbar({isLoged}: {isLoged:boolean}) {
               </li>
               <li className="nav-item">
                 <Link
-                  className={ isLoged ? "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" :  "hidden"}
+                  className={
+                    isLogged
+                      ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                      : 'hidden'
+                  }
                   href="/account"
                 >
                   <span className="ml-2">Account</span>
@@ -46,7 +51,11 @@ export default function Navbar({isLoged}: {isLoged:boolean}) {
               </li>
               <li className="nav-item">
                 <Link
-                  className={ isLoged ? "hidden" : "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" }
+                  className={
+                    isLogged
+                      ? 'hidden'
+                      : 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  }
                   href="/login"
                 >
                   <span className="ml-2">Log in</span>
@@ -54,7 +63,11 @@ export default function Navbar({isLoged}: {isLoged:boolean}) {
               </li>
               <li className="nav-item">
                 <Link
-                  className={ isLoged ? "hidden" : "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" }
+                  className={
+                    isLogged
+                      ? 'hidden'
+                      : 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  }
                   href="/registration"
                 >
                   <span className="ml-2">Register</span>
@@ -62,7 +75,11 @@ export default function Navbar({isLoged}: {isLoged:boolean}) {
               </li>
               <li className="nav-item">
                 <button
-                  className={isLoged ? "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" : "hidden"}
+                  className={
+                    isLogged
+                      ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                      : 'hidden'
+                  } onClick={() => setIsLogged(false)}
                 >
                   <span className="ml-2">Log out</span>
                 </button>

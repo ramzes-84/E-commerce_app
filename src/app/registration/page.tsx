@@ -148,17 +148,16 @@ export default function Page() {
             Register
           </button>
         </form>
-       
       </div>
-      <div className='flex w-auto h-20 items-center justify-center my-6 '>
-          <p className='font-serif text-lg text-emerald-900 mx-10'>Already has an account?</p>
-          <Link
-                  className=" font-serif cursor-pointer leading-none px-6 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white text-lg"
-                  href="/login"
-                >
-                  Log in
-                </Link>
-        </div>
+      <div className="flex w-auto h-20 items-center justify-center my-6 ">
+        <p className="font-serif text-lg text-emerald-900 mx-10">Already has an account?</p>
+        <Link
+          className=" font-serif cursor-pointer leading-none px-6 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white text-lg"
+          href="/login"
+        >
+          Log in
+        </Link>
+      </div>
     </>
   );
 }

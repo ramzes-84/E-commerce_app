@@ -22,7 +22,7 @@ export default function LoginForm() {
     email: '',
     password: '',
   });
- 
+
   const [formValid, setFormValid] = useState(false);
   const [authError, setAuthError] = useState('');
   const [loginSuccess, setLogingSuccess] = useState(false);
@@ -44,40 +44,46 @@ export default function LoginForm() {
 
   async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
-    await login(formJson.name.toString(), formJson.pass.toString()).then(() => {
-      setLogingSuccess(true);
-      setMsgVisible(true);
-    }).catch((err) => {
-      setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`);
-      setMsgVisible(true);
-    }
-    );
+    await login(formJson.name.toString(), formJson.pass.toString())
+      .then(() => {
+        setLogingSuccess(true);
+        setMsgVisible(true);
+      })
+      .catch((err) => {
+        setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`);
+        setMsgVisible(true);
+      });
   }
   return (
-        <>
+    <>
       <p className={msgVisible ? `${styled}` : 'hidden'}>{msg}</p>
       <h1 className="text-center uppercase mt-9 mb-5 font-serif text-emerald-900 font-bold text-2xl">Login section</h1>
-          <div className={style.container + " font-serif"}>
-            <form action={handleSubmit}>
-              <div>
-                <EmailLoginValid email={formData.email} setFormData={setFormData} />
-              </div>
-              <div className="relative">
-                <PasswordValidLogin password={formData.password} setFormData={setFormData} />
-              </div>
-              <div className="flex gap-4 my-8">
-                <span className={style.sentFormBtn} onClick={() => setFormData({ email: '', password: '' })}>
-                  Reset form
-                </span>
-            <button className={style.sentFormBtn} onClick={() => {
-              setAuthError('');
-              setMsgVisible(false);
-            }} type="submit" disabled={!formValid}>
-                  Submit form
-                </button>
-              </div>
-            </form>
+      <div className={style.container + ' font-serif'}>
+        <form action={handleSubmit}>
+          <div>
+            <EmailLoginValid email={formData.email} setFormData={setFormData} />
           </div>
-        </>
-      )}
-  
+          <div className="relative">
+            <PasswordValidLogin password={formData.password} setFormData={setFormData} />
+          </div>
+          <div className="flex gap-4 my-8">
+            <span className={style.sentFormBtn} onClick={() => setFormData({ email: '', password: '' })}>
+              Reset form
+            </span>
+            <button
+              className={style.sentFormBtn}
+              onClick={() => {
+                setAuthError('');
+                setMsgVisible(false);
+              }}
+              type="submit"
+              disabled={!formValid}
+            >
+              Submit form
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+}

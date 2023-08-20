@@ -12,14 +12,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
- 
   const { customerId } = new SessionDataStorage().getData();
 
   return (
     <html lang="en">
       <body>
         <SessionProvider>
-          <Navbar isLoged={customerId ? true : false} />
+          <Navbar authorized={customerId ? true : false} />
           {children}
         </SessionProvider>
       </body>
