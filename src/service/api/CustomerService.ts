@@ -3,7 +3,6 @@ import { ApiService } from '@/service/api/ApiService';
 import { IFormData } from '@/app/registration/page';
 import { SessionDataStorage } from '@/controller/session/server';
 
-
 export type UserCredentials = { username: string; password: string };
 
 interface CustomerDraft {
@@ -24,6 +23,10 @@ export default class CustomerService extends ApiService {
   public async login(credentials: UserCredentials) {
     this.apiRoot = createApiRoot(credentials);
     return this.getCurrentCustomer();
+  }
+
+  public logout() {
+    new SessionDataStorage().save({});
   }
 
   public async getCurrentCustomer() {
