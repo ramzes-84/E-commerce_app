@@ -7,6 +7,7 @@ import { useSessionData } from '@/controller/session/client';
 import { useState } from 'react';
 import EmailLoginValid from './components/email/emailValidLogin';
 import PasswordValidLogin from './components/password/passwordValidLogin';
+import { useRouter } from 'next/navigation';
 
 export interface IFormDataLogin {
   email: string;
@@ -14,17 +15,24 @@ export interface IFormDataLogin {
 }
 
 export default function LoginForm() {
+  const router = useRouter();
+  const sessionData = useSessionData();
+  if (sessionData?.customerId) router.push('/');
   const [formData, setFormData] = useState<IFormDataLogin>({
     email: '',
     password: '',
   });
-
+ 
   const [formValid, setFormValid] = useState(false);
-
   const [authError, setAuthError] = useState('');
-  const errorStyle = {
-    color: 'red',
-  };
+  const [loginSuccess, setLogingSuccess] = useState(false);
+  const [msgVisible, setMsgVisible] = useState(false);
+  if (loginSuccess)
+    setTimeout(() => {
+      router.push('/');
+    }, 1000);
+  const styled = loginSuccess ? ' bg-[#c0e7b9] ' : ' bg-red-200';
+  const msg = authError ? authError : 'Log in successful!';
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,23 +44,20 @@ export default function LoginForm() {
 
   async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
-    await login(formJson.name.toString(), formJson.pass.toString()).catch((err) =>
-      setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`)
+    await login(formJson.name.toString(), formJson.pass.toString()).then(() => {
+      setLogingSuccess(true);
+      setMsgVisible(true);
+    }).catch((err) => {
+      setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`);
+      setMsgVisible(true);
+    }
     );
   }
-
-  const sessionData = useSessionData();
-
   return (
-    <>
-      {sessionData?.customerId ? (
-        <p>
-          <div>You have already logged in (customer ID {sessionData?.customerId})!</div>
-        </p>
-      ) : (
         <>
-          <p style={errorStyle}>{authError}</p>
-          <div className={style.container}>
+      <p className={msgVisible ? `${styled}` : 'hidden'}>{msg}</p>
+      <h1 className="text-center uppercase mt-9 mb-5 font-serif text-emerald-900 font-bold text-2xl">Login section</h1>
+          <div className={style.container + " font-serif"}>
             <form action={handleSubmit}>
               <div>
                 <EmailLoginValid email={formData.email} setFormData={setFormData} />
@@ -60,11 +65,14 @@ export default function LoginForm() {
               <div className="relative">
                 <PasswordValidLogin password={formData.password} setFormData={setFormData} />
               </div>
-              <div className="flex">
+              <div className="flex gap-4 my-8">
                 <span className={style.sentFormBtn} onClick={() => setFormData({ email: '', password: '' })}>
                   Reset form
                 </span>
-                <button className={style.sentFormBtn} type="submit" disabled={!formValid}>
+            <button className={style.sentFormBtn} onClick={() => {
+              setAuthError('');
+              setMsgVisible(false);
+            }} type="submit" disabled={!formValid}>
                   Submit form
                 </button>
               </div>
@@ -72,6 +80,4 @@ export default function LoginForm() {
           </div>
         </>
       )}
-    </>
-  );
-}
+  

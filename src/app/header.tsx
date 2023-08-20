@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 
-export default function Navbar() {
+export default function Navbar({isLoged}: {isLoged:boolean}) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -38,7 +38,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+                  className={ isLoged ? "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" :  "hidden"}
                   href="/account"
                 >
                   <span className="ml-2">Account</span>
@@ -46,7 +46,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+                  className={ isLoged ? "hidden" : "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" }
                   href="/login"
                 >
                   <span className="ml-2">Log in</span>
@@ -54,11 +54,18 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+                  className={ isLoged ? "hidden" : "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" }
                   href="/registration"
                 >
                   <span className="ml-2">Register</span>
                 </Link>
+              </li>
+              <li className="nav-item">
+                <button
+                  className={isLoged ? "px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75" : "hidden"}
+                >
+                  <span className="ml-2">Log out</span>
+                </button>
               </li>
             </ul>
           </div>
