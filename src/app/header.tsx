@@ -6,7 +6,6 @@ import Image from 'next/image';
 
 export default function Navbar({ authorized }: { authorized: boolean }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const [isLogged, setIsLogged] = React.useState(authorized);
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 mb-3">
@@ -40,7 +39,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
               <li className="nav-item">
                 <Link
                   className={
-                    isLogged
+                    authorized
                       ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                       : 'hidden'
                   }
@@ -52,7 +51,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
               <li className="nav-item">
                 <Link
                   className={
-                    isLogged
+                    authorized
                       ? 'hidden'
                       : 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                   }
@@ -64,7 +63,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
               <li className="nav-item">
                 <Link
                   className={
-                    isLogged
+                    authorized
                       ? 'hidden'
                       : 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                   }
@@ -76,11 +75,10 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
               <li className="nav-item">
                 <button
                   className={
-                    isLogged
+                    authorized
                       ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                       : 'hidden'
-                  }
-                  onClick={() => setIsLogged(false)}
+                  } onClick={() =>{}}
                 >
                   <span className="ml-2">Log out</span>
                 </button>
