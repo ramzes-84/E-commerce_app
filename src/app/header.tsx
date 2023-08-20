@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
 
-export default function Navbar({authorized}:{authorized:boolean}) {
+export default function Navbar({ authorized }: { authorized: boolean }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const [isLogged, setIsLogged] = React.useState(authorized);
   return (
@@ -79,7 +79,8 @@ export default function Navbar({authorized}:{authorized:boolean}) {
                     isLogged
                       ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                       : 'hidden'
-                  } onClick={() => setIsLogged(false)}
+                  }
+                  onClick={() => setIsLogged(false)}
                 >
                   <span className="ml-2">Log out</span>
                 </button>
