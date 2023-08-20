@@ -3,8 +3,18 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { logout } from './account/account-actions';
+
 
 export default function Navbar({ authorized }: { authorized: boolean }) {
+  const router = useRouter();
+  function handleLogout() {
+    logout();
+    router.refresh();
+    router.push('/login');
+  }
+
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -78,7 +88,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
                     authorized
                       ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                       : 'hidden'
-                  } onClick={() =>{}}
+                  } onClick={() =>{handleLogout()}}
                 >
                   <span className="ml-2">Log out</span>
                 </button>

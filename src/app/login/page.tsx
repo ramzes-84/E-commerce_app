@@ -4,6 +4,7 @@ import { SessionDataStorage } from '@/controller/session/server';
 
 export default function Page() {
   const { customerId } = new SessionDataStorage().getData();
+ 
   if (customerId) redirect('/');
 
   return (
