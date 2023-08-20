@@ -1,6 +1,8 @@
 import createApiRoot from '@/service/api/client/createApiRoot';
 import { ApiService } from '@/service/api/ApiService';
 import { IFormData } from '@/app/registration/page';
+import { SessionDataStorage } from '@/controller/session/server';
+
 
 export type UserCredentials = { username: string; password: string };
 
@@ -32,6 +34,11 @@ export default class CustomerService extends ApiService {
   public async register(formData: IFormData) {
     this.apiRoot = createApiRoot();
     return this.getRegisterUser(formData);
+  }
+
+  public isLogged() {
+    const { customerId } = new SessionDataStorage().getData();
+  return customerId ? true : false; 
   }
 
   public async getRegisterUser(formData: IFormData) {

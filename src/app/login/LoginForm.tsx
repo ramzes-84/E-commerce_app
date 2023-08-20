@@ -3,11 +3,9 @@
 import style from '../registration/page.module.css';
 import React, { useEffect } from 'react';
 import { login } from './login-actions';
-import { useSessionData } from '@/controller/session/client';
 import { useState } from 'react';
 import EmailLoginValid from './components/email/emailValidLogin';
 import PasswordValidLogin from './components/password/passwordValidLogin';
-import { useRouter } from 'next/navigation';
 
 export interface IFormDataLogin {
   email: string;
@@ -15,9 +13,6 @@ export interface IFormDataLogin {
 }
 
 export default function LoginForm() {
-  const router = useRouter();
-  const sessionData = useSessionData();
-  if (sessionData?.customerId) router.push('/');
   const [formData, setFormData] = useState<IFormDataLogin>({
     email: '',
     password: '',
@@ -27,10 +22,7 @@ export default function LoginForm() {
   const [authError, setAuthError] = useState('');
   const [loginSuccess, setLogingSuccess] = useState(false);
   const [msgVisible, setMsgVisible] = useState(false);
-  if (loginSuccess)
-    setTimeout(() => {
-      router.push('/');
-    }, 1000);
+
   const styled = loginSuccess ? ' bg-[#c0e7b9] ' : ' bg-red-200';
   const msg = authError ? authError : 'Log in successful!';
 
