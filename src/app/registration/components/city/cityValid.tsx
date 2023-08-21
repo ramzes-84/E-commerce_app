@@ -34,7 +34,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
   return (
     <>
       <label className={style.labelInput}>
-        City:<span className='text-rose-600'>*</span>
+        City:<span className="text-rose-600">*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           className={style.input}

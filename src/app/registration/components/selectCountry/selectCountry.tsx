@@ -18,7 +18,7 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
   };
   return (
     <label>
-      Country:<span className='text-rose-600'>*</span>
+      Country:<span className="text-rose-600">*</span>
       <select
         className={style.selectCountry}
         name="country"

@@ -34,7 +34,7 @@ export default function FirstNameValid({ firstName, setFormData }: FirstNameProp
   return (
     <>
       <label className={style.labelInput}>
-        First Name:<span className='text-rose-600'>*</span>
+        First Name:<span className="text-rose-600">*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"
