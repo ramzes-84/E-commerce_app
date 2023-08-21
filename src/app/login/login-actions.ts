@@ -8,7 +8,6 @@ export const login = async (name: string, password: string) => {
 
   const userAuthOptions = { username: name, password: password };
   const customer = await customerService.login(userAuthOptions);
-
   const sessionStorage = new SessionDataStorage();
   const session = sessionStorage.getData();
   session.customerId = customer.id;

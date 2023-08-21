@@ -1,9 +1,14 @@
 import LoginForm from './LoginForm';
+import { redirect } from 'next/navigation';
+import { SessionDataStorage } from '@/controller/session/server';
 
 export default function Page() {
+  const { customerId } = new SessionDataStorage().getData();
+ 
+  if (customerId) redirect('/');
+
   return (
     <>
-      <h1 className="text-center uppercase mb-3">Login section</h1>
       <LoginForm />
     </>
   );
