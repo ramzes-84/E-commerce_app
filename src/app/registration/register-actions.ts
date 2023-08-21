@@ -1,6 +1,7 @@
 'use server';
 
 import { CustomerService } from '@/service/api';
+import { SessionDataStorage } from '@/controller/session/server';
 import { IAddress, IFormData } from './page';
 import { UserCredentials } from '@/service/api/CustomerService';
 
@@ -15,5 +16,9 @@ export const autoLogin = async (formData: IFormData) => {
     password: formData.password,
   };
   const customerService = new CustomerService();
-  await customerService.login(credentials);
+  const customer = await customerService.login(credentials);
+  const sessionStorage = new SessionDataStorage();
+  const session = sessionStorage.getData();
+  session.customerId = customer.id;
+  sessionStorage.save(session);
 };

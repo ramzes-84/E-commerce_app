@@ -1,11 +1,11 @@
 'use server';
 
 import CustomerService from '@/service/api/CustomerService';
-import createApiRoot from '@/service/api/client/createApiRoot';
 
-type UserCredentials = { username: string; password: string };
-export const getUserInfo = async (credentials: UserCredentials) => {
-  return await createApiRoot(credentials).me().get().execute();
+export const getUserInfo = async () => {
+  const customerService = new CustomerService();
+  const customer = await customerService.getCurrentCustomer();
+  return customer;
 };
 
 export const logout = () => {

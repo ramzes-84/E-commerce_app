@@ -3,8 +3,17 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { logout } from './account/account-actions';
 
-export default function Navbar() {
+export default function Navbar({ authorized }: { authorized: boolean }) {
+  const router = useRouter();
+  function handleLogout() {
+    logout();
+    router.refresh();
+    router.push('/login');
+  }
+
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -36,30 +45,43 @@ export default function Navbar() {
                   <span className="ml-2">Catalog</span>
                 </Link>
               </li>
-              <li className="nav-item">
+              {authorized && (<li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+                  className={
+                    'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  }
                   href="/account"
                 >
                   <span className="ml-2">Account</span>
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>)}
+              {!authorized && (<li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+                  className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  }
                   href="/login"
                 >
                   <span className="ml-2">Log in</span>
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>)}
+              {!authorized && (<li className="nav-item">
                 <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+                  className={
+                    'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  }
                   href="/registration"
                 >
                   <span className="ml-2">Register</span>
                 </Link>
-              </li>
+              </li>)}
+              {authorized && (<li className="nav-item">
+                <button
+                  className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  } onClick={() => { handleLogout() }}
+                >
+                  <span className="ml-2">Log out</span>
+                </button>
+              </li>)}
             </ul>
           </div>
         </div>
