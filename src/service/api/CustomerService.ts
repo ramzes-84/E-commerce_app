@@ -58,15 +58,15 @@ export default class CustomerService extends ApiService {
       billingAddresses: [1],
     };
 
-    if(formShippingAddress.defaultShippingAddress) {
+    if (formShippingAddress.defaultShippingAddress) {
       customerDraft.defaultShippingAddress = 0;
     }
-    if(formBillingAddress.defaultBillingAddress) {
+    if (formBillingAddress.defaultBillingAddress) {
       customerDraft.defaultBillingAddress = 1;
     }
 
     const result = await this.apiRoot.me().signup().post({ body: customerDraft }).execute();
-    
+
     return result.body;
   }
 }

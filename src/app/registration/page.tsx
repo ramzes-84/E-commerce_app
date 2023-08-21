@@ -47,7 +47,7 @@ export default function Page() {
     postalCode: '',
     country: '',
     defaultShippingAddress: false,
-  })
+  });
 
   const [formBillingAddress, setFormBillingAddress] = useState<IAddress>({
     streetName: '',
@@ -55,14 +55,16 @@ export default function Page() {
     postalCode: '',
     country: '',
     defaultBillingAddress: false,
-  })
+  });
 
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
-  }
-  const styleColumns = !isChecked ? ' column-1 gap-6 lg:columns-3 md:columns-1 font-serif mb-6 ' : ' column-1 gap-6 lg:columns-2 md:columns-1 font-serif mb-6 ';
+  };
+  const styleColumns = !isChecked
+    ? ' column-1 gap-6 lg:columns-3 md:columns-1 font-serif mb-6 '
+    : ' column-1 gap-6 lg:columns-2 md:columns-1 font-serif mb-6 ';
 
   const [formValid, setFormValid] = useState(false);
 
@@ -143,11 +145,14 @@ export default function Page() {
                 <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData} />
               </div>
             </div>
-            <ShippingAddress formShippingAddress={formShippingAddress} setFormShippingAddress={setFormShippingAddress}/>
-            <CheckboxAddress label='Use for Billing address' checked={isChecked} onChange={handleCheckboxChange}/>
-            {!isChecked && 
-              <BillingAddress formBillingAddress={formBillingAddress} setFormBillingAddress={setFormBillingAddress}/>
-            }
+            <ShippingAddress
+              formShippingAddress={formShippingAddress}
+              setFormShippingAddress={setFormShippingAddress}
+            />
+            <CheckboxAddress label="Use for Billing address" checked={isChecked} onChange={handleCheckboxChange} />
+            {!isChecked && (
+              <BillingAddress formBillingAddress={formBillingAddress} setFormBillingAddress={setFormBillingAddress} />
+            )}
           </div>
           <button
             onClick={() => {

@@ -4,7 +4,7 @@ interface ICheckboxInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function CheckboxAddress({label, checked, onChange}: ICheckboxInputProps) {
+export default function CheckboxAddress({ label, checked, onChange }: ICheckboxInputProps) {
   return (
     <div>
       <label className="flex">
@@ -12,5 +12,5 @@ export default function CheckboxAddress({label, checked, onChange}: ICheckboxInp
         {label}
       </label>
     </div>
-  )
+  );
 }

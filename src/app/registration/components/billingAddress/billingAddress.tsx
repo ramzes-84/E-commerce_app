@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { IAddress } from "../../page";
-import CheckboxAddress from "../checkbox/checkbox";
-import CityValid from "../city/cityValid";
-import PostalCode from "../postalCode/postalCode";
-import SelectCountry from "../selectCountry/selectCountry";
-import StreetValid from "../streetValid/streetValid";
+import { useState } from 'react';
+import { IAddress } from '../../page';
+import CheckboxAddress from '../checkbox/checkbox';
+import CityValid from '../city/cityValid';
+import PostalCode from '../postalCode/postalCode';
+import SelectCountry from '../selectCountry/selectCountry';
+import StreetValid from '../streetValid/streetValid';
 
 interface IBillingAddressProps {
   formBillingAddress: IAddress;
   setFormBillingAddress: React.Dispatch<React.SetStateAction<IAddress>>;
 }
 
-export default function BillingAddress({formBillingAddress, setFormBillingAddress}: IBillingAddressProps) {
+export default function BillingAddress({ formBillingAddress, setFormBillingAddress }: IBillingAddressProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
     const checked = event.target.checked;
     setFormBillingAddress((prev) => ({ ...prev, defaultBillingAddress: checked }));
-  }
+  };
 
   return (
     <div className="adress-field">
@@ -33,9 +33,13 @@ export default function BillingAddress({formBillingAddress, setFormBillingAddres
         <SelectCountry country={formBillingAddress.country} setFormData={setFormBillingAddress} />
       </div>
       <div>
-        <PostalCode country={formBillingAddress.country} postalCode={formBillingAddress.postalCode} setFormData={setFormBillingAddress} />
+        <PostalCode
+          country={formBillingAddress.country}
+          postalCode={formBillingAddress.postalCode}
+          setFormData={setFormBillingAddress}
+        />
       </div>
-      <CheckboxAddress label='Set as default address' checked={isChecked} onChange={handleCheckboxChange}/>
+      <CheckboxAddress label="Set as default address" checked={isChecked} onChange={handleCheckboxChange} />
     </div>
-  )
+  );
 }
