@@ -72,6 +72,6 @@ export default class CustomerService extends ApiService {
 
   public isLogged() {
     const { customerId } = new SessionDataStorage().getData();
-    return !!customerId; 
+    return !!customerId;
   }
 }
