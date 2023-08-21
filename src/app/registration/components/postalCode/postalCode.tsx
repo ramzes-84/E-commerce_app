@@ -1,13 +1,13 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
+import { IAddress } from '../../page';
 import React, { useState } from 'react';
 
 interface PostalCodeProps {
   country: string;
   postalCode: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
 }
 
 export default function PostalCode({ country, postalCode, setFormData }: PostalCodeProps) {

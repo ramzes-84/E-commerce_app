@@ -2,11 +2,11 @@
 
 import style from '../../page.module.css';
 import React from 'react';
-import { IFormData } from '../../page';
+import { IAddress } from '../../page';
 
 interface CountryProps {
   country: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
 }
 
 export default function SelectCountry({ country, setFormData }: CountryProps) {

@@ -2,18 +2,17 @@
 
 import style from './page.module.css';
 import React, { useEffect, useState } from 'react';
-import SelectCountry from './components/selectCountry/selectCountry';
-import PostalCode from './components/postalCode/postalCode';
 import EmailValid from './components/email/emailValid';
 import PasswordValid from './components/password/passwordValid';
 import FirstNameValid from './components/firstName/firstNameValid';
 import LastNameValid from './components/lastName/lastNameValid';
-import StreetValid from './components/streetValid/streetValid';
-import CityValid from './components/city/cityValid';
 import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
 import { autoLogin, register } from './register-actions';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import ShippingAddress from './components/sippingAddress/shippingAddress';
+import BillingAddress from './components/billingAddress/billingAddress';
+import CheckboxAddress from './components/checkbox/checkbox';
 
 export interface IFormData {
   email: string;
@@ -21,10 +20,15 @@ export interface IFormData {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
+}
+
+export interface IAddress {
   streetName: string;
   city: string;
   postalCode: string;
   country: string;
+  defaultShippingAddress?: boolean;
+  defaultBillingAddress?: boolean;
 }
 
 export default function Page() {
@@ -35,11 +39,30 @@ export default function Page() {
     firstName: '',
     lastName: '',
     dateOfBirth: '',
+  });
+
+  const [formShippingAddress, setFormShippingAddress] = useState<IAddress>({
     streetName: '',
     city: '',
     postalCode: '',
     country: '',
-  });
+    defaultShippingAddress: false,
+  })
+
+  const [formBillingAddress, setFormBillingAddress] = useState<IAddress>({
+    streetName: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    defaultBillingAddress: false,
+  })
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
+  }
+  const styleColumns = !isChecked ? ' column-1 gap-6 lg:columns-3 md:columns-1 font-serif mb-6 ' : ' column-1 gap-6 lg:columns-2 md:columns-1 font-serif mb-6 ';
 
   const [formValid, setFormValid] = useState(false);
 
@@ -56,10 +79,10 @@ export default function Page() {
     const passwordValid = passwordRegex.test(formData.password);
     const firstNameValid = firstNameRegex.test(formData.firstName);
     const lastNameValid = lastNameRegex.test(formData.lastName);
-    const streetValid = streetRegex.test(formData.streetName);
-    const cityValid = cityRegex.test(formData.city);
-    const postalCodeValid = postalCodeRegex.test(formData.postalCode);
-    const countryValid = countryRegex.test(formData.country);
+    const streetValid = streetRegex.test(formShippingAddress.streetName);
+    const cityValid = cityRegex.test(formShippingAddress.city);
+    const postalCodeValid = postalCodeRegex.test(formShippingAddress.postalCode);
+    const countryValid = countryRegex.test(formShippingAddress.country);
     setFormValid(
       emailValid &&
         passwordValid &&
@@ -70,12 +93,12 @@ export default function Page() {
         postalCodeValid &&
         countryValid
     );
-  }, [formData]);
+  }, [formData, formShippingAddress]);
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (formValid) {
-      await register(formData)
+      await register(formData, formShippingAddress, formBillingAddress)
         .then(() => {
           autoLogin(formData);
           setRegSuccess(true);
@@ -102,7 +125,7 @@ export default function Page() {
       <div className={style.container}>
         <form id="formRegistr" onSubmit={handleRegistration}>
           <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">Registration</h2>
-          <div className="column-1 gap-6 md:columns-2  font-serif mb-6">
+          <div className={styleColumns}>
             <div>
               <div>
                 <EmailValid email={formData.email} setFormData={setFormData} />
@@ -120,21 +143,11 @@ export default function Page() {
                 <DataOfBirthValid dateOfBirth={formData.dateOfBirth} setFormData={setFormData} />
               </div>
             </div>
-            <div className="adress-field">
-              <h3 className="ml-2.5 text-lg">Address fields:</h3>
-              <div>
-                <StreetValid streetName={formData.streetName} setFormData={setFormData} />
-              </div>
-              <div>
-                <CityValid city={formData.city} setFormData={setFormData} />
-              </div>
-              <div>
-                <PostalCode country={formData.country} postalCode={formData.postalCode} setFormData={setFormData} />
-              </div>
-              <div>
-                <SelectCountry country={formData.country} setFormData={setFormData} />
-              </div>
-            </div>
+            <ShippingAddress formShippingAddress={formShippingAddress} setFormShippingAddress={setFormShippingAddress}/>
+            <CheckboxAddress label='Use for Billing address' checked={isChecked} onChange={handleCheckboxChange}/>
+            {!isChecked && 
+              <BillingAddress formBillingAddress={formBillingAddress} setFormBillingAddress={setFormBillingAddress}/>
+            }
           </div>
           <button
             onClick={() => {

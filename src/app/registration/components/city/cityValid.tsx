@@ -1,12 +1,12 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
+import { IAddress } from '../../page';
 import React, { useState } from 'react';
 
 interface CityProps {
   city: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
 }
 
 export default function CityValid({ city, setFormData }: CityProps) {
@@ -15,7 +15,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
     setFormData(
-      (prevState): IFormData => ({
+      (prevState): IAddress => ({
         ...prevState,
         city: value,
       })
