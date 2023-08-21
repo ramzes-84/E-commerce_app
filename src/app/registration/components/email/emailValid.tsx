@@ -34,7 +34,7 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
   return (
     <>
       <label className={style.labelInput}>
-        Email:
+        Email: <span className="text-rose-600">*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"

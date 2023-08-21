@@ -2,11 +2,11 @@
 
 import style from '../../page.module.css';
 import React from 'react';
-import { IFormData } from '../../page';
+import { IAddress } from '../../page';
 
 interface CountryProps {
   country: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
 }
 
 export default function SelectCountry({ country, setFormData }: CountryProps) {
@@ -18,7 +18,7 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
   };
   return (
     <label>
-      Country:
+      Country:<span className="text-rose-600">*</span>
       <select
         className={style.selectCountry}
         name="country"
