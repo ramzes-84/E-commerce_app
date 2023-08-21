@@ -16,7 +16,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body>
         <SessionProvider>
-          <Navbar authorized={isLogged ? true : false} />
+          <Navbar authorized={isLogged} />
           {children}
         </SessionProvider>
       </body>
