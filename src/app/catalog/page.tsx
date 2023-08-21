@@ -13,7 +13,6 @@ export default function Page() {
   return (
     <>
       <h1>Catalog Page</h1>
-      <p>Categories: {categories}</p>;
     </>
   );
 }

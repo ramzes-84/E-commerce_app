@@ -15,8 +15,8 @@ export default function ShippingAddress({ formShippingAddress, setFormShippingAd
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
     const checked = event.target.checked;
+    setIsChecked(checked);
     setFormShippingAddress((prev) => ({ ...prev, defaultShippingAddress: checked }));
   };
 

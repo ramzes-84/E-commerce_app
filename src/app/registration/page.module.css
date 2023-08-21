@@ -56,8 +56,9 @@
 .errorMessage {
   position: absolute;
   bottom: 25px;
-  left: 88px;
+  left: 0;
   width: 100%;
+  text-align: end;
   color: rgb(153 27 27);
   font-size: 0.75rem /* 12px */;
   line-height: 1rem /* 16px */;

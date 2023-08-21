@@ -15,8 +15,8 @@ export default function BillingAddress({ formBillingAddress, setFormBillingAddre
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
     const checked = event.target.checked;
+    setIsChecked(checked);
     setFormBillingAddress((prev) => ({ ...prev, defaultBillingAddress: checked }));
   };
 

@@ -85,6 +85,10 @@ export default function Page() {
     const cityValid = cityRegex.test(formShippingAddress.city);
     const postalCodeValid = postalCodeRegex.test(formShippingAddress.postalCode);
     const countryValid = countryRegex.test(formShippingAddress.country);
+    const streetValidBilling = streetRegex.test(formBillingAddress.streetName);
+    const cityValidBilling = cityRegex.test(formBillingAddress.city);
+    const postalCodeValidBilling = postalCodeRegex.test(formBillingAddress.postalCode);
+    const countryValidBilling = countryRegex.test(formBillingAddress.country);
     setFormValid(
       emailValid &&
         passwordValid &&
@@ -93,14 +97,21 @@ export default function Page() {
         streetValid &&
         cityValid &&
         postalCodeValid &&
-        countryValid
+        countryValid &&
+        streetValidBilling &&
+        cityValidBilling &&
+        postalCodeValidBilling &&
+        countryValidBilling
     );
-  }, [formData, formShippingAddress]);
+  }, [formData, formShippingAddress, formBillingAddress]);
 
   const handleRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    let shippingAddress = formShippingAddress;
+    let billingAddress;
+    isChecked ? billingAddress = shippingAddress : billingAddress = formBillingAddress;
     if (formValid) {
-      await register(formData, formShippingAddress, formBillingAddress)
+      await register(formData, shippingAddress, billingAddress)
         .then(() => {
           autoLogin(formData);
           setRegSuccess(true);
