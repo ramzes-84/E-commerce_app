@@ -11,7 +11,6 @@ export default function Page() {
       <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">Account section</h2>
       {isLogged && <CustomerInfo />}
       {isLogged && <LogoutButton />}
-      {!isLogged && <p>You are not logged in.</p>}
     </>
   );
 }
