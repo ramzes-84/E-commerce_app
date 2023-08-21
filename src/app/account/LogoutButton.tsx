@@ -8,6 +8,7 @@ export function LogoutButton() {
   const router = useRouter();
   function handleLogout() {
     logout();
+    router.refresh();
     router.push('/login');
   }
 
