@@ -40,7 +40,7 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
   return (
     <>
       <label className={style.labelInput}>
-        Password:
+        Password: <span className='text-rose-600'>*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type={passwordVisible ? 'text' : 'password'}

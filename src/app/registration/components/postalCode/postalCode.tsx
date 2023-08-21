@@ -40,7 +40,7 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
   return (
     <>
       <label className={style.labelInput}>
-        Postal code:
+        Postal code:<span className='text-rose-600'>*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           className={style.input}

@@ -22,7 +22,7 @@ export default function DataOfBirthValid({ dateOfBirth, setFormData }: DataOfBir
 
   return (
     <label>
-      Date of birth:
+      Date of birth:<span className='text-rose-600'>*</span>
       <input
         className={style.input}
         type="date"

@@ -34,7 +34,7 @@ export default function LastNameValid({ lastName, setFormData }: LastNameProps) 
   return (
     <>
       <label className={style.labelInput}>
-        Last Name:
+        Last Name:<span className='text-rose-600'>*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"

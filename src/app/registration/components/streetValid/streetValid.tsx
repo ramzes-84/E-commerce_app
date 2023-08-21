@@ -30,7 +30,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
   return (
     <>
       <label className={style.labelInput}>
-        Street:
+        Street:<span className='text-rose-600'>*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           className={style.input}
