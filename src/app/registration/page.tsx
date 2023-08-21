@@ -109,7 +109,7 @@ export default function Page() {
     event.preventDefault();
     let shippingAddress = formShippingAddress;
     let billingAddress;
-    isChecked ? billingAddress = shippingAddress : billingAddress = formBillingAddress;
+    isChecked ? (billingAddress = shippingAddress) : (billingAddress = formBillingAddress);
     if (formValid) {
       await register(formData, shippingAddress, billingAddress)
         .then(() => {
