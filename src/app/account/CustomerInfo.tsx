@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { getUserInfo } from './account-actions';
-import { Customer } from '@commercetools/platform-sdk';
+import { CustomerService } from '@/service/api';
 
-export function CustomerInfo({ customer }: { customer: Customer }) {
+export async function CustomerInfo() {
+  const customerService = new CustomerService();
+  const customer = await customerService.getCurrentCustomer();
+
   return (
     <>
       <p>Name: {customer.firstName}</p>
