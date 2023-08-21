@@ -45,56 +45,43 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
                   <span className="ml-2">Catalog</span>
                 </Link>
               </li>
-              <li className="nav-item">
+              {authorized && (<li className="nav-item">
                 <Link
                   className={
-                    authorized
-                      ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
-                      : 'hidden'
+                    'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                   }
                   href="/account"
                 >
                   <span className="ml-2">Account</span>
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>)}
+              {!authorized && (<li className="nav-item">
                 <Link
-                  className={
-                    authorized
-                      ? 'hidden'
-                      : 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                   }
                   href="/login"
                 >
                   <span className="ml-2">Log in</span>
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>)}
+              {!authorized && (<li className="nav-item">
                 <Link
                   className={
-                    authorized
-                      ? 'hidden'
-                      : 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                    'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
                   }
                   href="/registration"
                 >
                   <span className="ml-2">Register</span>
                 </Link>
-              </li>
-              <li className="nav-item">
+              </li>)}
+              {authorized && (<li className="nav-item">
                 <button
-                  className={
-                    authorized
-                      ? 'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
-                      : 'hidden'
-                  }
-                  onClick={() => {
-                    handleLogout();
-                  }}
+                  className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'
+                  } onClick={() => { handleLogout() }}
                 >
                   <span className="ml-2">Log out</span>
                 </button>
-              </li>
+              </li>)}
             </ul>
           </div>
         </div>
