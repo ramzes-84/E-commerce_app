@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { logout } from './account-actions';
 import style from '../registration/page.module.css';
@@ -11,8 +13,10 @@ export function LogoutButton() {
   }
 
   return (
-    <button className={style.sentFormBtn} onClick={handleLogout}>
-      Logout
-    </button>
+    <form action={handleLogout}>
+      <button className={style.sentFormBtn} type="submit">
+        Logout
+      </button>
+    </form>
   );
 }

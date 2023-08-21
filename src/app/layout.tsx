@@ -5,7 +5,6 @@ import { SessionProvider } from '@/controller/session/client';
 import { PropsWithChildren } from 'react';
 import { CustomerService } from '@/service/api';
 
-
 export const metadata: Metadata = {
   title: 'Cyber Ducks App',
   description: 'E-commerce app for Ostara Glass from The Cyber Ducks',

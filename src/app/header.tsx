@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { logout } from './account/account-actions';
 
-
 export default function Navbar({ authorized }: { authorized: boolean }) {
   const router = useRouter();
   function handleLogout() {
