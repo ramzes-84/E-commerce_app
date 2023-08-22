@@ -41,8 +41,9 @@ export default function LoginForm() {
         setLogingSuccess(true);
         setMsgVisible(true);
       })
-      .catch((err) => {
-        setAuthError(`\u{26A0} There was an error during authorization. ${err.message} \u{26A0}`);
+      .catch((err: Error) => {
+        const errorDesc = err.message;
+        setAuthError(`\u{26A0} There was an error during authorization. ${errorDesc} \u{26A0}`);
         setMsgVisible(true);
       });
   }
