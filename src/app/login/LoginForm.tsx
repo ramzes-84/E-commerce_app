@@ -42,12 +42,10 @@ export default function LoginForm() {
         setLogingSuccess(true);
         setMsgVisible(true);
       })
-      .catch((err: Error) => {
-        errorDesc = err.message;
-      })
+      .catch()
       .then(() => {
         setAuthError(
-          `\u{26A0} There was an error during authorization. There is no user with provided credentials. ${errorDesc} \u{26A0}`
+          `\u{26A0} There was an error during authorization. There is no user with provided credentials.\u{26A0}`
         );
         setMsgVisible(true);
       });
