@@ -18,6 +18,7 @@ export default function LoginForm() {
     password: '',
   });
 
+  let errorDesc: string;
   const [formValid, setFormValid] = useState(false);
   const [authError, setAuthError] = useState('');
   const [loginSuccess, setLogingSuccess] = useState(false);
@@ -42,7 +43,9 @@ export default function LoginForm() {
         setMsgVisible(true);
       })
       .catch((err: Error) => {
-        const errorDesc = err.message;
+        errorDesc = err.message;
+      })
+      .then(() => {
         setAuthError(
           `\u{26A0} There was an error during authorization. There is no user with provided credentials. ${errorDesc} \u{26A0}`
         );
