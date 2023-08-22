@@ -43,7 +43,7 @@ export default function LoginForm() {
       })
       .catch((err: Error) => {
         const errorDesc = err.message;
-        setAuthError(`\u{26A0} There was an error during authorization. ${errorDesc} \u{26A0}`);
+        setAuthError(`\u{26A0} There was an error during authorization. There is no user with provided credentials. ${errorDesc} \u{26A0}`);
         setMsgVisible(true);
       });
   }
