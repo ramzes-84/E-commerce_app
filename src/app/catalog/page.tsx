@@ -1,10 +1,9 @@
-import GetCategories from './GetCategories';
+import Catalog from './Catalog';
 
 export default function Page() {
   return (
     <>
-      <h1>Catalog Page</h1>
-      <GetCategories />;
+      <Catalog />
     </>
   );
 }
