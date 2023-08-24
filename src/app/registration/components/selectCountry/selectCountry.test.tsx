@@ -1,14 +1,14 @@
 import React, { Dispatch } from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { IFormData } from '../../page';
+import { IAddress, IFormData } from '../../page';
 import SelectCountry from './selectCountry';
 
 describe('SelectCountry component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IFormData>> = jest.fn();
+  const setFormData: Dispatch<React.SetStateAction<IAddress>> = jest.fn();
 
   test('renders correctly', () => {
     const { getByLabelText } = render(<SelectCountry country="" setFormData={setFormData} />);
-    const countrySelect = getByLabelText('Country:');
+    const countrySelect = getByLabelText('Country:*');
     expect(countrySelect).toBeInTheDocument();
   });
 
@@ -21,7 +21,7 @@ describe('SelectCountry component', () => {
 
   test('updates country value on select', () => {
     const { getByLabelText } = render(<SelectCountry country="" setFormData={setFormData} />);
-    const countrySelect = getByLabelText('Country:');
+    const countrySelect = getByLabelText('Country:*');
     fireEvent.change(countrySelect, { target: { value: 'US' } });
   });
 });
