@@ -8,20 +8,20 @@ describe('PasswordValid component', () => {
 
   test('renders correctly', () => {
     const { getByLabelText } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const passwordInput = getByLabelText('Password: *');
     expect(passwordInput).toBeInTheDocument();
     expect(passwordInput).toHaveAttribute('type', 'password');
   });
 
   test('updates value on input change', () => {
     const { getByLabelText } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const passwordInput = getByLabelText('Password: *');
     fireEvent.change(passwordInput, { target: { value: '123456mM' } });
   });
 
   test('show error message', () => {
     const { getByLabelText, getByText } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const passwordInput = getByLabelText('Password: *');
 
     fireEvent.change(passwordInput, { target: { value: '12345678' } });
     expect(
@@ -31,7 +31,7 @@ describe('PasswordValid component', () => {
 
   test('does not show error message', () => {
     const { getByLabelText, queryByText } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const passwordInput = getByLabelText('Password: *');
 
     fireEvent.change(passwordInput, { target: { value: '12345678vV' } });
     expect(queryByText('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number')).toBeNull();
@@ -39,7 +39,7 @@ describe('PasswordValid component', () => {
 
   test('toggles password visibility onclick', () => {
     const { getByLabelText, getByRole } = render(<PasswordValid password="" setFormData={setFormData} />);
-    const passwordInput = getByLabelText('Password:');
+    const passwordInput = getByLabelText('Password: *');
     const toggle = getByRole('button');
     fireEvent.click(toggle);
     expect(passwordInput).toHaveAttribute('type', 'text');

@@ -16,13 +16,13 @@ describe('EmailValid component', () => {
 
   test('updates value on input change', () => {
     const { getByLabelText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email:');
+    const emailInput = getByLabelText('Email: *');
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
   });
 
   test('show error message', () => {
     const { getByLabelText, getByText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email:');
+    const emailInput = getByLabelText('Email: *');
 
     fireEvent.change(emailInput, { target: { value: 'exampletest.com' } });
     expect(getByText('Enter email in format example@example.ex')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('EmailValid component', () => {
 
   test('does not show error message', () => {
     const { getByLabelText, queryByText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email:');
+    const emailInput = getByLabelText('Email: *');
 
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
     expect(queryByText('Enter email in format example@example.ex')).toBeNull();
