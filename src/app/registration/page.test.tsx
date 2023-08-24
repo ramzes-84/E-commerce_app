@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 describe('Page component', () => {
- 
   test('should render registration form', () => {
     const { getByText, getByLabelText } = render(<Page />);
     expect(getByText('Registration')).toBeInTheDocument();
@@ -31,10 +30,18 @@ describe('Page component', () => {
     fireEvent.change(passwordInput, { target: { value: '12345678' } });
     fireEvent.change(firstNameInput, { target: { value: '' } });
     fireEvent.change(lastNameInput, { target: { value: '' } });
-    streetInput.forEach(i => { fireEvent.change(i, { target: { value: '' } }) });
-    cityInput.forEach(i => { fireEvent.change(i, { target: { value: '123' } }) });
-    postalCodeInput.forEach(i => { fireEvent.change(i, { target: { value: '1234' } }) })
-    countryInput.forEach(i => { fireEvent.change(i, { target: { value: '' } }) });
+    streetInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: '' } });
+    });
+    cityInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: '123' } });
+    });
+    postalCodeInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: '1234' } });
+    });
+    countryInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: '' } });
+    });
 
     await waitFor(() => {
       expect(registerButton).toBeDisabled();
@@ -58,10 +65,18 @@ describe('Page component', () => {
     fireEvent.change(passwordInput, { target: { value: '123456bB' } });
     fireEvent.change(firstNameInput, { target: { value: 'Elena' } });
     fireEvent.change(lastNameInput, { target: { value: 'Doe' } });
-    streetInput.forEach(i => { fireEvent.change(i, { target: { value: 'Baker Street' } }) });
-    cityInput.forEach(i => { fireEvent.change(i, { target: { value: 'London' } }) });
-    postalCodeInput.forEach(i => { fireEvent.change(i, { target: { value: '12345' } }) });
-    countryInput.forEach(i => { fireEvent.change(i, { target: { value: 'BY' } }) });
+    streetInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: 'Baker Street' } });
+    });
+    cityInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: 'London' } });
+    });
+    postalCodeInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: '12345' } });
+    });
+    countryInput.forEach((i) => {
+      fireEvent.change(i, { target: { value: 'BY' } });
+    });
 
     await waitFor(() => {
       expect(registerButton).toBeEnabled();

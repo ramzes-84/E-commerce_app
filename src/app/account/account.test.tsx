@@ -4,7 +4,7 @@ import Page from './page';
 import '@testing-library/jest-dom';
 import { getUserInfo, logout } from '../account/account-actions';
 
-jest.mock('@/service/api')
+jest.mock('@/service/api');
 
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
