@@ -17,12 +17,12 @@ describe('Page component', () => {
     const { getByLabelText, getByText, getAllByLabelText } = render(<Page />);
     const emailInput = getByLabelText('Email: *');
     const passwordInput = getByLabelText('Password: *');
-    const firstNameInput = getByLabelText('First Name:*');
-    const lastNameInput = getByLabelText('Last Name:*');
-    const streetInput = getAllByLabelText('Street:*');
-    const cityInput = getAllByLabelText('City:*');
-    const postalCodeInput = getAllByLabelText('Postal code:*');
-    const countryInput = getAllByLabelText('Country:*');
+    const firstNameInput = getByLabelText('First Name: *');
+    const lastNameInput = getByLabelText('Last Name: *');
+    const streetInput = getAllByLabelText('Street: *');
+    const cityInput = getAllByLabelText('City: *');
+    const postalCodeInput = getAllByLabelText('Postal code: *');
+    const countryInput = getAllByLabelText('Country: *');
 
     const registerButton = getByText('Register');
 
@@ -52,12 +52,12 @@ describe('Page component', () => {
     const { getByLabelText, getByText, getAllByLabelText } = render(<Page />);
     const emailInput = getByLabelText('Email: *');
     const passwordInput = getByLabelText('Password: *');
-    const firstNameInput = getByLabelText('First Name:*');
-    const lastNameInput = getByLabelText('Last Name:*');
-    const streetInput = getAllByLabelText('Street:*');
-    const cityInput = getAllByLabelText('City:*');
-    const postalCodeInput = getAllByLabelText('Postal code:*');
-    const countryInput = getAllByLabelText('Country:*');
+    const firstNameInput = getByLabelText('First Name: *');
+    const lastNameInput = getByLabelText('Last Name: *');
+    const streetInput = getAllByLabelText('Street: *');
+    const cityInput = getAllByLabelText('City: *');
+    const postalCodeInput = getAllByLabelText('Postal code: *');
+    const countryInput = getAllByLabelText('Country: *');
 
     const registerButton = getByText('Register');
 

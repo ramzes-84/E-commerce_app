@@ -8,8 +8,8 @@ describe('Login page', () => {
   it('render registration form', () => {
     const { getByText, getByLabelText } = render(<LoginForm />);
 
-    expect(getByLabelText('Email:')).toBeInTheDocument();
-    expect(getByLabelText('Password:')).toBeInTheDocument();
+    expect(getByLabelText('Email: *')).toBeInTheDocument();
+    expect(getByLabelText('Password: *')).toBeInTheDocument();
     expect(getByText('Reset form')).toBeInTheDocument();
     expect(getByText('Submit form')).toBeInTheDocument();
   });

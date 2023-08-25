@@ -15,14 +15,14 @@ describe('EmailValid component', () => {
   });
 
   test('updates value on input change', () => {
-    const { getByLabelText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email: *');
+    render(<EmailValid email="" setFormData={setFormData} />);
+    const emailInput: HTMLInputElement = screen.getByRole('textbox');
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
   });
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email: *');
+    const { getByText } = render(<EmailValid email="" setFormData={setFormData} />);
+    const emailInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(emailInput, { target: { value: 'exampletest.com' } });
     expect(
@@ -31,8 +31,8 @@ describe('EmailValid component', () => {
   });
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email: *');
+    const { queryByText } = render(<EmailValid email="" setFormData={setFormData} />);
+    const emailInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
     expect(queryByText('Enter email in format example@example.ex without leading or trailing whitespace')).toBeNull();
