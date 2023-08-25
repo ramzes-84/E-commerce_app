@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { IAddress } from '../../page';
-import CheckboxAddress from '../checkbox/checkbox';
+import { IAddress, IFormData } from '../../page';
+import CheckboxAddress from '../../elements/checkbox/checkbox';
 import CityValid from '../city/cityValid';
 import PostalCode from '../postalCode/postalCode';
 import SelectCountry from '../selectCountry/selectCountry';

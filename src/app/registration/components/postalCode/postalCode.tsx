@@ -1,7 +1,7 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IAddress } from '../../page';
+import { IAddress, IFormData } from '../../page';
 import React, { useState } from 'react';
 
 interface PostalCodeProps {

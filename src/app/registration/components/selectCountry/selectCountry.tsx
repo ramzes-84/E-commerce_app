@@ -2,7 +2,7 @@
 
 import style from '../../page.module.css';
 import React from 'react';
-import { IAddress } from '../../page';
+import { IAddress, IFormData } from '../../page';
 
 interface CountryProps {
   country: string;

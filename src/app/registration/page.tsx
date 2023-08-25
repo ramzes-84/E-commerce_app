@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ShippingAddress from './components/sippingAddress/shippingAddress';
 import BillingAddress from './components/billingAddress/billingAddress';
-import CheckboxAddress from './components/checkbox/checkbox';
+import CheckboxAddress from './elements/checkbox/checkbox';
 
 export interface IFormData {
   email: string;
@@ -70,7 +70,7 @@ export default function Page() {
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
+    const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zа-яA-ZА-Я\d\S]{8,}$/;
     const firstNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/;
     const lastNameRegex = /^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$/;
     const streetRegex = /^.+$/;
