@@ -10,17 +10,11 @@ interface PasswordProps {
   setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
-const infoInput = {
-  name: 'password',
-  pattern: '^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*d)[a-zа-яA-ZА-ЯdS]{8,}$',
-  textMistake: 'Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number',
-};
-
 export default function PasswordValid({ password, setFormData }: PasswordProps) {
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData(
       (prevState): IFormData => ({
@@ -54,7 +48,7 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
           pattern="^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$"
           minLength={8}
           value={password}
-          onChange={handlePasswordChange}
+          onChange={handleInputChange}
           className={style.input}
         />
       </label>

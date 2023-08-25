@@ -14,7 +14,7 @@ export default function PasswordValidLogin({ password, setFormData }: PasswordPr
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData(
       (prevState): IFormDataLogin => ({
@@ -48,13 +48,13 @@ export default function PasswordValidLogin({ password, setFormData }: PasswordPr
           pattern="^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$"
           minLength={8}
           value={password}
-          onChange={handlePasswordChange}
+          onChange={handleInputChange}
           className={style.input}
         />
       </label>
-      <span className="absolute bottom-3.5 right-1 cursor-pointer" onClick={togglePasswordVisibility}>
+      <button type='button' className="absolute bottom-3.5 right-1 cursor-pointer" onClick={togglePasswordVisibility}>
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-      </span>
+      </button>
     </>
   );
 }

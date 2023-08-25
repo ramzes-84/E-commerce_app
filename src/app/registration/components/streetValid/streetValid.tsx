@@ -1,9 +1,8 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IAddress, IFormData } from '../../page';
+import { IAddress } from '../../page';
 import React, { useState } from 'react';
-import InputValid from '../../elements/input/inputValid';
 
 interface StreetProps {
   streetName: string;
@@ -11,8 +10,6 @@ interface StreetProps {
 }
 
 const infoInput = {
-  type: 'text',
-  name: 'streetName',
   pattern: '^.+$',
   textMistake: 'Must contain at least one character',
 };
@@ -20,20 +17,38 @@ const infoInput = {
 export default function StreetValid({ streetName, setFormData }: StreetProps) {
   const [error, setError] = useState('');
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value.trim();
+    setFormData(
+      (prevState): IAddress => ({
+        ...prevState,
+        streetName: value,
+      })
+    );
+    if (!value) {
+      setError('');
+      return;
+    }
+    const regexp = new RegExp(infoInput.pattern);
+    if (!regexp.test(value)) {
+      setError(infoInput.textMistake);
+      return;
+    }
+    setError('');
+  };
+
   return (
     <>
       <label className={style.labelInput}>
         Street:<span className="text-rose-600">*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
-        <InputValid
-          className={style.input}
+        <input
           type="text"
-          name={infoInput.name}
+          name="streetName"
+          pattern="^.+$"
           value={streetName}
-          pattern={infoInput.pattern}
-          textMistake={infoInput.textMistake}
-          setError={setError}
-          setFormAddressData={setFormData}
+          onChange={handleInputChange}
+          className={style.input}
         />
       </label>
     </>

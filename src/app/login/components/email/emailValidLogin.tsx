@@ -12,7 +12,7 @@ interface EmailProps {
 export default function EmailLoginValid({ email, setFormData }: EmailProps) {
   const [error, setError] = useState('');
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData(
       (prevState): IFormDataLogin => ({
@@ -42,7 +42,7 @@ export default function EmailLoginValid({ email, setFormData }: EmailProps) {
           multiple={false}
           pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
           value={email}
-          onChange={handleEmailChange}
+          onChange={handleInputChange}
           className={style.input}
         />
       </label>

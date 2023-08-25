@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IAddress, IFormData } from '../../page';
+import { IAddress } from '../../page';
 import CheckboxAddress from '../../elements/checkbox/checkbox';
 import CityValid from '../city/cityValid';
 import PostalCode from '../postalCode/postalCode';

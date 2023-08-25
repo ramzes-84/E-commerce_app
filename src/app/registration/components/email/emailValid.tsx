@@ -1,39 +1,49 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IAddress, IFormData } from '../../page';
+import { IFormData } from '../../page';
 import React, { useState } from 'react';
-import InputValid from '../../elements/input/inputValid';
 
 interface EmailProps {
   email: string;
   setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
-const infoInput = {
-  type: 'text',
-  name: 'email',
-  pattern: '^[^s@]+@[^s@]+.[^s@]+$',
-  textMistake: 'Enter email in format example@example.ex',
-};
-
 export default function EmailValid({ email, setFormData }: EmailProps) {
   const [error, setError] = useState('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value.trim();
+    setFormData(
+      (prevState): IFormData => ({
+        ...prevState,
+        email: value,
+      })
+    );
+    if (!value) {
+      setError('');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setError('Enter email in format example@example.ex without leading or trailing whitespace');
+      return;
+    }
+    setError('');
+  };
 
   return (
     <>
       <label className={style.labelInput}>
         Email: <span className="text-rose-600">*</span>
         {error && <p className={style.errorMessage}>{error}</p>}
-        <InputValid
-          className={style.input}
-          type={infoInput.type}
-          name={infoInput.name}
+        <input
+          type="text"
+          name="email"
+          multiple={false}
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
           value={email}
-          pattern={infoInput.pattern}
-          textMistake={infoInput.textMistake}
-          setError={setError}
-          setFormData={setFormData}
+          onChange={handleInputChange}
+          className={style.input}
         />
       </label>
     </>
