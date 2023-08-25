@@ -12,7 +12,7 @@ interface PasswordProps {
 
 const infoInput = {
   name: 'password',
-  pattern: '^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zа-яA-ZА-Я\d\S]{8,}$',
+  pattern: '^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*d)[a-zа-яA-ZА-ЯdS]{8,}$',
   textMistake: 'Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number',
 };
 

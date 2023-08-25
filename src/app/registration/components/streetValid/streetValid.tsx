@@ -27,7 +27,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
         {error && <p className={style.errorMessage}>{error}</p>}
         <InputValid
           className={style.input}
-          type='text'
+          type="text"
           name={infoInput.name}
           value={streetName}
           pattern={infoInput.pattern}

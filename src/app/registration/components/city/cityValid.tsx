@@ -13,7 +13,7 @@ interface CityProps {
 const infoInput = {
   type: 'text',
   name: 'city',
-  pattern: '^([a-zA-Zа-яА-Я]+-?\s*)+$',
+  pattern: '^([a-zA-Zа-яА-Я]+-?s*)+$',
   textMistake: 'Must contain at least one character and no special characters or numbers',
 };
 

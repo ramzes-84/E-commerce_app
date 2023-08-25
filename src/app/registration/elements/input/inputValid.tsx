@@ -12,7 +12,7 @@ interface InputValidProps {
   minLength?: number;
   textMistake?: string;
   setFormData?: React.Dispatch<React.SetStateAction<IFormData>>;
-  setFormAddressData?: React.Dispatch<React.SetStateAction<IAddress>>
+  setFormAddressData?: React.Dispatch<React.SetStateAction<IAddress>>;
   setError?: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -38,19 +38,18 @@ export default function InputValid({
           ...prevState,
           [name]: valueTarget,
         })
-        )
-      }
+      );
+    }
     if (setFormAddressData) {
       setFormAddressData(
         (prevState): IAddress => ({
           ...prevState,
           [name]: valueTarget,
         })
-      )
+      );
     }
-    if (textMistake && setError)
-    showErrorMessage(valueTarget, pattern, textMistake, setError);
-  }
+    if (textMistake && setError) showErrorMessage(valueTarget, pattern, textMistake, setError);
+  };
   return (
     <>
       <input
