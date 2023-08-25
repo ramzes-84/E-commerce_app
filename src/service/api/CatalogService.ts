@@ -4,6 +4,7 @@ export type ProductCard = {
   name: string;
   mainImage?: string;
   price?: number;
+  description?: string;
 };
 export default class CatalogService extends ApiService {
   public async getCategoriesArr() {
