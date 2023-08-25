@@ -4,6 +4,7 @@ import style from '../../../registration/page.module.css';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IFormDataLogin } from '../../LoginForm';
+import Label from '@/app/registration/elements/wrapper';
 
 interface PasswordProps {
   password: string;
@@ -39,8 +40,7 @@ export default function PasswordValidLogin({ password, setFormData }: PasswordPr
 
   return (
     <>
-      <label className={style.labelInput}>
-        Password:
+      <Label label="Password">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type={passwordVisible ? 'text' : 'password'}
@@ -51,8 +51,8 @@ export default function PasswordValidLogin({ password, setFormData }: PasswordPr
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
-      <button type='button' className="absolute bottom-3.5 right-1 cursor-pointer" onClick={togglePasswordVisibility}>
+      </Label>
+      <button type="button" className="absolute bottom-3.5 right-1 cursor-pointer" onClick={togglePasswordVisibility}>
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
       </button>
     </>

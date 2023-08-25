@@ -4,6 +4,7 @@ import style from '../../page.module.css';
 import { IFormData } from '../../page';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Label from '../../elements/wrapper';
 
 interface PasswordProps {
   password: string;
@@ -39,8 +40,7 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
 
   return (
     <>
-      <label className={style.labelInput}>
-        Password: <span className="text-rose-600">*</span>
+      <Label label="Password">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type={passwordVisible ? 'text' : 'password'}
@@ -51,7 +51,7 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
+      </Label>
       <button className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
       </button>

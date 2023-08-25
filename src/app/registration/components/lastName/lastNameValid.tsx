@@ -3,6 +3,7 @@
 import style from '../../page.module.css';
 import { IFormData } from '../../page';
 import React, { useState } from 'react';
+import Label from '../../elements/wrapper';
 
 interface LastNameProps {
   lastName: string;
@@ -39,8 +40,7 @@ export default function LastNameValid({ lastName, setFormData }: LastNameProps) 
 
   return (
     <>
-      <label className={style.labelInput}>
-        Last Name:<span className="text-rose-600">*</span>
+      <Label label="Last Name">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"
@@ -50,7 +50,7 @@ export default function LastNameValid({ lastName, setFormData }: LastNameProps) 
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
+      </Label>
     </>
   );
 }

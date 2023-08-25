@@ -3,6 +3,7 @@
 import style from '../../page.module.css';
 import { IAddress } from '../../page';
 import React, { useState } from 'react';
+import Label from '../../elements/wrapper';
 
 interface CityProps {
   city: string;
@@ -39,8 +40,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
 
   return (
     <>
-      <label className={style.labelInput}>
-        City:<span className="text-rose-600">*</span>
+      <Label label="City">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"
@@ -50,7 +50,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
+      </Label>
     </>
   );
 }

@@ -3,6 +3,7 @@
 import style from '../../../registration/page.module.css';
 import React, { useState } from 'react';
 import { IFormDataLogin } from '../../LoginForm';
+import Label from '@/app/registration/elements/wrapper';
 
 interface EmailProps {
   email: string;
@@ -33,8 +34,7 @@ export default function EmailLoginValid({ email, setFormData }: EmailProps) {
 
   return (
     <>
-      <label className={style.labelInput}>
-        Email:
+      <Label label="Email">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"
@@ -45,7 +45,7 @@ export default function EmailLoginValid({ email, setFormData }: EmailProps) {
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
+      </Label>
     </>
   );
 }

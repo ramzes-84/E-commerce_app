@@ -3,6 +3,7 @@
 import style from '../../page.module.css';
 import { IAddress } from '../../page';
 import React, { useState } from 'react';
+import Label from '../../elements/wrapper';
 
 interface StreetProps {
   streetName: string;
@@ -39,8 +40,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
 
   return (
     <>
-      <label className={style.labelInput}>
-        Street:<span className="text-rose-600">*</span>
+      <Label label="Street">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"
@@ -50,7 +50,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
+      </Label>
     </>
   );
 }

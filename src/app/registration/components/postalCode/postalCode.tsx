@@ -3,6 +3,7 @@
 import style from '../../page.module.css';
 import { IAddress } from '../../page';
 import React, { useState } from 'react';
+import Label from '../../elements/wrapper';
 
 interface PostalCodeProps {
   country: string;
@@ -47,8 +48,7 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
 
   return (
     <>
-      <label className={style.labelInput}>
-        Postal code:<span className="text-rose-600">*</span>
+      <Label label="Postal code">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           className={style.input}
@@ -58,7 +58,7 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
           onChange={handleInputChange}
           pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
         />
-      </label>
+      </Label>
     </>
   );
 }

@@ -3,6 +3,7 @@
 import style from '../../page.module.css';
 import { IFormData } from '../../page';
 import React, { useState } from 'react';
+import Label from '../../elements/wrapper';
 
 interface EmailProps {
   email: string;
@@ -33,8 +34,7 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
 
   return (
     <>
-      <label className={style.labelInput}>
-        Email: <span className="text-rose-600">*</span>
+      <Label label="Email">
         {error && <p className={style.errorMessage}>{error}</p>}
         <input
           type="text"
@@ -45,7 +45,7 @@ export default function EmailValid({ email, setFormData }: EmailProps) {
           onChange={handleInputChange}
           className={style.input}
         />
-      </label>
+      </Label>
     </>
   );
 }
