@@ -76,10 +76,11 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
           <div className={'md:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')} data-testid="nav">
             <ul className="flex flex-col md:flex-row list-none md:ml-auto font-serif">
               {navItems.map((item) => {
-                if (item.name === 'Catalog') return <NavLink link={item.link ? item.link : ''} name={item.name} />;
-                return item.visibleForAuthorized
-                  ? authorized && <NavLink link={item.link} name={item.name} callback={item.callback} />
-                  : !authorized && <NavLink link={item.link} name={item.name} callback={item.callback} />;
+                return (
+                  (item.visibleForAuthorized === undefined || item.visibleForAuthorized === authorized) && (
+                    <NavLink link={item.link} name={item.name} callback={item.callback} />
+                  )
+                );
               })}
             </ul>
           </div>
