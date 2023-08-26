@@ -6,28 +6,25 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { logout } from './account/account-actions';
 
-function NavLink({ link, name }: { link: string; name: string }) {
+function NavLink({ name, link, callback }: { name: string; link?: string; callback?: () => void }) {
   return (
     <li className="nav-item">
-      <Link
-        className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
-        href={link}
-      >
-        <span className="ml-2">{name}</span>
-      </Link>
-    </li>
-  );
-}
-
-function NavButton({ name, callback }: { name: string; callback: () => void }) {
-  return (
-    <li className="nav-item">
-      <button
-        className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
-        onClick={callback}
-      >
-        <span className="ml-2">{name}</span>
-      </button>
+      {link && (
+        <Link
+          className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+          href={link}
+        >
+          <span className="ml-2">{name}</span>
+        </Link>
+      )}
+      {callback && (
+        <button
+          className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
+          onClick={callback}
+        >
+          <span className="ml-2">{name}</span>
+        </button>
+      )}
     </li>
   );
 }
@@ -80,13 +77,9 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
             <ul className="flex flex-col md:flex-row list-none md:ml-auto font-serif">
               {navItems.map((item) => {
                 if (item.name === 'Catalog') return <NavLink link={item.link ? item.link : ''} name={item.name} />;
-                if (item.name === 'Log out')
-                  return (
-                    authorized && <NavButton callback={item.callback ? item.callback : () => {}} name={item.name} />
-                  );
                 return item.visibleForAuthorized
-                  ? authorized && <NavLink link={item.link ? item.link : ''} name={item.name} />
-                  : !authorized && <NavLink link={item.link ? item.link : ''} name={item.name} />;
+                  ? authorized && <NavLink link={item.link} name={item.name} callback={item.callback} />
+                  : !authorized && <NavLink link={item.link} name={item.name} callback={item.callback} />;
               })}
             </ul>
           </div>
