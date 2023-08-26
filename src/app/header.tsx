@@ -6,6 +6,39 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { logout } from './account/account-actions';
 
+function NavLink({ link, name }: { link: string; name: string }) {
+  return (
+    <li className="nav-item">
+      <Link
+        className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
+        href={link}
+      >
+        <span className="ml-2">{name}</span>
+      </Link>
+    </li>
+  );
+}
+
+function NavButton({ name, callback }: { name: string; callback: () => void }) {
+  return (
+    <li className="nav-item">
+      <button
+        className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
+        onClick={callback}
+      >
+        <span className="ml-2">{name}</span>
+      </button>
+    </li>
+  );
+}
+
+type navItem = {
+  name: string;
+  link?: string | '';
+  visibleForAuthorized?: boolean;
+  callback?: () => void;
+};
+
 export default function Navbar({ authorized }: { authorized: boolean }) {
   const router = useRouter();
   function handleLogout() {
@@ -15,6 +48,14 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
   }
 
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+  const navItems: navItem[] = [
+    { name: 'Catalog', link: '/catalog' },
+    { name: 'Account', visibleForAuthorized: true, link: '/account' },
+    { name: 'Log in', visibleForAuthorized: false, link: '/login' },
+    { name: 'Register', visibleForAuthorized: false, link: '/registration' },
+    { name: 'Log out', visibleForAuthorized: true, callback: () => handleLogout() },
+  ];
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 z-10">
@@ -37,56 +78,16 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
           </div>
           <div className={'md:flex flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')} data-testid="nav">
             <ul className="flex flex-col md:flex-row list-none md:ml-auto font-serif">
-              <li className="nav-item">
-                <Link
-                  className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
-                  href="/catalog"
-                >
-                  <span className="ml-2">Catalog</span>
-                </Link>
-              </li>
-              {authorized && (
-                <li className="nav-item">
-                  <Link
-                    className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
-                    href="/account"
-                  >
-                    <span className="ml-2">Account</span>
-                  </Link>
-                </li>
-              )}
-              {!authorized && (
-                <li className="nav-item">
-                  <Link
-                    className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
-                    href="/login"
-                  >
-                    <span className="ml-2">Log in</span>
-                  </Link>
-                </li>
-              )}
-              {!authorized && (
-                <li className="nav-item">
-                  <Link
-                    className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
-                    href="/registration"
-                  >
-                    <span className="ml-2">Register</span>
-                  </Link>
-                </li>
-              )}
-              {authorized && (
-                <li className="nav-item">
-                  <button
-                    className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
-                    onClick={() => {
-                      handleLogout();
-                    }}
-                  >
-                    <span className="ml-2">Log out</span>
-                  </button>
-                </li>
-              )}
+              {navItems.map((item) => {
+                if (item.name === 'Catalog') return <NavLink link={item.link ? item.link : ''} name={item.name} />;
+                if (item.name === 'Log out')
+                  return (
+                    authorized && <NavButton callback={item.callback ? item.callback : () => {}} name={item.name} />
+                  );
+                return item.visibleForAuthorized
+                  ? authorized && <NavLink link={item.link ? item.link : ''} name={item.name} />
+                  : !authorized && <NavLink link={item.link ? item.link : ''} name={item.name} />;
+              })}
             </ul>
           </div>
         </div>
