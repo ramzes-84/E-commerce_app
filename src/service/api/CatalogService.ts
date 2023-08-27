@@ -23,4 +23,15 @@ export default class CatalogService extends ApiService {
       .execute();
     return products.body.results;
   }
+  
+  public async getProductObjById(productID: string) {
+    const responseProduct = await this.apiRoot
+      .productProjections()
+      .withId({ ID: productID })
+      // .get({queryArgs: {productKey}})
+      // .withKey({key: productKey})
+      .get()
+      .execute();
+    return responseProduct.body;
+  }
 }
