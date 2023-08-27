@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import Page from './page';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LoginForm from './LoginForm';
 

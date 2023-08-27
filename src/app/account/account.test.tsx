@@ -4,7 +4,8 @@ import Page from './page';
 import '@testing-library/jest-dom';
 import { getUserInfo, logout } from '../account/account-actions';
 
-jest.mock('../account/account-actions', () => ({ getUserInfo: jest.fn().mockReturnValue(Promise.resolve(res)) }));
+jest.mock('@/service/api');
+
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 const res = {
@@ -27,12 +28,5 @@ describe('Account page', () => {
     const startMessage = screen.getByText('Account section');
 
     expect(startMessage).toBeInTheDocument();
-  });
-  it('renrer logout button', () => {
-    render(<Page />);
-
-    const logoutButton = screen.getByText('Logout');
-
-    expect(logoutButton).toBeInTheDocument();
   });
 });

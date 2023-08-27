@@ -11,7 +11,14 @@ module.exports = {
     '!<rootDir>/*.config.ts',
     '!<rootDir>/coverage/**',
   ],
-  coverageThreshold: {},
+  coverageThreshold: {
+    global: {
+      branches: 74,
+      functions: 41,
+      lines: 71,
+      statements: 71,
+    },
+  },
   moduleNameMapper: {
     // Handle CSS imports (with CSS modules)
     // https://jestjs.io/docs/webpack#mocking-css-modules

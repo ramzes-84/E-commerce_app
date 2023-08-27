@@ -16,13 +16,13 @@ describe('LastNameValid component', () => {
 
   test('updates value on input change', () => {
     const { getByLabelText } = render(<LastNameValid lastName="" setFormData={setFormData} />);
-    const lastNameInput = getByLabelText('Last Name:');
+    const lastNameInput = getByLabelText('Last Name:*');
     fireEvent.change(lastNameInput, { target: { value: 'Doe' } });
   });
 
   test('show error message', () => {
     const { getByLabelText, getByText } = render(<LastNameValid lastName="" setFormData={setFormData} />);
-    const lastNameInput = getByLabelText('Last Name:');
+    const lastNameInput = getByLabelText('Last Name:*');
 
     fireEvent.change(lastNameInput, { target: { value: '1' } });
     expect(getByText('Must contain at least one character and no special characters or numbers')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('LastNameValid component', () => {
 
   test('does not show error message', () => {
     const { getByLabelText, queryByText } = render(<LastNameValid lastName="" setFormData={setFormData} />);
-    const lastNameInput = getByLabelText('Last Name:');
+    const lastNameInput = getByLabelText('Last Name:*');
 
     fireEvent.change(lastNameInput, { target: { value: 'Doe' } });
     expect(queryByText('Must contain at least one character and no special characters or numbers')).toBeNull();
