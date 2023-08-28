@@ -1,8 +1,7 @@
-import CatalogService, { ProductCard } from '@/service/api/CatalogService';
+import { ProductCard } from '@/service/api/CatalogService';
+import { ProductProjection } from '@commercetools/platform-sdk';
 
-export async function cardsInfo() {
-  const catelogService = new CatalogService();
-  const prods = await catelogService.getAllProducts();
+export function cardsInfo(prods: ProductProjection[]) {
   return prods.map((p) => {
     const product: ProductCard = {
       name: p.name['en-US'],
