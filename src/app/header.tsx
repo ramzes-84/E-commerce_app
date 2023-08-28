@@ -78,7 +78,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
               {navItems.map((item) => {
                 return (
                   (item.visibleForAuthorized === undefined || item.visibleForAuthorized === authorized) && (
-                    <NavLink link={item.link} name={item.name} callback={item.callback} />
+                    <NavLink key={item.name} link={item.link} name={item.name} callback={item.callback} />
                   )
                 );
               })}
