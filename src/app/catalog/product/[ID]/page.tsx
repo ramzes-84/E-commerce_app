@@ -29,8 +29,13 @@ export default async function Page({ params }: { params: { ID: string } }) {
   return (
     <>
       <h1>{productName}</h1>
-      <section className='flex'>
-        <Image src={product.masterVariant.images ? product.masterVariant.images[0].url : '/assets/noImage.png'} alt={productMetaDesc} width={300} height={300} />
+      <section className="flex">
+        <Image
+          src={product.masterVariant.images ? product.masterVariant.images[0].url : '/assets/noImage.png'}
+          alt={productMetaDesc}
+          width={300}
+          height={300}
+        />
         <div>
           <p>Description: {productDesc}</p>
           <p>Meta Description: {productMetaDesc}</p>
