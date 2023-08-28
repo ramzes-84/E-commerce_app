@@ -5,6 +5,7 @@ export type ProductCard = {
   mainImage?: string;
   price?: number;
   description?: string;
+  ID: string;
 };
 export default class CatalogService extends ApiService {
   public async getCategoriesArr() {
@@ -23,15 +24,9 @@ export default class CatalogService extends ApiService {
       .execute();
     return products.body.results;
   }
-  
+
   public async getProductObjById(productID: string) {
-    const responseProduct = await this.apiRoot
-      .productProjections()
-      .withId({ ID: productID })
-      // .get({queryArgs: {productKey}})
-      // .withKey({key: productKey})
-      .get()
-      .execute();
+    const responseProduct = await this.apiRoot.productProjections().withId({ ID: productID }).get().execute();
     return responseProduct.body;
   }
 }

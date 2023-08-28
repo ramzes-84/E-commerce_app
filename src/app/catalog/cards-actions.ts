@@ -9,6 +9,7 @@ export async function cardsInfo() {
       mainImage: p.masterVariant.images ? p.masterVariant.images[0].url : undefined,
       price: p.masterVariant.prices ? p.masterVariant.prices[0].value.centAmount : undefined,
       description: p.metaDescription ? p.metaDescription['en-US'] : undefined,
+      ID: p.id,
     };
     return product;
   });
