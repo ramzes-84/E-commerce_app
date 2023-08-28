@@ -19,7 +19,7 @@ export default function SearchPanel({ categoriesList }: { categoriesList: Catego
 }
 
 export function CategoryLink({ item }: { item: CategoryItem }) {
-  const link = `/catalog/category/${item.id}`;
+  const link = `/catalog/${item.slug}`;
   return item.children ? (
     <>
       <Link href={link} className="hover:opacity-75 my-1 hover:-translate-y-0.5">

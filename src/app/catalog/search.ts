@@ -7,6 +7,7 @@ export type CategoryItem = {
   parent?: string;
   children?: CategoryItem[];
   link?: string;
+  slug: string;
 };
 
 export function categoriesList(cats: Category[]) {
@@ -16,11 +17,18 @@ export function categoriesList(cats: Category[]) {
         name: c.name['en-US'],
         id: c.id,
         key: c.key,
+        slug: c.slug['en-US'],
         parent: c.parent?.obj?.key,
         children: cats
           .filter((ct) => ct.parent?.obj?.key === c.key)
           .map((x) => {
-            const child: CategoryItem = { name: x.name['en-US'], key: x.key, id: x.id, parent: x.parent?.obj?.key };
+            const child: CategoryItem = {
+              name: x.name['en-US'],
+              key: x.key,
+              id: x.id,
+              slug: x.slug['en-US'],
+              parent: x.parent?.obj?.key,
+            };
             return child;
           }),
       };

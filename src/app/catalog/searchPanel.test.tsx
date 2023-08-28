@@ -261,6 +261,7 @@ describe('Category Link', () => {
     const cat1: CategoryItem = {
       name: 'Suncatchers',
       id: '0001',
+      slug: '',
     };
 
     render(<CategoryLink item={cat1} />);
@@ -274,9 +275,10 @@ describe('Category Link', () => {
     const cat2: CategoryItem = {
       name: 'Glass hangings',
       id: '0001',
+      slug: 'hanging',
       children: [
-        { name: 'Panels', id: '0002' },
-        { name: 'Suncatchers', id: '0003' },
+        { name: 'Panels', id: '0002', slug: 'panels' },
+        { name: 'Suncatchers', id: '0003', slug: 'suncatchers' },
       ],
     };
 

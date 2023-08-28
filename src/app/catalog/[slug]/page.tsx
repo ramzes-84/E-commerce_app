@@ -1,10 +1,11 @@
 import CatalogService from '@/service/api/CatalogService';
-import CatalogCard from '../../catalogCard';
-import { cardsInfo } from '../../cards';
+import CatalogCard from '../catalogCard';
+import { cardsInfo } from '../cards';
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { slug: string } }) {
   const catalogService = new CatalogService();
-  const products = await catalogService.getProductsByCategory(params.id);
+  const cat = await catalogService.getCategoryByKey(params.slug);
+  const products = await catalogService.getProductsByCategory(cat.id);
   const list = cardsInfo(products);
   return (
     <>
