@@ -10,7 +10,7 @@ export default function SearchPanel({ categoriesList }: { categoriesList: Catego
       <div className="fixed">
         <h3 className=" text-lg uppercase ">Categories:</h3>
         <Link href="/catalog" className="hover:opacity-75 my-1 hover:-translate-y-0.5">
-          All
+          All Products
         </Link>
         <ul>{cats}</ul>
       </div>

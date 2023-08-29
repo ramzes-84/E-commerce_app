@@ -18,7 +18,7 @@ export default function CatalogCard({ product }: { product: ProductCard }) {
         <div className="flex" style={img}></div>
         <p className="leading-4 text-justify">{product.description}</p>
         <div className="my-3">
-          <span>{product.price ? product.price / 100 : null} USD</span>
+          <span className=" font-bold text-emerald-900">{product.price ? product.price / 100 : null} USD</span>
           <button className="border border-solid border-transparent rounded  bg-emerald-900 text-white cursor-pointer py-1 px-3 ml-6">
             Add to cart
           </button>

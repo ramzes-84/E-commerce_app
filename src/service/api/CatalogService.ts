@@ -21,7 +21,15 @@ export default class CatalogService extends ApiService {
   }
 
   public async getCategoryByKey(key: string) {
-    const categories = await this.apiRoot.categories().withKey({ key }).get().execute();
+    const categories = await this.apiRoot
+      .categories()
+      .withKey({ key })
+      .get({
+        queryArgs: {
+          expand: ['parent'],
+        },
+      })
+      .execute();
     return categories.body;
   }
 
