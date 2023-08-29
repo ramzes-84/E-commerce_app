@@ -1,26 +1,26 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
 import React, { useState } from 'react';
 import Label from '../../elements/wrapper';
 
 interface EmailProps {
   email: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function EmailValid({ email, setFormData }: EmailProps) {
+export default function EmailValid({ email, setEmail }: EmailProps) {
   const [error, setError] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData(
-      (prevState): IFormData => ({
-        ...prevState,
-        email: value,
-      })
-    );
+    setEmail(value);
+    // setFormData(
+    //   (prevState): DataObject => ({
+    //     ...prevState,
+    //     email: value,
+    //   })
+    // );
     if (!value) {
       setError('');
       return;

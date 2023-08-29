@@ -1,28 +1,22 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Label from '../../elements/wrapper';
 
 interface PasswordProps {
-  password: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  password?: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function PasswordValid({ password, setFormData }: PasswordProps) {
+export default function PasswordValid({ password, setPassword }: PasswordProps) {
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData(
-      (prevState): IFormData => ({
-        ...prevState,
-        password: value,
-      })
-    );
+    setPassword(value);
     if (!value) {
       setError('');
       return;

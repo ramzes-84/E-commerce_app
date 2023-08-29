@@ -1,6 +1,5 @@
 import createApiRoot from '@/service/api/client/createApiRoot';
 import { ApiService } from '@/service/api/ApiService';
-import { IAddress, IFormData } from '@/app/registration/page';
 import { SessionDataStorage } from '@/controller/session/server';
 
 export type UserCredentials = { username: string; password: string };
@@ -8,14 +7,35 @@ export type UserCredentials = { username: string; password: string };
 interface CustomerDraft {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   dateOfBirth?: string;
-  addresses?: IAddress[];
+  addresses: IAddress[];
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
   shippingAddresses?: number[];
   billingAddresses?: number[];
+}
+
+export interface IMyCustomer {
+  email: string;
+  password?: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  version: number;
+  addresses: IAddress[];
+  shippingAddressIds?: string[];
+  billingAddressIds?: string[];
+}
+
+export interface IAddress {
+  streetName: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  defaultShippingAddress?: boolean;
+  defaultBillingAddress?: boolean;
 }
 
 export default class CustomerService extends ApiService {
@@ -33,7 +53,11 @@ export default class CustomerService extends ApiService {
     return result.body;
   }
 
-  public async register(formData: IFormData, formShippingAddress: IAddress, formBillingAddress: IAddress) {
+  public async register(
+    formData: { [key: string]: string },
+    formShippingAddress: IAddress,
+    formBillingAddress: IAddress
+  ) {
     const customerDraft: CustomerDraft = {
       email: formData.email,
       password: formData.password,
@@ -66,14 +90,29 @@ export default class CustomerService extends ApiService {
     }
 
     const result = await this.apiRoot.me().signup().post({ body: customerDraft }).execute();
-    console.log(result.body.customer.addresses[0]);
-    console.log(result.body.customer.addresses[1]);
-
     return result.body;
   }
 
   public isLogged() {
     const { customerId } = new SessionDataStorage().getData();
     return !!customerId;
+  }
+
+  public async updateFieldName(customer: IMyCustomer, fieldName: string, value?: string) {
+    if (customer.version) {
+      const actionArr = {
+        action: `set${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}`,
+        [fieldName]: value,
+      };
+      await this.apiRoot
+        .me()
+        .post({
+          body: {
+            version: customer.version,
+            actions: [actionArr],
+          },
+        })
+        .execute();
+    }
   }
 }

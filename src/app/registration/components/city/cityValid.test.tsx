@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { IAddress, IFormData } from '../../page';
 import { Dispatch } from 'react';
 import CityValid from './cityValid';
+import { IAddress } from '@/service/api/CustomerService';
 
 describe('CityValid component', () => {
   const setFormData: Dispatch<React.SetStateAction<IAddress>> = jest.fn();

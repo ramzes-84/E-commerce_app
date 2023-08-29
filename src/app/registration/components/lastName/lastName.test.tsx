@@ -1,27 +1,26 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { IFormData } from '../../page';
 import { Dispatch } from 'react';
 import LastNameValid from './lastNameValid';
 
 describe('LastNameValid component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IFormData>> = jest.fn();
+  const setLastName: Dispatch<React.SetStateAction<string | undefined>> = jest.fn();
 
   test('renders correctly', () => {
     const lastName = 'Doe';
-    render(<LastNameValid lastName={lastName} setFormData={setFormData} />);
+    render(<LastNameValid lastName={lastName} setLastName={setLastName} />);
     const input: HTMLInputElement = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue(lastName);
   });
 
   test('updates value on input change', () => {
-    render(<LastNameValid lastName="" setFormData={setFormData} />);
+    render(<LastNameValid lastName="" setLastName={setLastName} />);
     const lastNameInput: HTMLInputElement = screen.getByRole('textbox');
     fireEvent.change(lastNameInput, { target: { value: 'Doe' } });
   });
 
   test('show error message', () => {
-    const { getByText } = render(<LastNameValid lastName="" setFormData={setFormData} />);
+    const { getByText } = render(<LastNameValid lastName="" setLastName={setLastName} />);
     const lastNameInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(lastNameInput, { target: { value: '1' } });
@@ -29,7 +28,7 @@ describe('LastNameValid component', () => {
   });
 
   test('does not show error message', () => {
-    const { queryByText } = render(<LastNameValid lastName="" setFormData={setFormData} />);
+    const { queryByText } = render(<LastNameValid lastName="" setLastName={setLastName} />);
     const lastNameInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(lastNameInput, { target: { value: 'Doe' } });

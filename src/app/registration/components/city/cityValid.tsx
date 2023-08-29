@@ -1,9 +1,8 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IAddress } from '../../page';
 import React, { useState } from 'react';
-import Label from '../../elements/wrapper';
+import { IAddress } from '@/service/api/CustomerService';
 
 interface CityProps {
   city: string;
@@ -40,17 +39,15 @@ export default function CityValid({ city, setFormData }: CityProps) {
 
   return (
     <>
-      <Label label="City">
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          type="text"
-          name="city"
-          pattern="^([a-zA-Zа-яА-Я]+-?s*)+$"
-          value={city}
-          onChange={handleInputChange}
-          className={style.input}
-        />
-      </Label>
+      {error && <p className={style.errorMessage}>{error}</p>}
+      <input
+        type="text"
+        name="city"
+        pattern="^([a-zA-Zа-яА-Я]+-?s*)+$"
+        value={city}
+        onChange={handleInputChange}
+        className={style.input}
+      />
     </>
   );
 }

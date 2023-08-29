@@ -1,13 +1,11 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
 import React, { useState } from 'react';
-import Label from '../../elements/wrapper';
 
 interface LastNameProps {
-  lastName: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  lastName?: string;
+  setLastName: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const infoInput = {
@@ -15,17 +13,12 @@ const infoInput = {
   textMistake: 'Must contain at least one character and no special characters or numbers',
 };
 
-export default function LastNameValid({ lastName, setFormData }: LastNameProps) {
+export default function LastNameValid({ lastName, setLastName }: LastNameProps) {
   const [error, setError] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData(
-      (prevState): IFormData => ({
-        ...prevState,
-        lastName: value,
-      })
-    );
+    setLastName(value);
     if (!value) {
       setError('');
       return;
@@ -40,17 +33,16 @@ export default function LastNameValid({ lastName, setFormData }: LastNameProps) 
 
   return (
     <>
-      <Label label="Last Name">
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          type="text"
-          name="lastName"
-          pattern="^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$"
-          value={lastName}
-          onChange={handleInputChange}
-          className={style.input}
-        />
-      </Label>
+      {error && <p className={style.errorMessage}>{error}</p>}
+      <input
+        type="text"
+        name="lastName"
+        pattern="^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$"
+        value={lastName}
+        onChange={handleInputChange}
+        className={style.input}
+        data-testid='lastName-input'
+      />
     </>
   );
 }

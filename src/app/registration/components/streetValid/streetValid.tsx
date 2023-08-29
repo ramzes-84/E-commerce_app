@@ -1,9 +1,8 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IAddress } from '../../page';
 import React, { useState } from 'react';
-import Label from '../../elements/wrapper';
+import { IAddress } from '@/service/api/CustomerService';
 
 interface StreetProps {
   streetName: string;
@@ -40,17 +39,15 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
 
   return (
     <>
-      <Label label="Street">
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          type="text"
-          name="streetName"
-          pattern="^.+$"
-          value={streetName}
-          onChange={handleInputChange}
-          className={style.input}
-        />
-      </Label>
+      {error && <p className={style.errorMessage}>{error}</p>}
+      <input
+        type="text"
+        name="streetName"
+        pattern="^.+$"
+        value={streetName}
+        onChange={handleInputChange}
+        className={style.input}
+      />
     </>
   );
 }

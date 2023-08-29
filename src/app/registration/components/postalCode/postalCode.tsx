@@ -1,9 +1,8 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IAddress } from '../../page';
 import React, { useState } from 'react';
-import Label from '../../elements/wrapper';
+import { IAddress } from '@/service/api/CustomerService';
 
 interface PostalCodeProps {
   country: string;
@@ -48,17 +47,15 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
 
   return (
     <>
-      <Label label="Postal code">
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          className={style.input}
-          type="text"
-          name="postalCode"
-          value={postalCode}
-          onChange={handleInputChange}
-          pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
-        />
-      </Label>
+      {error && <p className={style.errorMessage}>{error}</p>}
+      <input
+        className={style.input}
+        type="text"
+        name="postalCode"
+        value={postalCode}
+        onChange={handleInputChange}
+        pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
+      />
     </>
   );
 }
