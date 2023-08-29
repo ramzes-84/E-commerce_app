@@ -41,7 +41,7 @@ export default function LastNameValid({ lastName, setLastName }: LastNameProps) 
         value={lastName}
         onChange={handleInputChange}
         className={style.input}
-        data-testid='lastName-input'
+        data-testid="lastName-input"
       />
     </>
   );

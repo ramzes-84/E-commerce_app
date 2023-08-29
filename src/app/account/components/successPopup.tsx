@@ -8,7 +8,10 @@ export default function SuccessPopup({ message, successChange, errorChange }: Su
   return (
     <>
       {successChange && (
-        <div className="fixed right-0 bottom-7 mb-4 mr-4 bg-green-500/60 text-white px-4 py-2 rounded-md shadow-md" data-testid="success-popup">
+        <div
+          className="fixed right-0 bottom-7 mb-4 mr-4 bg-green-500/60 text-white px-4 py-2 rounded-md shadow-md"
+          data-testid="success-popup"
+        >
           <p>{message}</p>
         </div>
       )}

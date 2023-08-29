@@ -30,7 +30,7 @@ describe('CustomerInfo', () => {
   };
   it('display if have Customer', () => {
     render(<CustomerInfo customer={mockCustomer} />);
-    
+
     const firstNameField = screen.getByText('Name:');
     const lastNameField = screen.getByText('Lastname:');
     const dateOfBirthField = screen.getByText('Birthday:');
@@ -44,7 +44,7 @@ describe('CustomerInfo', () => {
     const cityField = screen.getAllByText('City:');
     const countryField = screen.getAllByText('Country:');
     const postalCodeField = screen.getAllByText('Postal code:');
-  
+
     expect(firstNameField).toBeInTheDocument();
     expect(lastNameField).toBeInTheDocument();
     expect(dateOfBirthField).toBeInTheDocument();
@@ -56,17 +56,15 @@ describe('CustomerInfo', () => {
     expect(blockBillingAddress).toBeInTheDocument();
     streetField.forEach((i) => {
       expect(i).toBeInTheDocument();
-    })
+    });
     countryField.forEach((i) => {
       expect(i).toBeInTheDocument();
-    })
+    });
     cityField.forEach((i) => {
       expect(i).toBeInTheDocument();
-    })
+    });
     postalCodeField.forEach((i) => {
       expect(i).toBeInTheDocument();
-    })
+    });
   });
-})
-
-
+});

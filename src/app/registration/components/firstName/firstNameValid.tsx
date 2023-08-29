@@ -41,7 +41,7 @@ export default function FirstNameValid({ firstName, setFirstName }: FirstNamePro
         value={firstName}
         onChange={handleInputChange}
         className={style.input}
-        data-testid='firstName-input'
+        data-testid="firstName-input"
       />
     </>
   );

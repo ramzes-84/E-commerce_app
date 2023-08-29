@@ -16,7 +16,7 @@ export default function Page() {
       setCustomer(result);
     }
     getDataCustomer();
-  }, [customer])
+  }, [customer]);
 
   return (
     <>
