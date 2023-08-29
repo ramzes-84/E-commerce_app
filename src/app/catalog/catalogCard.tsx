@@ -2,7 +2,7 @@ import { ProductCard } from '@/service/api/CatalogService';
 import Link from 'next/link';
 
 export default function CatalogCard({ product }: { product: ProductCard }) {
-  const link = `/catalog/product/${product.ID}`;
+  const link = `/product/${product.ID}`;
   const img = {
     backgroundImage: `url(${product.mainImage})`,
     width: '9rem',
