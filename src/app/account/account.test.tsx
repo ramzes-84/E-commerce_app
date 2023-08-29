@@ -15,4 +15,12 @@ describe('Account page', () => {
 
     expect(logoutBttn).toBeInTheDocument();
   });
+
+  it('renders a logout button', () => {
+    render(<LogoutButton />);
+
+    const logoutBttn = screen.getByText('Logout');
+
+    expect(logoutBttn).toBeInTheDocument();
+  });
 });
