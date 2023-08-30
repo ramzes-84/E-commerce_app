@@ -1,22 +1,23 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { CustomerInfo } from './CustomerInfo';
 import { LogoutButton } from './LogoutButton';
 import { getUserInfo, userIsLogged } from './account-actions';
-import { IMyCustomer } from '@/service/api/CustomerService';
 
-export default function Page() {
-  const [customer, setCustomer] = useState<IMyCustomer>();
+export default async function Page() {
+  // const [customer, setCustomer] = useState<IMyCustomer>();
   const isLogged = userIsLogged();
+  const customer = await getUserInfo();
 
-  useEffect(() => {
-    async function getDataCustomer() {
-      const result = await getUserInfo();
-      setCustomer(result);
-    }
-    getDataCustomer();
-  }, [customer]);
+  // useEffect(() => {
+  //   async function getDataCustomer() {
+  //     try {
+  //       const result = await getUserInfo();
+  //       setCustomer(result);
+  //     } catch(error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   getDataCustomer();
+  // }, [customer]);
 
   return (
     <>

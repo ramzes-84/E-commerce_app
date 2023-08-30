@@ -1,6 +1,6 @@
 'use server';
 
-import CustomerService, { IMyCustomer } from '@/service/api/CustomerService';
+import CustomerService, { ChangeAddresAction, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 
 export const getUserInfo = async () => {
   const customerService = new CustomerService();
@@ -13,6 +13,8 @@ export const getUserInfo = async () => {
     dateOfBirth: customer.dateOfBirth,
     version: customer.version,
     addresses: customer.addresses.map((address: any) => ({
+      id: address.id,
+      key: address.key,
       streetName: address.streetName,
       city: address.city,
       state: address.state,
@@ -35,7 +37,12 @@ export const userIsLogged = () => {
   return customerServices.isLogged();
 };
 
-export const changeFieldName = async (customer: IMyCustomer, fieldName: string, value?: string) => {
+export const updateUserField = async (customer: IMyCustomer, fieldName: string, action: UpdateAction, value?: string) => {
   const customerService = new CustomerService();
-  if (fieldName) await customerService.updateFieldName(customer, fieldName, value);
+  if (fieldName) await customerService.updateFieldName(customer, fieldName, action, value);
+};
+
+export const updateAddressField = async (customer: IMyCustomer, action: ChangeAddresAction, address: IMyAddress) => {
+  const customerService = new CustomerService();
+  await customerService.changeAddAddress(customer, action, address);
 };

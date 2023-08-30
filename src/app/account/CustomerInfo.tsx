@@ -3,8 +3,8 @@
 import Wrapper from './components/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
 import { useState } from 'react';
-import { changeFieldName } from './account-actions';
-import { IAddress, IMyCustomer } from '@/service/api/CustomerService';
+import { updateAddressField, updateUserField } from './account-actions';
+import { ChangeAddresAction, IAddress, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
 import Border from './components/border';
@@ -23,7 +23,9 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
   const [lastName, setLastName] = useState(customer.lastName);
   const [dateOfBirth, setDateOfBirth] = useState(customer.dateOfBirth);
 
-  const [formShippingAddress, setFormShippingAddress] = useState<IAddress>({
+  const [formShippingAddress, setFormShippingAddress] = useState<IMyAddress>({
+    id: customer.addresses[0].id,
+    key: customer.addresses[0].key,
     streetName: customer.addresses[0].streetName,
     city: customer.addresses[0].city,
     postalCode: customer.addresses[0].postalCode,
@@ -31,7 +33,9 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
     defaultShippingAddress: false,
   });
 
-  const [formBillingAddress, setFormBillingAddress] = useState<IAddress>({
+  const [formBillingAddress, setFormBillingAddress] = useState<IMyAddress>({
+    id: customer.addresses[0].id,
+    key: customer.addresses[0].key,
     streetName: customer.addresses[1].streetName,
     city: customer.addresses[1].city,
     postalCode: customer.addresses[1].postalCode,
@@ -43,10 +47,10 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
   const [successChange, setSuccessChange] = useState(false);
   const [errorChange, setErrorChange] = useState(false);
 
-  const handleFormSubmit = (fieldname: string, value?: string) => {
+  const handleFormSubmit = (fieldname: string, action: UpdateAction, value?: string) => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      await changeFieldName(customer, fieldname, value)
+      await updateUserField(customer, fieldname, action, value)
         .then(() => {
           setSuccessChange(true);
           setChageMessage(`Your Name ${fieldname} is updated!`);
@@ -64,6 +68,27 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
     };
   };
 
+  const handleSubmitChangeAddress = (action: ChangeAddresAction, address: IMyAddress) => {
+    return async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      await updateAddressField(customer, action, address)
+        .then(() => {
+          setSuccessChange(true);
+          setChageMessage(`Your ${address} is updated!`);
+          setTimeout(() => {
+            setSuccessChange(false);
+          }, 3000);
+        })
+        .catch((err) => {
+          setErrorChange(true);
+          setChageMessage(`Oops... Try again, please!`);
+          setTimeout(() => {
+            setErrorChange(false);
+          }, 3000);
+        });
+    };
+  }
+
   return (
     <>
       {customer ? (
@@ -71,28 +96,28 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
           <div className="xl:w-3/6 lg:w-4/6 md:w-4/5 sm:w-4/5">
             <SuccessPopup message={chageMessage} successChange={successChange} errorChange={errorChange} />
             <Border title="Personal information">
-              <Wrapper title="Name:" handleSubmit={handleFormSubmit('firstName', firstName)}>
+              <Wrapper title="Name:" handleSubmit={handleFormSubmit('firstName', 'setFirstName', firstName)}>
                 <FirstNameValid firstName={firstName} setFirstName={setFirstName} />
               </Wrapper>
-              <Wrapper title="Lastname:" handleSubmit={handleFormSubmit('lastName', lastName)}>
+              <Wrapper title="Lastname:" handleSubmit={handleFormSubmit('lastName', 'setLastName',  lastName)}>
                 <LastNameValid lastName={lastName} setLastName={setLastName} />
               </Wrapper>
-              <Wrapper title="Birthday:" handleSubmit={handleFormSubmit('dateOfBirth', dateOfBirth)}>
+              <Wrapper title="Birthday:" handleSubmit={handleFormSubmit('dateOfBirth', 'setDateOfBirth', dateOfBirth)}>
                 <DataOfBirthValid dateOfBirth={dateOfBirth} setDateOfBirth={setDateOfBirth} />
               </Wrapper>
             </Border>
 
             <Border title="Shipping address">
-              <Wrapper title="Street:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="Street:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
                 <StreetValid streetName={formShippingAddress.streetName} setFormData={setFormShippingAddress} />
               </Wrapper>
-              <Wrapper title="City:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="City:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
                 <CityValid city={formShippingAddress.city} setFormData={setFormShippingAddress} />
               </Wrapper>
-              <Wrapper title="Country:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="Country:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
                 <SelectCountry country={formShippingAddress.country} setFormData={setFormShippingAddress} />
               </Wrapper>
-              <Wrapper title="Postal code:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="Postal code:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
                 <PostalCode
                   country={formShippingAddress.country}
                   postalCode={formShippingAddress.postalCode}
@@ -102,16 +127,16 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
             </Border>
 
             <Border title="Billing address">
-              <Wrapper title="Street:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="Street:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
                 <StreetValid streetName={formBillingAddress.streetName} setFormData={setFormBillingAddress} />
               </Wrapper>
-              <Wrapper title="City:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="City:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
                 <CityValid city={formBillingAddress.city} setFormData={setFormBillingAddress} />
               </Wrapper>
-              <Wrapper title="Country:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="Country:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
                 <SelectCountry country={formBillingAddress.country} setFormData={setFormBillingAddress} />
               </Wrapper>
-              <Wrapper title="Postal code:" handleSubmit={handleFormSubmit('firstName')}>
+              <Wrapper title="Postal code:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
                 <PostalCode
                   country={formBillingAddress.country}
                   postalCode={formBillingAddress.postalCode}
