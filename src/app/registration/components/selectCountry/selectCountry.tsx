@@ -1,12 +1,12 @@
 'use client';
 
+import { IMyAddress } from '@/service/api/CustomerService';
 import style from '../../page.module.css';
 import React from 'react';
-import { IAddress } from '@/service/api/CustomerService';
 
 interface CountryProps {
   country: string;
-  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
+  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
 }
 
 export default function SelectCountry({ country, setFormData }: CountryProps) {

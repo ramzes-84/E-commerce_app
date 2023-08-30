@@ -87,7 +87,7 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
           }, 3000);
         });
     };
-  }
+  };
 
   return (
     <>
@@ -99,7 +99,7 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
               <Wrapper title="Name:" handleSubmit={handleFormSubmit('firstName', 'setFirstName', firstName)}>
                 <FirstNameValid firstName={firstName} setFirstName={setFirstName} />
               </Wrapper>
-              <Wrapper title="Lastname:" handleSubmit={handleFormSubmit('lastName', 'setLastName',  lastName)}>
+              <Wrapper title="Lastname:" handleSubmit={handleFormSubmit('lastName', 'setLastName', lastName)}>
                 <LastNameValid lastName={lastName} setLastName={setLastName} />
               </Wrapper>
               <Wrapper title="Birthday:" handleSubmit={handleFormSubmit('dateOfBirth', 'setDateOfBirth', dateOfBirth)}>
@@ -117,7 +117,10 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
               <Wrapper title="Country:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
                 <SelectCountry country={formShippingAddress.country} setFormData={setFormShippingAddress} />
               </Wrapper>
-              <Wrapper title="Postal code:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
+              <Wrapper
+                title="Postal code:"
+                handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}
+              >
                 <PostalCode
                   country={formShippingAddress.country}
                   postalCode={formShippingAddress.postalCode}
@@ -136,7 +139,10 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
               <Wrapper title="Country:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
                 <SelectCountry country={formBillingAddress.country} setFormData={setFormBillingAddress} />
               </Wrapper>
-              <Wrapper title="Postal code:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
+              <Wrapper
+                title="Postal code:"
+                handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}
+              >
                 <PostalCode
                   country={formBillingAddress.country}
                   postalCode={formBillingAddress.postalCode}

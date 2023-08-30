@@ -13,7 +13,7 @@ import Link from 'next/link';
 import ShippingAddress from './components/sippingAddress/shippingAddress';
 import BillingAddress from './components/billingAddress/billingAddress';
 import CheckboxAddress from './elements/checkbox/checkbox';
-import { IAddress } from '@/service/api/CustomerService';
+import { IAddress, IMyAddress } from '@/service/api/CustomerService';
 import Label from './elements/wrapper';
 
 export default function Page() {
@@ -25,7 +25,9 @@ export default function Page() {
   const [lastName, setLastName] = useState<string | undefined>('');
   const [dateOfBirth, setDateOfBirth] = useState<string | undefined>('');
 
-  const [formShippingAddress, setFormShippingAddress] = useState<IAddress>({
+  const [formShippingAddress, setFormShippingAddress] = useState<IMyAddress>({
+    id: '',
+    key: '',
     streetName: '',
     city: '',
     postalCode: '',
@@ -33,7 +35,9 @@ export default function Page() {
     defaultShippingAddress: false,
   });
 
-  const [formBillingAddress, setFormBillingAddress] = useState<IAddress>({
+  const [formBillingAddress, setFormBillingAddress] = useState<IMyAddress>({
+    id: '',
+    key: '',
     streetName: '',
     city: '',
     postalCode: '',
@@ -65,13 +69,13 @@ export default function Page() {
     const passwordValid = passwordRegex.test(password);
     const firstNameValid = firstNameRegex.test(firstName!);
     const lastNameValid = lastNameRegex.test(lastName!);
-    const streetValid = streetRegex.test(formShippingAddress.streetName);
-    const cityValid = cityRegex.test(formShippingAddress.city);
-    const postalCodeValid = postalCodeRegex.test(formShippingAddress.postalCode);
+    const streetValid = streetRegex.test(formShippingAddress.streetName!);
+    const cityValid = cityRegex.test(formShippingAddress.city!);
+    const postalCodeValid = postalCodeRegex.test(formShippingAddress.postalCode!);
     const countryValid = countryRegex.test(formShippingAddress.country);
-    const streetValidBilling = isChecked || streetRegex.test(formBillingAddress.streetName);
-    const cityValidBilling = isChecked || cityRegex.test(formBillingAddress.city);
-    const postalCodeValidBilling = isChecked || postalCodeRegex.test(formBillingAddress.postalCode);
+    const streetValidBilling = isChecked || streetRegex.test(formBillingAddress.streetName!);
+    const cityValidBilling = isChecked || cityRegex.test(formBillingAddress.city!);
+    const postalCodeValidBilling = isChecked || postalCodeRegex.test(formBillingAddress.postalCode!);
     const countryValidBilling = isChecked || countryRegex.test(formBillingAddress.country);
     setFormValid(
       emailValid &&

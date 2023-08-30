@@ -4,12 +4,12 @@ import CityValid from '../city/cityValid';
 import PostalCode from '../postalCode/postalCode';
 import SelectCountry from '../selectCountry/selectCountry';
 import StreetValid from '../streetValid/streetValid';
-import { IAddress } from '@/service/api/CustomerService';
 import Label from '../../elements/wrapper';
+import { IMyAddress } from '@/service/api/CustomerService';
 
 interface IBillingAddressProps {
-  formBillingAddress: IAddress;
-  setFormBillingAddress: React.Dispatch<React.SetStateAction<IAddress>>;
+  formBillingAddress: IMyAddress;
+  setFormBillingAddress: React.Dispatch<React.SetStateAction<IMyAddress>>;
 }
 
 export default function BillingAddress({ formBillingAddress, setFormBillingAddress }: IBillingAddressProps) {

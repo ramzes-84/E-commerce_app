@@ -1,13 +1,13 @@
 'use client';
 
+import { IMyAddress } from '@/service/api/CustomerService';
 import style from '../../page.module.css';
 import React, { useState } from 'react';
-import { IAddress } from '@/service/api/CustomerService';
 
 interface PostalCodeProps {
   country: string;
-  postalCode: string;
-  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
+  postalCode?: string;
+  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
 }
 
 const infoInput = {

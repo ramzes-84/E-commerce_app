@@ -4,11 +4,27 @@ import { SessionDataStorage } from '@/controller/session/server';
 
 export type UserCredentials = { username: string; password: string };
 
-export type UpdateAction = 'setCompanyName' | 'setDateOfBirth' | 'setFirstName' | 'setLastName' | 'setLocale' | 'setMiddleName' | 'setSalutation' | 'setTitle' | 'setVatId';
+export type UpdateAction =
+  | 'setCompanyName'
+  | 'setDateOfBirth'
+  | 'setFirstName'
+  | 'setLastName'
+  | 'setLocale'
+  | 'setMiddleName'
+  | 'setSalutation'
+  | 'setTitle'
+  | 'setVatId';
 
-export type ChangeAction = 'removeAddress' | 'setDefaultShippingAddress' | 'addBillingAddressId' | 'addShippingAddressId' | 'removeBillingAddressId' | 'removeShippingAddressId' | 'setDefaultBillingAddress'
+export type ChangeAction =
+  | 'removeAddress'
+  | 'setDefaultShippingAddress'
+  | 'addBillingAddressId'
+  | 'addShippingAddressId'
+  | 'removeBillingAddressId'
+  | 'removeShippingAddressId'
+  | 'setDefaultBillingAddress';
 
-export type ChangeAddresAction = 'changeAddress' | 'addAddress'
+export type ChangeAddresAction = 'changeAddress' | 'addAddress';
 
 interface CustomerDraft {
   email: string;
@@ -129,19 +145,19 @@ export default class CustomerService extends ApiService {
 
   public async updateFieldName(customer: IMyCustomer, fieldName: string, actionType: UpdateAction, value?: string) {
     if (customer.version && value) {
-        const actionArr: UpdateCustomer = {
-          action: actionType,
-          [fieldName]: value,
-        };
-        await this.apiRoot
-          .me()
-          .post({
-            body: {
-              version: customer.version,
-              actions: [actionArr],
-            },
-          })
-          .execute();
+      const actionArr: UpdateCustomer = {
+        action: actionType,
+        [fieldName]: value,
+      };
+      await this.apiRoot
+        .me()
+        .post({
+          body: {
+            version: customer.version,
+            actions: [actionArr],
+          },
+        })
+        .execute();
     }
   }
 
@@ -154,7 +170,7 @@ export default class CustomerService extends ApiService {
         city: address.city,
         streetName: address.streetName,
         postalCode: address.postalCode,
-      }
+      };
       const actionArr: ChangeAddressCustomer = {
         action: actionType,
         address: myAddress,
@@ -162,14 +178,14 @@ export default class CustomerService extends ApiService {
         addressKey: myAddress.key,
       };
       await this.apiRoot
-          .me()
-          .post({
-            body: {
-              version: customer.version,
-              actions: [actionArr],
-            },
-          })
-          .execute();
+        .me()
+        .post({
+          body: {
+            version: customer.version,
+            actions: [actionArr],
+          },
+        })
+        .execute();
     }
   }
 }

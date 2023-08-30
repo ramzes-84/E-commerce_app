@@ -1,6 +1,11 @@
 'use server';
 
-import CustomerService, { ChangeAddresAction, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
+import CustomerService, {
+  ChangeAddresAction,
+  IMyAddress,
+  IMyCustomer,
+  UpdateAction,
+} from '@/service/api/CustomerService';
 
 export const getUserInfo = async () => {
   const customerService = new CustomerService();
@@ -37,7 +42,12 @@ export const userIsLogged = () => {
   return customerServices.isLogged();
 };
 
-export const updateUserField = async (customer: IMyCustomer, fieldName: string, action: UpdateAction, value?: string) => {
+export const updateUserField = async (
+  customer: IMyCustomer,
+  fieldName: string,
+  action: UpdateAction,
+  value?: string
+) => {
   const customerService = new CustomerService();
   if (fieldName) await customerService.updateFieldName(customer, fieldName, action, value);
 };

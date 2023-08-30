@@ -1,12 +1,12 @@
 'use client';
 
+import { IMyAddress } from '@/service/api/CustomerService';
 import style from '../../page.module.css';
 import React, { useState } from 'react';
-import { IAddress } from '@/service/api/CustomerService';
 
 interface StreetProps {
-  streetName: string;
-  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
+  streetName?: string;
+  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
 }
 
 const infoInput = {
@@ -20,7 +20,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData(
-      (prevState): IAddress => ({
+      (prevState): IMyAddress => ({
         ...prevState,
         streetName: value,
       })

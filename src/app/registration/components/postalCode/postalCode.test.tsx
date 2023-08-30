@@ -1,10 +1,10 @@
 import React, { Dispatch } from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import PostalCode from './postalCode';
-import { IAddress } from '@/service/api/CustomerService';
+import { IMyAddress } from '@/service/api/CustomerService';
 
 describe('PostalCode component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IAddress>> = jest.fn();
+  const setFormData: Dispatch<React.SetStateAction<IMyAddress>> = jest.fn();
 
   test('renders correctly', () => {
     render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);

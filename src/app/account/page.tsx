@@ -3,21 +3,8 @@ import { LogoutButton } from './LogoutButton';
 import { getUserInfo, userIsLogged } from './account-actions';
 
 export default async function Page() {
-  // const [customer, setCustomer] = useState<IMyCustomer>();
   const isLogged = userIsLogged();
   const customer = await getUserInfo();
-
-  // useEffect(() => {
-  //   async function getDataCustomer() {
-  //     try {
-  //       const result = await getUserInfo();
-  //       setCustomer(result);
-  //     } catch(error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   getDataCustomer();
-  // }, [customer]);
 
   return (
     <>
