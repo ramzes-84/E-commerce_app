@@ -1,14 +1,13 @@
-import CatalogService, { ProductCard } from '@/service/api/CatalogService';
+import { ProductCard } from '@/service/api/CatalogService';
+import { ProductProjection } from '@commercetools/platform-sdk';
 
-export async function cardsInfo() {
-  const catelogService = new CatalogService();
-  const prods = await catelogService.getAllProducts();
+export function cardsInfo(prods: ProductProjection[]) {
   return prods.map((p) => {
     const product: ProductCard = {
       name: p.name['en-US'],
       mainImage: p.masterVariant.images ? p.masterVariant.images[0].url : undefined,
       price: p.masterVariant.prices ? p.masterVariant.prices[0].value.centAmount : undefined,
-      description: p.metaDescription ? p.metaDescription['en-US'] : undefined,
+      description: p.description ? p.description['en-US'] : undefined,
       ID: p.id,
     };
     return product;
