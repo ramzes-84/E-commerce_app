@@ -2,13 +2,14 @@
 
 import CustomerService, {
   ChangeAddresAction,
+  ChangeEmail,
   IMyAddress,
   IMyCustomer,
   UpdateAction,
 } from '@/service/api/CustomerService';
 import { Customer } from '@commercetools/platform-sdk';
 
-const returnCustomerData = (newCustomer: Customer | undefined) => {
+export const returnCustomerData = (newCustomer: Customer | undefined) => {
   if (newCustomer) {
     const myCustomer: IMyCustomer = {
       email: newCustomer.email,
@@ -65,6 +66,13 @@ export const updateUserField = async (
 export const updateAddressField = async (customer: IMyCustomer, action: ChangeAddresAction, address: IMyAddress) => {
   const customerService = new CustomerService();
   const newCustomer = await customerService.changeAddAddress(customer, action, address);
+  const result = returnCustomerData(newCustomer);
+  return result;
+};
+
+export const updateEmail = async (customer: IMyCustomer, actionType: ChangeEmail, value: string) => {
+  const customerService = new CustomerService();
+  const newCustomer = await customerService.changeEmail(customer, actionType, value);
   const result = returnCustomerData(newCustomer);
   return result;
 };

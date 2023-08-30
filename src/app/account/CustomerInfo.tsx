@@ -3,8 +3,8 @@
 import Wrapper from './components/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
 import { useState } from 'react';
-import { updateAddressField, updateUserField } from './account-actions';
-import { ChangeAddresAction, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
+import { updateAddressField, updateEmail, updateUserField } from './account-actions';
+import { ChangeAddresAction, ChangeEmail, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
 import Border from './components/border';
@@ -13,6 +13,7 @@ import CityValid from '../registration/components/city/cityValid';
 import SelectCountry from '../registration/components/selectCountry/selectCountry';
 import PostalCode from '../registration/components/postalCode/postalCode';
 import SuccessPopup from './components/successPopup';
+import EmailValid from '../registration/components/email/emailValid';
 
 interface CustomerInfoProps {
   customer: IMyCustomer;
@@ -21,6 +22,7 @@ interface CustomerInfoProps {
 export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
   const [customer, setCustomer] = useState(currentCustomer);
 
+  const [email, setEmail] = useState(customer.email);
   const [firstName, setFirstName] = useState(customer.firstName);
   const [lastName, setLastName] = useState(customer.lastName);
   const [dateOfBirth, setDateOfBirth] = useState(customer.dateOfBirth);
@@ -75,6 +77,18 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
       event.preventDefault();
       try {
         const newCustomer = await updateAddressField(customer, action, address);
+        processResult('Field is update!', newCustomer, true, undefined);
+      } catch {
+        processResult('Oops... Try again, please!', undefined, undefined, true);
+      }
+    };
+  };
+
+  const handleSubmitChangeEmail = (action: ChangeEmail, value: string) => {
+    return async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      try {
+        const newCustomer = await updateEmail(customer, action, value);
         processResult('Field is update!', newCustomer, true, undefined);
       } catch {
         processResult('Oops... Try again, please!', undefined, undefined, true);
@@ -145,9 +159,9 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
             </Border>
 
             <Border title="Login & Security">
-              <p className=" text-lg py-1">
-                <span className=" font-bold text-emerald-800">Email:</span> {customer.email}
-              </p>
+              <Wrapper title="Email:" handleSubmit={handleSubmitChangeEmail('changeEmail', email)}>
+                <EmailValid email={email} setEmail={setEmail} />
+              </Wrapper>
               <p className=" text-lg py-1">
                 <span className=" font-bold text-emerald-800">Password:</span> {customer.password}
               </p>
