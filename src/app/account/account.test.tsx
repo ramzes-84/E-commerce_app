@@ -8,12 +8,12 @@ jest.mock('@/service/api');
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 describe('Account page', () => {
-  it('renders a header', () => {
-    render(<Page />);
+  it('renders a logout button', () => {
+    render(<LogoutButton />);
 
-    const startMessage = screen.getByText('Account section');
+    const logoutBttn = screen.getByText('Logout');
 
-    expect(startMessage).toBeInTheDocument();
+    expect(logoutBttn).toBeInTheDocument();
   });
 
   it('renders a logout button', () => {

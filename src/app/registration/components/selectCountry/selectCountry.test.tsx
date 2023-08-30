@@ -1,14 +1,14 @@
 import React, { Dispatch } from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { IAddress, IFormData } from '../../page';
+import { render, fireEvent, screen } from '@testing-library/react';
 import SelectCountry from './selectCountry';
+import { IMyAddress } from '@/service/api/CustomerService';
 
 describe('SelectCountry component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IAddress>> = jest.fn();
+  const setFormData: Dispatch<React.SetStateAction<IMyAddress>> = jest.fn();
 
   test('renders correctly', () => {
-    const { getByLabelText } = render(<SelectCountry country="" setFormData={setFormData} />);
-    const countrySelect = getByLabelText('Country:*');
+    render(<SelectCountry country="" setFormData={setFormData} />);
+    const countrySelect: HTMLInputElement = screen.getByRole('combobox');
     expect(countrySelect).toBeInTheDocument();
   });
 
@@ -20,8 +20,8 @@ describe('SelectCountry component', () => {
   });
 
   test('updates country value on select', () => {
-    const { getByLabelText } = render(<SelectCountry country="" setFormData={setFormData} />);
-    const countrySelect = getByLabelText('Country:*');
+    render(<SelectCountry country="" setFormData={setFormData} />);
+    const countrySelect: HTMLInputElement = screen.getByRole('combobox');
     fireEvent.change(countrySelect, { target: { value: 'US' } });
   });
 });

@@ -1,37 +1,29 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
 import React from 'react';
 
 interface DataOfBirthProps {
-  dateOfBirth: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  dateOfBirth?: string;
+  setDateOfBirth: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-export default function DataOfBirthValid({ dateOfBirth, setFormData }: DataOfBirthProps) {
-  const handleBirthChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value;
-    setFormData(
-      (prevState): IFormData => ({
-        ...prevState,
-        dateOfBirth: value,
-      })
-    );
+export default function DataOfBirthValid({ dateOfBirth, setDateOfBirth }: DataOfBirthProps) {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setDateOfBirth(event.target.value);
   };
 
   return (
-    <label>
-      Date of birth:<span className="text-rose-600">*</span>
+    <>
       <input
-        className={style.input}
         type="date"
         name="dateOfBirth"
-        value={dateOfBirth}
         min="1900-01-01"
         max={new Date(new Date().setFullYear(new Date().getFullYear() - 14)).toISOString().split('T')[0]}
-        onChange={handleBirthChange}
+        value={dateOfBirth}
+        onChange={handleInputChange}
+        className={style.input}
       />
-    </label>
+    </>
   );
 }

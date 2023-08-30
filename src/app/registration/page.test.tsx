@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import Page from './page';
-import { useRouter } from 'next/navigation';
+import CheckboxAddress from './elements/checkbox/checkbox';
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 describe('Page component', () => {
@@ -17,12 +17,12 @@ describe('Page component', () => {
     const { getByLabelText, getByText, getAllByLabelText } = render(<Page />);
     const emailInput = getByLabelText('Email: *');
     const passwordInput = getByLabelText('Password: *');
-    const firstNameInput = getByLabelText('First Name:*');
-    const lastNameInput = getByLabelText('Last Name:*');
-    const streetInput = getAllByLabelText('Street:*');
-    const cityInput = getAllByLabelText('City:*');
-    const postalCodeInput = getAllByLabelText('Postal code:*');
-    const countryInput = getAllByLabelText('Country:*');
+    const firstNameInput = getByLabelText('First Name: *');
+    const lastNameInput = getByLabelText('Last Name: *');
+    const streetInput = getAllByLabelText('Street: *');
+    const cityInput = getAllByLabelText('City: *');
+    const postalCodeInput = getAllByLabelText('Postal code: *');
+    const countryInput = getAllByLabelText('Country: *');
 
     const registerButton = getByText('Register');
 
@@ -52,12 +52,12 @@ describe('Page component', () => {
     const { getByLabelText, getByText, getAllByLabelText } = render(<Page />);
     const emailInput = getByLabelText('Email: *');
     const passwordInput = getByLabelText('Password: *');
-    const firstNameInput = getByLabelText('First Name:*');
-    const lastNameInput = getByLabelText('Last Name:*');
-    const streetInput = getAllByLabelText('Street:*');
-    const cityInput = getAllByLabelText('City:*');
-    const postalCodeInput = getAllByLabelText('Postal code:*');
-    const countryInput = getAllByLabelText('Country:*');
+    const firstNameInput = getByLabelText('First Name: *');
+    const lastNameInput = getByLabelText('Last Name: *');
+    const streetInput = getAllByLabelText('Street: *');
+    const cityInput = getAllByLabelText('City: *');
+    const postalCodeInput = getAllByLabelText('Postal code: *');
+    const countryInput = getAllByLabelText('Country: *');
 
     const registerButton = getByText('Register');
 
@@ -81,5 +81,25 @@ describe('Page component', () => {
     await waitFor(() => {
       expect(registerButton).toBeEnabled();
     });
+  });
+
+  test('have checkbox whom calls onChange function when clicked', () => {
+    const mockOnChange = jest.fn();
+    const { getByRole } = render(
+      <CheckboxAddress label="Use for Billing address" checked={false} onChange={mockOnChange} />
+    );
+    const checkbox = getByRole('checkbox');
+    fireEvent.click(checkbox);
+    expect(mockOnChange).toHaveBeenCalled();
+  });
+
+  test('have checkbox whom updates isChecked state when clicked', () => {
+    const mockOnChange = jest.fn();
+    const { getByRole } = render(
+      <CheckboxAddress label="Use for Billing address" checked={true} onChange={mockOnChange} />
+    );
+    const checkbox = getByRole('checkbox');
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
   });
 });

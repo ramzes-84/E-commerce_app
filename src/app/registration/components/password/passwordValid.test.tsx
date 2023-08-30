@@ -1,26 +1,25 @@
 import React, { Dispatch } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import PasswordValid from './passwordValid';
-import { IFormData } from '../../page';
 
 describe('PasswordValid component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IFormData>> = jest.fn();
+  const setPassword: Dispatch<React.SetStateAction<string>> = jest.fn();
 
   test('renders correctly', () => {
-    const { getByLabelText } = render(<PasswordValid password="" setFormData={setFormData} />);
+    const { getByLabelText } = render(<PasswordValid password="" setPassword={setPassword} />);
     const passwordInput = getByLabelText('Password: *');
     expect(passwordInput).toBeInTheDocument();
     expect(passwordInput).toHaveAttribute('type', 'password');
   });
 
   test('updates value on input change', () => {
-    const { getByLabelText } = render(<PasswordValid password="" setFormData={setFormData} />);
+    const { getByLabelText } = render(<PasswordValid password="" setPassword={setPassword} />);
     const passwordInput = getByLabelText('Password: *');
     fireEvent.change(passwordInput, { target: { value: '123456mM' } });
   });
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<PasswordValid password="" setFormData={setFormData} />);
+    const { getByLabelText, getByText } = render(<PasswordValid password="" setPassword={setPassword} />);
     const passwordInput = getByLabelText('Password: *');
 
     fireEvent.change(passwordInput, { target: { value: '12345678' } });
@@ -30,7 +29,7 @@ describe('PasswordValid component', () => {
   });
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<PasswordValid password="" setFormData={setFormData} />);
+    const { getByLabelText, queryByText } = render(<PasswordValid password="" setPassword={setPassword} />);
     const passwordInput = getByLabelText('Password: *');
 
     fireEvent.change(passwordInput, { target: { value: '12345678vV' } });
@@ -38,7 +37,7 @@ describe('PasswordValid component', () => {
   });
 
   test('toggles password visibility onclick', () => {
-    const { getByLabelText, getByRole } = render(<PasswordValid password="" setFormData={setFormData} />);
+    const { getByLabelText, getByRole } = render(<PasswordValid password="" setPassword={setPassword} />);
     const passwordInput = getByLabelText('Password: *');
     const toggle = getByRole('button');
     fireEvent.click(toggle);

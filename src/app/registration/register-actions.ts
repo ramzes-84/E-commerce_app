@@ -2,18 +2,21 @@
 
 import { CustomerService } from '@/service/api';
 import { SessionDataStorage } from '@/controller/session/server';
-import { IAddress, IFormData } from './page';
-import { UserCredentials } from '@/service/api/CustomerService';
+import { IAddress, UserCredentials } from '@/service/api/CustomerService';
 
-export const register = async (formData: IFormData, formShippingAddress: IAddress, formBillingAddress: IAddress) => {
+export const register = async (
+  formData: { [key: string]: string },
+  formShippingAddress: IAddress,
+  formBillingAddress: IAddress
+) => {
   const customerService = new CustomerService();
   await customerService.register(formData, formShippingAddress, formBillingAddress);
 };
 
-export const autoLogin = async (formData: IFormData) => {
+export const autoLogin = async (email: string, password: string) => {
   const credentials: UserCredentials = {
-    username: formData.email,
-    password: formData.password,
+    username: email,
+    password: password,
   };
   const customerService = new CustomerService();
   const customer = await customerService.login(credentials);

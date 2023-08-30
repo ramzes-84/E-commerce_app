@@ -1,38 +1,39 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import EmailValid from './emailValid';
-import { IFormData } from '../../page';
 import { Dispatch } from 'react';
 
 describe('EmailValid component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IFormData>> = jest.fn();
+  const setEmail: Dispatch<React.SetStateAction<string>> = jest.fn();
 
   test('renders correctly', () => {
     const email = 'example@example.com';
-    render(<EmailValid email={email} setFormData={setFormData} />);
+    render(<EmailValid email={email} setEmail={setEmail} />);
     const input: HTMLInputElement = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue(email);
   });
 
   test('updates value on input change', () => {
-    const { getByLabelText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email: *');
+    render(<EmailValid email="" setEmail={setEmail} />);
+    const emailInput: HTMLInputElement = screen.getByRole('textbox');
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
   });
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email: *');
+    const { getByText } = render(<EmailValid email="" setEmail={setEmail} />);
+    const emailInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(emailInput, { target: { value: 'exampletest.com' } });
-    expect(getByText('Enter email in format example@example.ex')).toBeInTheDocument();
+    expect(
+      getByText('Enter email in format example@example.ex without leading or trailing whitespace')
+    ).toBeInTheDocument();
   });
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<EmailValid email="" setFormData={setFormData} />);
-    const emailInput = getByLabelText('Email: *');
+    const { queryByText } = render(<EmailValid email="" setEmail={setEmail} />);
+    const emailInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
-    expect(queryByText('Enter email in format example@example.ex')).toBeNull();
+    expect(queryByText('Enter email in format example@example.ex without leading or trailing whitespace')).toBeNull();
   });
 });
