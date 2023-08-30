@@ -14,6 +14,13 @@ describe('CityValid component', () => {
     expect(input).toHaveValue(city);
   });
 
+  test('renders correctly if value is undefined', () => {
+    render(<CityValid city={undefined} setFormData={setFormData} />);
+    const input: HTMLInputElement = screen.getByRole('textbox');
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveValue('');
+  });
+
   test('updates value on input change', () => {
     render(<CityValid city="" setFormData={setFormData} />);
     const cityInput = screen.getByRole('textbox');

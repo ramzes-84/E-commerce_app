@@ -13,6 +13,13 @@ describe('StreetValid component', () => {
     expect(streetInput).toHaveValue('');
   });
 
+  test('renders correctly if value is undefined', () => {
+    render(<StreetValid streetName={undefined} setFormData={setFormData} />);
+    const streetInput: HTMLInputElement = screen.getByRole('textbox');
+    expect(streetInput).toBeInTheDocument();
+    expect(streetInput).toHaveValue('');
+  });
+
   test('updates street value on input change', () => {
     render(<StreetValid streetName="" setFormData={setFormData} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');

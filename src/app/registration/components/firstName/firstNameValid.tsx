@@ -38,7 +38,7 @@ export default function FirstNameValid({ firstName, setFirstName }: FirstNamePro
         type="text"
         name="firstName"
         pattern="^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$"
-        value={firstName}
+        value={firstName ?? ''}
         onChange={handleInputChange}
         className={style.input}
         data-testid="firstName-input"

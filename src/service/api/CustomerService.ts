@@ -144,12 +144,12 @@ export default class CustomerService extends ApiService {
   }
 
   public async updateFieldName(customer: IMyCustomer, fieldName: string, actionType: UpdateAction, value?: string) {
-    if (customer.version && value) {
+    if (value) {
       const actionArr: UpdateCustomer = {
         action: actionType,
         [fieldName]: value,
       };
-      await this.apiRoot
+      const result = await this.apiRoot
         .me()
         .post({
           body: {
@@ -158,6 +158,7 @@ export default class CustomerService extends ApiService {
           },
         })
         .execute();
+      return result.body;
     }
   }
 
@@ -177,7 +178,7 @@ export default class CustomerService extends ApiService {
         addressId: myAddress.id,
         addressKey: myAddress.key,
       };
-      await this.apiRoot
+      const result = await this.apiRoot
         .me()
         .post({
           body: {
@@ -186,6 +187,7 @@ export default class CustomerService extends ApiService {
           },
         })
         .execute();
+      return result.body;
     }
   }
 }

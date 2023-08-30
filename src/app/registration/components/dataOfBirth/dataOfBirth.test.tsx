@@ -1,5 +1,6 @@
 import React, { Dispatch } from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import DataOfBirthValid from './dataOfBirthValid';
 
 describe('DataOfBirthValid component', () => {
   const setDateOfBirth: Dispatch<React.SetStateAction<string | undefined>> = jest.fn();

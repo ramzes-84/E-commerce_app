@@ -4,7 +4,7 @@ import Wrapper from './components/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
 import { useState } from 'react';
 import { updateAddressField, updateUserField } from './account-actions';
-import { ChangeAddresAction, IAddress, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
+import { ChangeAddresAction, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
 import Border from './components/border';
@@ -18,7 +18,9 @@ interface CustomerInfoProps {
   customer: IMyCustomer;
 }
 
-export function CustomerInfo({ customer }: CustomerInfoProps) {
+export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
+  const [customer, setCustomer] = useState(currentCustomer);
+
   const [firstName, setFirstName] = useState(customer.firstName);
   const [lastName, setLastName] = useState(customer.lastName);
   const [dateOfBirth, setDateOfBirth] = useState(customer.dateOfBirth);
@@ -34,14 +36,23 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
   });
 
   const [formBillingAddress, setFormBillingAddress] = useState<IMyAddress>({
-    id: customer.addresses[0].id,
-    key: customer.addresses[0].key,
+    id: customer.addresses[1].id,
+    key: customer.addresses[1].key,
     streetName: customer.addresses[1].streetName,
     city: customer.addresses[1].city,
     postalCode: customer.addresses[1].postalCode,
     country: customer.addresses[1].country,
     defaultShippingAddress: false,
   });
+
+  const processResult = (message: string, newCustomer?: IMyCustomer, isSuccess?: boolean, isError?: boolean) => {
+    isSuccess ? setSuccessChange(isSuccess) : isError ? setErrorChange(isError) : null;
+    setChageMessage(message);
+    setTimeout(() => {
+      isSuccess ? setSuccessChange(!isSuccess) : isError ? setErrorChange(!isError) : null;
+    }, 3000);
+    if (newCustomer) setCustomer(newCustomer);
+  };
 
   const [chageMessage, setChageMessage] = useState('');
   const [successChange, setSuccessChange] = useState(false);
@@ -50,42 +61,24 @@ export function CustomerInfo({ customer }: CustomerInfoProps) {
   const handleFormSubmit = (fieldname: string, action: UpdateAction, value?: string) => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      await updateUserField(customer, fieldname, action, value)
-        .then(() => {
-          setSuccessChange(true);
-          setChageMessage(`Your Name ${fieldname} is updated!`);
-          setTimeout(() => {
-            setSuccessChange(false);
-          }, 3000);
-        })
-        .catch((err) => {
-          setErrorChange(true);
-          setChageMessage(`Oops... Try again, please!`);
-          setTimeout(() => {
-            setErrorChange(false);
-          }, 3000);
-        });
+      try {
+        const newCustomer = await updateUserField(customer, fieldname, action, value);
+        processResult('Field is update!', newCustomer, true, undefined);
+      } catch {
+        processResult('Oops... Try again, please!', undefined, undefined, true);
+      }
     };
   };
 
   const handleSubmitChangeAddress = (action: ChangeAddresAction, address: IMyAddress) => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      await updateAddressField(customer, action, address)
-        .then(() => {
-          setSuccessChange(true);
-          setChageMessage(`Your ${address} is updated!`);
-          setTimeout(() => {
-            setSuccessChange(false);
-          }, 3000);
-        })
-        .catch((err) => {
-          setErrorChange(true);
-          setChageMessage(`Oops... Try again, please!`);
-          setTimeout(() => {
-            setErrorChange(false);
-          }, 3000);
-        });
+      try {
+        const newCustomer = await updateAddressField(customer, action, address);
+        processResult('Field is update!', newCustomer, true, undefined);
+      } catch {
+        processResult('Oops... Try again, please!', undefined, undefined, true);
+      }
     };
   };
 
