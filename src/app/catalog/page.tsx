@@ -1,6 +1,6 @@
 import CatalogService from '@/service/api/CatalogService';
-import CatalogCard from './catalogCard';
-import { cardsInfo } from './cards';
+import CatalogCard from './components/catalogCard';
+import { cardsInfo } from './utils/cards';
 import Link from 'next/link';
 
 export default async function Page() {
@@ -9,11 +9,10 @@ export default async function Page() {
   const productsArr = cardsInfo(prods);
   return (
     <>
-      <div className="flex w-full ml-40 mb-3">
+      <div className="flex w-full ml-40 mb-3 justify-between mr-28">
         <Link
           className=" hover:cursor-pointer hover:underline hover:underline-offset-2 text-lg font-bold text-emerald-900"
-          href="/catalog"
-        >
+          href="/catalog" >
           All products
         </Link>
       </div>

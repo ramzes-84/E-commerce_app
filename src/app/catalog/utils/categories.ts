@@ -10,28 +10,23 @@ export type CategoryItem = {
   slug: string;
 };
 
+function catToCatItem(c: Category):CategoryItem {
+  return {
+    name: c.name['en-US'],
+    id: c.id,
+    key: c.key,
+    slug: c.slug['en-US'],
+    parent: c.parent?.obj?.key,
+  }
+}
+
 export function categoriesList(cats: Category[]) {
   const list = cats
     .map((c) => {
-      const cat: CategoryItem = {
-        name: c.name['en-US'],
-        id: c.id,
-        key: c.key,
-        slug: c.slug['en-US'],
-        parent: c.parent?.obj?.key,
-        children: cats
+      const cat = catToCatItem(c);
+       cat.children=cats
           .filter((ct) => ct.parent?.obj?.key === c.key)
-          .map((x) => {
-            const child: CategoryItem = {
-              name: x.name['en-US'],
-              key: x.key,
-              id: x.id,
-              slug: x.slug['en-US'],
-              parent: x.parent?.obj?.key,
-            };
-            return child;
-          }),
-      };
+          .map((x) => catToCatItem(x))
       return cat;
     })
     .filter((x) => !x.parent);

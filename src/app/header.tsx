@@ -55,7 +55,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
   ];
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 z-10">
+      <nav className="relative flex flex-wrap items-center justify-between px-2  bg-emerald-900 z-10 drop-shadow-md ">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between md:w-auto md:static md:block md:justify-start">
             <Link
