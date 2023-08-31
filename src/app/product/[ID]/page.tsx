@@ -17,7 +17,7 @@ export function DrawAttributes({ attrArr }: { attrArr: Attribute[] }) {
   );
 }
 
-export default async function Page({ params }: { params: { ID: string } }) {
+export async function Page({ params }: { params: { ID: string } }) {
   const catalogService = new CatalogService();
   const product = await catalogService.getProductObjById(params.ID);
 
