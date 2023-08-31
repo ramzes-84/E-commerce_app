@@ -1,13 +1,12 @@
 import CatalogService from '@/service/api/CatalogService';
 import CatalogCard from '../components/catalogCard';
 import { cardsInfo } from '../utils/cards';
-import Breadcrumbs from '../components/breadcrumbs';
 import CatalogNavPanel from '../components/navPanel';
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const catalogService = new CatalogService();
   const cat = await catalogService.getCategoryByKey(params.slug);
-  const products = await catalogService.getProductsByCategory(cat.id);
+  const products = await catalogService.getProductsByFilters({catID: cat.id})
   const list = cardsInfo(products);
   return (
     <>

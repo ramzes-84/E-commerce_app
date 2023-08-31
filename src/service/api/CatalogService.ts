@@ -33,13 +33,16 @@ export default class CatalogService extends ApiService {
     return categories.body;
   }
 
-  public async getProductsByCategory(id: string) {
+  public async getProductsByFilters(filter:{ color?: string, catID?: string, prices?: [number, number]}) {
     const products = await this.apiRoot
       .productProjections()
       .search()
       .get({
         queryArgs: {
-          filter: `categories.id: subtree("${id}")`,
+          filter: [filter.color ? `variants.attributes.glass-color:"${filter.color}"` : '',
+          filter.prices ? `variants.price.centAmount:range (${filter.prices[0] * 100} to ${filter.prices[1] * 100})` : '',
+           filter.catID ? `categories.id: subtree("${filter.catID}")`: ''
+          ].filter(x => x!=='')
         },
       })
       .execute();

@@ -9,6 +9,7 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [priceRangeMin, setPriceRangeMin] = useState(minPrice);
   const [priceRangeMax, setPriceRangeMax] = useState(maxPrice);
+  
   return (
     <>
       <div className="flex flex-col items-end justify-start w-96">
@@ -19,7 +20,7 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
           Filters
         </button>
         {filtersVisible && (
-          <form className="flex " action="/">
+          <form className="flex " action='/' >
             <div className="flex flex-col my-2 mx-2">
               <p className="flex">
                 <label htmlFor="minPrice" className=" w-24 flex font-bold text-emerald-900">
@@ -59,7 +60,7 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
                   return <option key={p}>{p}</option>;
                 })}
               </select>
-              <button className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">Apply</button>
+              <button type='submit' className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">Apply</button>
             </div>
           </form>
         )}
