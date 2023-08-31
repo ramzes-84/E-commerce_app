@@ -38,7 +38,7 @@ export default function LastNameValid({ lastName, setLastName }: LastNameProps) 
         type="text"
         name="lastName"
         pattern="^(?=.*[a-zA-Za-яА-ЯёЁ ])[a-zA-Za-яА-ЯёЁ ]{1,}$"
-        value={lastName}
+        value={lastName ?? ''}
         onChange={handleInputChange}
         className={style.input}
         data-testid="lastName-input"

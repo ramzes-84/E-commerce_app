@@ -139,7 +139,9 @@ export default function Page() {
           <div className={styleColumns}>
             <div>
               <div>
-                <EmailValid email={email} setEmail={setEmail} />
+                <Label label="Email">
+                  <EmailValid email={email} setEmail={setEmail} />
+                </Label>
               </div>
               <div className="relative">
                 <PasswordValid password={password} setPassword={setPassword} />

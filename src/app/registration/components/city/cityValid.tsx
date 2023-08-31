@@ -44,7 +44,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
         type="text"
         name="city"
         pattern="^([a-zA-Zа-яА-Я]+-?s*)+$"
-        value={city}
+        value={city ?? ''}
         onChange={handleInputChange}
         className={style.input}
       />

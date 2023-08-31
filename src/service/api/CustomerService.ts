@@ -26,6 +26,8 @@ export type ChangeAction =
 
 export type ChangeAddresAction = 'changeAddress' | 'addAddress';
 
+export type ChangeEmail = 'changeEmail';
+
 interface CustomerDraft {
   email: string;
   password: string;
@@ -144,12 +146,12 @@ export default class CustomerService extends ApiService {
   }
 
   public async updateFieldName(customer: IMyCustomer, fieldName: string, actionType: UpdateAction, value?: string) {
-    if (customer.version && value) {
+    if (value) {
       const actionArr: UpdateCustomer = {
         action: actionType,
         [fieldName]: value,
       };
-      await this.apiRoot
+      const result = await this.apiRoot
         .me()
         .post({
           body: {
@@ -158,6 +160,7 @@ export default class CustomerService extends ApiService {
           },
         })
         .execute();
+      return result.body;
     }
   }
 
@@ -177,7 +180,7 @@ export default class CustomerService extends ApiService {
         addressId: myAddress.id,
         addressKey: myAddress.key,
       };
-      await this.apiRoot
+      const result = await this.apiRoot
         .me()
         .post({
           body: {
@@ -186,6 +189,24 @@ export default class CustomerService extends ApiService {
           },
         })
         .execute();
+      return result.body;
     }
+  }
+
+  public async changeEmail(customer: IMyCustomer, actionType: ChangeEmail, value: string) {
+    const actionArr = {
+      action: actionType,
+      email: value,
+    };
+    const result = await this.apiRoot
+      .me()
+      .post({
+        body: {
+          version: customer.version,
+          actions: [actionArr],
+        },
+      })
+      .execute();
+    return result.body;
   }
 }

@@ -20,7 +20,7 @@ export default function DataOfBirthValid({ dateOfBirth, setDateOfBirth }: DataOf
         name="dateOfBirth"
         min="1900-01-01"
         max={new Date(new Date().setFullYear(new Date().getFullYear() - 14)).toISOString().split('T')[0]}
-        value={dateOfBirth}
+        value={dateOfBirth ?? ''}
         onChange={handleInputChange}
         className={style.input}
       />

@@ -44,7 +44,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
         type="text"
         name="streetName"
         pattern="^.+$"
-        value={streetName}
+        value={streetName ?? ''}
         onChange={handleInputChange}
         className={style.input}
       />

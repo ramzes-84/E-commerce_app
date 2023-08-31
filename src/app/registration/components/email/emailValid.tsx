@@ -34,18 +34,16 @@ export default function EmailValid({ email, setEmail }: EmailProps) {
 
   return (
     <>
-      <Label label="Email">
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          type="text"
-          name="email"
-          multiple={false}
-          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-          value={email}
-          onChange={handleInputChange}
-          className={style.input}
-        />
-      </Label>
+      {error && <p className={style.errorMessage}>{error}</p>}
+      <input
+        type="text"
+        name="email"
+        multiple={false}
+        pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+        value={email}
+        onChange={handleInputChange}
+        className={style.input}
+      />
     </>
   );
 }

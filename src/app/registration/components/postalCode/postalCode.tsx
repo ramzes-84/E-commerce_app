@@ -52,7 +52,7 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
         className={style.input}
         type="text"
         name="postalCode"
-        value={postalCode}
+        value={postalCode ?? ''}
         onChange={handleInputChange}
         pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
       />
