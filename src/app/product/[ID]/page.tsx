@@ -1,23 +1,8 @@
 import CatalogService from '@/service/api/CatalogService';
 import Slider from './Slider';
-import { Attribute } from '@commercetools/platform-sdk';
+import { DrawAttributes } from './DrawAttributes';
 
-export function DrawAttributes({ attrArr }: { attrArr: Attribute[] }) {
-  const listItems = attrArr.map((attrObj) => (
-    <li key={attrObj.name}>
-      <span className="">{attrObj.name}</span>: {attrObj.value}
-    </li>
-  ));
-
-  return (
-    <ul>
-      <span className=" font-bold text-emerald-800">Attributes:</span>
-      {listItems}
-    </ul>
-  );
-}
-
-export async function Page({ params }: { params: { ID: string } }) {
+export default async function Page({ params }: { params: { ID: string } }) {
   const catalogService = new CatalogService();
   const product = await catalogService.getProductObjById(params.ID);
 
