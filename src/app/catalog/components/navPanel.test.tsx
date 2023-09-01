@@ -3,7 +3,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CatalogNavPanel from './navPanel';
 import { useRouter, usePathname } from 'next/navigation';
-jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue(''), usePathname: jest.fn().mockReturnValue('')}));
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn().mockReturnValue(''),
+  usePathname: jest.fn().mockReturnValue(''),
+}));
 
 const category: Category = {
   id: '85db2e2f-b2bf-491f-a87a-48e446c6a73c',
