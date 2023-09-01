@@ -25,9 +25,9 @@ export default async function Page({
     <>
       <CatalogNavPanel category={cat} products={products} />
       <div className="min-[1100px]:columns-3 gap-6 mx-4 min-[820px]:columns-2 min-[1320px]:columns-4 columns-1 ">
-        {list.map((p) => (
+        {products.length !== 0 ? list.map((p) => (
           <CatalogCard key={p.name} product={p} />
-        ))}
+        )) : <p className=' text-xl text-emerald-900'>No matching results</p>}
       </div>
     </>
   );

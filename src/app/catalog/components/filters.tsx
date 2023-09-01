@@ -68,7 +68,7 @@ export default function FiltersForm({ prods, cat }: { prods: ProductProjection[]
             </div>
             <div className=" w-20 my-2 mx-2">
               <select name="color" onChange={(e) => setColor(e.target.value)}>
-                <option>Color</option>
+                <option value={''}>Color</option>
                 {AttributeList(prods).map((p) => {
                   return (
                     <option key={p} value={p}>

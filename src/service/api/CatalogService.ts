@@ -53,6 +53,7 @@ export default class CatalogService extends ApiService {
               : '',
             filter.catID ? `categories.id: subtree("${filter.catID}")` : '',
           ].filter((x) => x !== ''),
+          limit: 100,
         },
       })
       .execute();
