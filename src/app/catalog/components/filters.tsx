@@ -1,25 +1,30 @@
 'use client';
-import { Category, ProductProjection } from '@commercetools/platform-sdk';
+
+import { ProductProjection } from '@commercetools/platform-sdk';
 import AttributeList from '../utils/attributes';
 import minMaxPrice from '../utils/priceRange';
 import { useState } from 'react';
-import { Filters } from '@/service/api/CatalogService';
+import { usePathname, useRouter } from 'next/navigation';
 
-export default function FiltersForm({ prods, cat }: { prods: ProductProjection[]; cat?: Category }) {
-  const [minPrice, maxPrice] = minMaxPrice(prods);
+export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
-  const [priceRangeMin, setPriceRangeMin] = useState(minPrice);
-  const [priceRangeMax, setPriceRangeMax] = useState(maxPrice);
+  const [priceRangeMin, setPriceRangeMin] = useState(minMaxPrice(prods)[0]);
+  const [priceRangeMax, setPriceRangeMax] = useState(minMaxPrice(prods)[1]);
   const [color, setColor] = useState('');
+  const router = useRouter();
+  const path = usePathname();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    const filter: Filters = {
-      catID: cat?.id,
-      color: color !== '' ? color : undefined,
-      priceFrom: priceRangeMin,
-      priceTo: priceRangeMax,
-    };
-
-    console.log(filter);
+    e.preventDefault();
+    const colorpath = color !== '' ? `color=${color}` : '';
+    const pricePath =
+      priceRangeMin !== minMaxPrice(prods)[0] || priceRangeMax !== minMaxPrice(prods)[1]
+        ? `&priceFrom=${priceRangeMin}&priceTo=${priceRangeMax}`
+        : '';
+    setColor('');
+    setPriceRangeMin(minMaxPrice(prods)[0]);
+    setPriceRangeMax(minMaxPrice(prods)[1]);
+    setFiltersVisible(false);
+    router.push(`${path}?${colorpath}${pricePath}`);
   }
   return (
     <>
@@ -42,7 +47,7 @@ export default function FiltersForm({ prods, cat }: { prods: ProductProjection[]
                   type="number"
                   name="priceFrom"
                   className="w-10"
-                  min={minPrice}
+                  min={minMaxPrice(prods)[0]}
                   max={priceRangeMax - 1}
                   value={priceRangeMin}
                   onChange={(e) => setPriceRangeMin(Number(e.target.value))}
@@ -59,7 +64,7 @@ export default function FiltersForm({ prods, cat }: { prods: ProductProjection[]
                   name="priceTo"
                   className="w-10"
                   min={priceRangeMin + 1}
-                  max={maxPrice}
+                  max={minMaxPrice(prods)[1]}
                   value={priceRangeMax}
                   onChange={(e) => setPriceRangeMax(Number(e.target.value))}
                 ></input>

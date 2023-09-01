@@ -2,6 +2,8 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Filters from './filters';
+import { useRouter, usePathname } from 'next/navigation';
+jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue(''), usePathname: jest.fn().mockReturnValue('')}));
 
 const products: ProductProjection[] = [
   {
@@ -200,8 +202,9 @@ const products: ProductProjection[] = [
   },
 ];
 
-describe('Catalog card', () => {
-  it('renders card', () => {
+describe('Catalog filters', () => {
+  it('renders panel', () => {
+
     render(<Filters prods={products} />);
 
     const btn = screen.getByText('Filters');
