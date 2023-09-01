@@ -13,6 +13,13 @@ describe('FirstNameValid component', () => {
     expect(input).toHaveValue(firstName);
   });
 
+  test('renders correctly if value is undefined', () => {
+    render(<FirstNameValid firstName={undefined} setFirstName={setFirstName} />);
+    const input: HTMLInputElement = screen.getByRole('textbox');
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveValue('');
+  });
+
   test('updates value on input change', () => {
     render(<FirstNameValid firstName="" setFirstName={setFirstName} />);
     const firstNameInput = screen.getByRole('textbox');

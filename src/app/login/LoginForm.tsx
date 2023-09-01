@@ -6,6 +6,7 @@ import { login } from './login-actions';
 import { useState } from 'react';
 import EmailValid from '../registration/components/email/emailValid';
 import PasswordValid from '../registration/components/password/passwordValid';
+import Label from '../registration/elements/wrapper';
 
 export interface IFormDataLogin {
   email: string;
@@ -51,7 +52,9 @@ export default function LoginForm() {
       <div className={style.container + ' font-serif'}>
         <form action={handleSubmit}>
           <div>
-            <EmailValid email={email} setEmail={setEmail} />
+            <Label label="Email">
+              <EmailValid email={email} setEmail={setEmail} />
+            </Label>
           </div>
           <div className="relative">
             <PasswordValid password={password} setPassword={setPassword} />

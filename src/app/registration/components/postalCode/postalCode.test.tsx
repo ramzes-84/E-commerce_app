@@ -12,6 +12,11 @@ describe('PostalCode component', () => {
     expect(postalCodeInput).toBeInTheDocument();
     expect(postalCodeInput).toHaveAttribute('type', 'text');
   });
+  test('renders correctly if value is undefined', () => {
+    render(<PostalCode country="US" postalCode={undefined} setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
+    expect(postalCodeInput).toHaveValue('');
+  });
 
   test('updates value on input change', () => {
     render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
