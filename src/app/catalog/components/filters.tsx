@@ -1,15 +1,26 @@
 'use client';
-import { ProductProjection } from '@commercetools/platform-sdk';
+import { Category, ProductProjection } from '@commercetools/platform-sdk';
 import AttributeList from '../utils/attributes';
 import minMaxPrice from '../utils/priceRange';
 import { useState } from 'react';
+import { Filters } from '@/service/api/CatalogService';
 
-export default function Filters({ prods }: { prods: ProductProjection[] }) {
+export default function FiltersForm({ prods, cat }: { prods: ProductProjection[]; cat?: Category }) {
   const [minPrice, maxPrice] = minMaxPrice(prods);
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [priceRangeMin, setPriceRangeMin] = useState(minPrice);
   const [priceRangeMax, setPriceRangeMax] = useState(maxPrice);
-  
+  const [color, setColor] = useState('');
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const filter: Filters = {
+      catID: cat?.id,
+      color: color !== '' ? color : undefined,
+      priceFrom: priceRangeMin,
+      priceTo: priceRangeMax,
+    };
+
+    console.log(filter);
+  }
   return (
     <>
       <div className="flex flex-col items-end justify-start w-96">
@@ -20,7 +31,7 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
           Filters
         </button>
         {filtersVisible && (
-          <form className="flex " action='/' >
+          <form className="flex " onSubmit={handleSubmit}>
             <div className="flex flex-col my-2 mx-2">
               <p className="flex">
                 <label htmlFor="minPrice" className=" w-24 flex font-bold text-emerald-900">
@@ -29,6 +40,7 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
                 <input
                   id="minPrice"
                   type="number"
+                  name="priceFrom"
                   className="w-10"
                   min={minPrice}
                   max={priceRangeMax - 1}
@@ -44,6 +56,7 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
                 <input
                   id="maxPrice"
                   type="number"
+                  name="priceTo"
                   className="w-10"
                   min={priceRangeMin + 1}
                   max={maxPrice}
@@ -54,13 +67,19 @@ export default function Filters({ prods }: { prods: ProductProjection[] }) {
               </p>
             </div>
             <div className=" w-20 my-2 mx-2">
-              <select name="color" form="colorCheck">
+              <select name="color" onChange={(e) => setColor(e.target.value)}>
                 <option>Color</option>
                 {AttributeList(prods).map((p) => {
-                  return <option key={p}>{p}</option>;
+                  return (
+                    <option key={p} value={p}>
+                      {p}
+                    </option>
+                  );
                 })}
               </select>
-              <button type='submit' className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">Apply</button>
+              <button type="submit" className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">
+                Apply
+              </button>
             </div>
           </form>
         )}

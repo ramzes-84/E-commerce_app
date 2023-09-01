@@ -1,12 +1,25 @@
-import CatalogService from '@/service/api/CatalogService';
+import CatalogService, { Filters } from '@/service/api/CatalogService';
 import CatalogCard from '../components/catalogCard';
 import { cardsInfo } from '../utils/cards';
 import CatalogNavPanel from '../components/navPanel';
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | undefined };
+}) {
   const catalogService = new CatalogService();
   const cat = await catalogService.getCategoryByKey(params.slug);
-  const products = await catalogService.getProductsByFilters({catID: cat.id})
+  const filters: Filters = {
+    color: searchParams.color,
+    priceFrom: Number(searchParams.priceFrom),
+    priceTo: Number(searchParams.priceTo),
+    catID: cat.id,
+  };
+
+  const products = await catalogService.getProductsByFilters(filters);
   const list = cardsInfo(products);
   return (
     <>

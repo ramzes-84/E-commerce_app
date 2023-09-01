@@ -7,6 +7,13 @@ export type ProductCard = {
   description?: string;
   ID: string;
 };
+
+export type Filters = {
+  color?: string;
+  catID?: string;
+  priceFrom?: number;
+  priceTo?: number;
+};
 export default class CatalogService extends ApiService {
   public async getCategoriesArr() {
     const categories = await this.apiRoot
@@ -33,16 +40,19 @@ export default class CatalogService extends ApiService {
     return categories.body;
   }
 
-  public async getProductsByFilters(filter:{ color?: string, catID?: string, prices?: [number, number]}) {
+  public async getProductsByFilters(filter: Filters) {
     const products = await this.apiRoot
       .productProjections()
       .search()
       .get({
         queryArgs: {
-          filter: [filter.color ? `variants.attributes.glass-color:"${filter.color}"` : '',
-          filter.prices ? `variants.price.centAmount:range (${filter.prices[0] * 100} to ${filter.prices[1] * 100})` : '',
-           filter.catID ? `categories.id: subtree("${filter.catID}")`: ''
-          ].filter(x => x!=='')
+          filter: [
+            filter.color ? `variants.attributes.glass-color:"${filter.color}"` : '',
+            filter.priceFrom && filter.priceTo
+              ? `variants.price.centAmount:range (${filter.priceFrom * 100} to ${filter.priceTo * 100})`
+              : '',
+            filter.catID ? `categories.id: subtree("${filter.catID}")` : '',
+          ].filter((x) => x !== ''),
         },
       })
       .execute();
