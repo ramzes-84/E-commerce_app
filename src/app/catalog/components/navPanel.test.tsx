@@ -2,10 +2,14 @@ import { Category, ProductProjection } from '@commercetools/platform-sdk';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CatalogNavPanel from './navPanel';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn().mockReturnValue(''),
   usePathname: jest.fn().mockReturnValue(''),
+  useSearchParams: jest.fn().mockReturnValue({
+    color: "green",
+    has(prp: string) {return  true }
+   }),
 }));
 
 const category: Category = {

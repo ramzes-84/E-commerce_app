@@ -4,7 +4,8 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import AttributeList from '../utils/attributes';
 import minMaxPrice from '../utils/priceRange';
 import { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -13,6 +14,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   const [color, setColor] = useState('');
   const router = useRouter();
   const path = usePathname();
+  const query = useSearchParams();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const colorpath = color !== '' ? `color=${color}` : '';
@@ -82,9 +84,15 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                   );
                 })}
               </select>
-              <button type="submit" className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">
-                Apply
-              </button>
+              {query.has('color') || query.has('priceTo') ? (
+                <Link href={path} className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">
+                  Reset
+                </Link>
+              ) : (
+                <button type="submit" className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">
+                  Apply
+                </button>
+              )}
             </div>
           </form>
         )}
