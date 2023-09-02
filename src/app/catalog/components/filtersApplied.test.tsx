@@ -1,9 +1,18 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import FiltersApplied from './filtersApplied';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn().mockReturnValue(''),
   usePathname: jest.fn().mockReturnValue(''),
+  useSearchParams: jest.fn().mockReturnValue({
+    color: 'green',
+    has(prp: string) {
+      return true;
+    },
+    get(prp: string) {
+      return prp;
+    },
+  }),
 }));
 
 describe('Catalog filters', () => {

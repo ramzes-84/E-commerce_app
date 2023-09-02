@@ -8,6 +8,9 @@ jest.mock('next/navigation', () => ({
     has(prp: string) {
       return true;
     },
+    get(prp: string) {
+      return prp;
+    },
   }),
 }));
 import SortForm from './sort';

@@ -13,9 +13,9 @@ export default function SortForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const sortPath = `sortby=${sort}`;
-    const queryPath = query.toString();
+    const queryPath = query.toString().split('sortby')[0];
     setSortVisible(false);
-    router.push(`${path}?${queryPath}${sortPath}`);
+    router.push(`${path}?${queryPath}${queryPath ? '&' : ''}${sortPath}`);
   }
   return (
     <>
@@ -69,15 +69,23 @@ export default function SortForm() {
                 />
                 Price (max-min)
               </label>
-              {query.has('sortby') ? (
-                <Link href={path} className="w-fit mt-1 px-4 rounded bg-emerald-900 text-white leading-6">
-                  Reset
-                </Link>
-              ) : (
-                <button type="submit" className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6 w-fit">
+              <div className="flex justify-between">
+                {query.has('sortby') && (
+                  <Link
+                    href={`${path}?${query.toString().split('sortby')[0]}`}
+                    className="w-fit mt-1 flex  px-2 rounded bg-emerald-900 text-white leading-6 "
+                  >
+                    Reset
+                  </Link>
+                )}
+                <button
+                  type="submit"
+                  disabled={sort === ''}
+                  className="w-fit mt-1 flex disabled:bg-slate-400  px-2 rounded bg-emerald-900 text-white leading-6"
+                >
                   Apply
                 </button>
-              )}
+              </div>
             </form>
           </div>
         )}
