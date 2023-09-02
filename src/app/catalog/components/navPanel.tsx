@@ -11,7 +11,7 @@ export default function CatalogNavPanel({
 }) {
   return (
     <>
-      <div className="flex w-full ml-40 mb-3 justify-between mr-28">
+      <div className="flex w-2/3 md:w-3/4 lg:w-4/5 xl:w-5/6 mb-3 justify-between md:mx-10 mx-28 flex-col md:flex-row">
         <Breadcrumbs cat={category} />
         <FiltersForm prods={products} />
       </div>

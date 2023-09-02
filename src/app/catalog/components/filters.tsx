@@ -30,7 +30,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   }
   return (
     <>
-      <div className="flex flex-col items-end justify-start w-96">
+      <div className="flex flex-col items-end justify-start w-52 md:w-96">
         <button
           className="w-fit px-5 border-spacing-2 border-2 border-emerald-900 rounded font-bold"
           onClick={() => setFiltersVisible(!filtersVisible)}
@@ -38,7 +38,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
           Filters
         </button>
         {filtersVisible && (
-          <form className="flex " onSubmit={handleSubmit}>
+          <form className="flex flex-col md:flex-row" onSubmit={handleSubmit}>
             <div className="flex flex-col my-2 mx-2">
               <p className="flex">
                 <label htmlFor="minPrice" className=" w-24 flex font-bold text-emerald-900">

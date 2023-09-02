@@ -62,10 +62,11 @@ export default class CatalogService extends ApiService {
 
   public async getAllProducts() {
     const products = await this.apiRoot
-      .productProjections()
+      .productProjections().search()
       .get({
         queryArgs: {
           limit: 100,
+          sort: 'price desc'
         },
       })
       .execute();
