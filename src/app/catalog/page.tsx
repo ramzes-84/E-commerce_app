@@ -1,4 +1,4 @@
-import CatalogService, { Filters } from '@/service/api/CatalogService';
+import CatalogService, { Filters, SortParams } from '@/service/api/CatalogService';
 import CatalogCard from './components/catalogCard';
 import { cardsInfo } from './utils/cards';
 import CatalogNavPanel from './components/navPanel';
@@ -11,8 +11,8 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     priceFrom: searchParams.priceFrom ? Number(searchParams.priceFrom) : undefined,
     priceTo: searchParams.priceTo ? Number(searchParams.priceTo) : undefined,
   };
-
-  const products = await catalogService.getAllProducts();
+  const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
+  const products = await catalogService.getProductsByFilters(filters, sort);
   const productsArr = cardsInfo(products);
   return (
     <>
