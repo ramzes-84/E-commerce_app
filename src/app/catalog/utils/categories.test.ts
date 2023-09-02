@@ -1,5 +1,5 @@
 import { Category } from '@commercetools/platform-sdk';
-import { categoriesList } from './search';
+import { categoriesList } from './categories';
 
 const catList: Category[] = [
   {

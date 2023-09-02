@@ -1,6 +1,3 @@
-import { SessionDataStorage } from '@/controller/session/server';
-import { CustomerService } from '@/service/api';
-import { CustomerCard } from '@/app/CustomerCard';
 import Link from 'next/link';
 
 export default function Home() {
