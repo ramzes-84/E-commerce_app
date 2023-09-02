@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { ProductCard } from '@/service/api/CatalogService';
-import SearchPanel, { CategoryLink } from './searchPanel';
+import SearchPanel from './searchPanel';
 import { Category } from '@commercetools/platform-sdk';
-import { CategoryItem, categoriesList } from './search';
+import { categoriesList } from '../utils/categories';
 
 const catList1: Category[] = [
   {
@@ -253,43 +252,5 @@ describe('Search panel', () => {
     expect(cat1).toBeInTheDocument();
     expect(cat2).toBeInTheDocument();
     expect(cat3).toBeInTheDocument();
-  });
-});
-
-describe('Category Link', () => {
-  it('renders Category link correctly', () => {
-    const cat1: CategoryItem = {
-      name: 'Suncatchers',
-      id: '0001',
-      slug: '',
-    };
-
-    render(<CategoryLink item={cat1} />);
-
-    const category = screen.getByText('Suncatchers');
-
-    expect(category).toBeInTheDocument();
-  });
-
-  it('renders Category link correctly', () => {
-    const cat2: CategoryItem = {
-      name: 'Glass hangings',
-      id: '0001',
-      slug: 'hanging',
-      children: [
-        { name: 'Panels', id: '0002', slug: 'panels' },
-        { name: 'Suncatchers', id: '0003', slug: 'suncatchers' },
-      ],
-    };
-
-    render(<CategoryLink item={cat2} />);
-
-    const category1 = screen.getByText('Suncatchers');
-    const category2 = screen.getByText('Panels');
-    const category3 = screen.getByText('Glass hangings');
-
-    expect(category1).toBeInTheDocument();
-    expect(category2).toBeInTheDocument();
-    expect(category3).toBeInTheDocument();
   });
 });
