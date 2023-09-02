@@ -15,7 +15,7 @@ export interface IFormDataLogin {
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState<string | undefined>('');
 
   const [formValid, setFormValid] = useState(false);
   const [authError, setAuthError] = useState('');
@@ -29,7 +29,7 @@ export default function LoginForm() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
     const emailValid = emailRegex.test(email);
-    const passwordValid = passwordRegex.test(password);
+    const passwordValid = passwordRegex.test(password!);
     setFormValid(emailValid && passwordValid);
   }, [email, password]);
 
@@ -56,9 +56,9 @@ export default function LoginForm() {
               <EmailValid email={email} setEmail={setEmail} />
             </Label>
           </div>
-          <div className="relative">
+          <Label label="Password">
             <PasswordValid password={password} setPassword={setPassword} />
-          </div>
+          </Label>
           <div className="flex gap-4 my-8">
             <span
               className={style.sentFormBtn}

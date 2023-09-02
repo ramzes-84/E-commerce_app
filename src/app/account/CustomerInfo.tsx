@@ -1,19 +1,21 @@
 'use client';
 
-import Wrapper from './components/wrapper';
+import Wrapper from './components/wrapper/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
 import { useState } from 'react';
 import { updateAddressField, updateEmail, updateUserField } from './account-actions';
 import { ChangeAddresAction, ChangeEmail, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
-import Border from './components/border';
+import Border from './components/border/border';
 import StreetValid from '../registration/components/streetValid/streetValid';
 import CityValid from '../registration/components/city/cityValid';
 import SelectCountry from '../registration/components/selectCountry/selectCountry';
 import PostalCode from '../registration/components/postalCode/postalCode';
-import SuccessPopup from './components/successPopup';
+import SuccessPopup from './components/popup/successPopup';
 import EmailValid from '../registration/components/email/emailValid';
+import PasswordValid from '../registration/components/password/passwordValid';
+import PasswordChange from './components/passwordChange/passwordChange';
 
 interface CustomerInfoProps {
   customer: IMyCustomer;
@@ -23,6 +25,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
   const [customer, setCustomer] = useState(currentCustomer);
 
   const [email, setEmail] = useState(customer.email);
+  const [password, setPassword] = useState(customer.password);
   const [firstName, setFirstName] = useState(customer.firstName);
   const [lastName, setLastName] = useState(customer.lastName);
   const [dateOfBirth, setDateOfBirth] = useState(customer.dateOfBirth);
@@ -162,9 +165,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
               <Wrapper title="Email:" handleSubmit={handleSubmitChangeEmail('changeEmail', email)}>
                 <EmailValid email={email} setEmail={setEmail} />
               </Wrapper>
-              <p className=" text-lg py-1">
-                <span className=" font-bold text-emerald-800">Password:</span> {customer.password}
-              </p>
+              <PasswordChange password={password} setPassword={setPassword} title="Password:" />
             </Border>
           </div>
         </div>
