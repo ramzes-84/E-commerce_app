@@ -1,3 +1,4 @@
+import { SortParams } from '@/app/catalog/components/sort';
 import { ApiService } from '@/service/api/ApiService';
 
 export type ProductCard = {
@@ -14,6 +15,7 @@ export type Filters = {
   priceFrom?: number;
   priceTo?: number;
 };
+
 export default class CatalogService extends ApiService {
   public async getCategoriesArr() {
     const categories = await this.apiRoot
@@ -40,7 +42,7 @@ export default class CatalogService extends ApiService {
     return categories.body;
   }
 
-  public async getProductsByFilters(filter: Filters) {
+  public async getProductsByFilters(filter: Filters, sort: SortParams) {
     const products = await this.apiRoot
       .productProjections()
       .search()
@@ -54,6 +56,7 @@ export default class CatalogService extends ApiService {
             filter.catID ? `categories.id: subtree("${filter.catID}")` : '',
           ].filter((x) => x !== ''),
           limit: 100,
+          sort: [sort]
         },
       })
       .execute();
