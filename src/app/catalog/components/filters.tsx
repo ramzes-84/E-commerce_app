@@ -25,6 +25,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
     setPriceRangeMin(minMaxPrice(prods)[0]);
     setPriceRangeMax(minMaxPrice(prods)[1]);
     setFiltersVisible(false);
+    setPriceChanged(false)
     router.push(
       `${path}?${colorpath}${(pricePath || sortPath) && colorpath ? '&' : ''}${pricePath}${
         sortPath ? '&' : ''
@@ -33,7 +34,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   }
   return (
     <>
-      <div className="flex flex-col items-end justify-start w-52 md:w-96">
+      <div className="flex flex-col items-end justify-start w-52 md:w-[20rem]">
         <button
           className="w-fit px-5 border-spacing-2 border-2 border-emerald-900 rounded font-bold"
           onClick={() => setFiltersVisible(!filtersVisible)}
@@ -55,9 +56,10 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                   min={minMaxPrice(prods)[0]}
                   max={priceRangeMax - 1}
                   value={priceRangeMin}
+                  onClick={() =>  setPriceChanged(true)}
                   onChange={(e) => {
                     setPriceRangeMin(Number(e.target.value));
-                    setPriceChanged(true);
+                  
                   }}
                 ></input>
                 <span className="leading-6 text-sm">USD</span>
@@ -74,9 +76,9 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                   min={priceRangeMin + 1}
                   max={minMaxPrice(prods)[1]}
                   value={priceRangeMax}
+                  onClick={() => setPriceChanged(true)}
                   onChange={(e) => {
                     setPriceRangeMax(Number(e.target.value));
-                    setPriceChanged(true);
                   }}
                 ></input>
                 <span className=" text-sm leading-6">USD</span>

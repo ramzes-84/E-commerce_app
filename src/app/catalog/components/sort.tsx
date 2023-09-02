@@ -19,7 +19,7 @@ export default function SortForm() {
   }
   return (
     <>
-      <div className="flex flex-col items-center justify-start w-36">
+      <div className="flex flex-col items-center justify-start w-36 max-[630px]:my-2 max-[630px]:items-end">
         <button
           className="w-fit px-5 border-spacing-2 border-2 border-emerald-900 rounded font-bold"
           onClick={() => setSortVisible(!sortVisible)}
