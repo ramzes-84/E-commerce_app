@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import FiltersApplied from './filtersApplied';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn().mockReturnValue(''),
@@ -14,15 +13,16 @@ jest.mock('next/navigation', () => ({
     },
   }),
 }));
+import SortForm from './sort';
 
-describe('Catalog filters', () => {
+describe('Catalog sort', () => {
   it('renders panel', () => {
-    render(<FiltersApplied searchParams={{ color: 'green', priceFrom: 15, priceTo: 40 }} />);
+    render(<SortForm />);
 
-    const color = screen.getByText('Color: green ×');
-    const price = screen.getByText('Price range: 15-40USD ×');
+    const btn = screen.getByText('Sort');
+    fireEvent.click(btn);
 
-    expect(color).toBeInTheDocument();
-    expect(price).toBeInTheDocument();
+    expect(screen.getByLabelText('Name (A-Z)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Price (min-max)')).toBeInTheDocument();
   });
 });

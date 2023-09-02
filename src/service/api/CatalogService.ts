@@ -14,6 +14,13 @@ export type Filters = {
   priceFrom?: number;
   priceTo?: number;
 };
+
+export enum SortParams {
+  nameASC = 'name.en-us asc',
+  nameDESC = 'name.en-us desc',
+  priceASC = 'price asc',
+  priceDESC = 'price desc',
+}
 export default class CatalogService extends ApiService {
   public async getCategoriesArr() {
     const categories = await this.apiRoot
@@ -40,7 +47,7 @@ export default class CatalogService extends ApiService {
     return categories.body;
   }
 
-  public async getProductsByFilters(filter: Filters) {
+  public async getProductsByFilters(filter: Filters, sort: string) {
     const products = await this.apiRoot
       .productProjections()
       .search()
@@ -54,6 +61,7 @@ export default class CatalogService extends ApiService {
             filter.catID ? `categories.id: subtree("${filter.catID}")` : '',
           ].filter((x) => x !== ''),
           limit: 100,
+          sort: [sort],
         },
       })
       .execute();
@@ -63,9 +71,11 @@ export default class CatalogService extends ApiService {
   public async getAllProducts() {
     const products = await this.apiRoot
       .productProjections()
+      .search()
       .get({
         queryArgs: {
           limit: 100,
+          sort: 'price desc',
         },
       })
       .execute();

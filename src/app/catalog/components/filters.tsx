@@ -11,6 +11,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [priceRangeMin, setPriceRangeMin] = useState(minMaxPrice(prods)[0]);
   const [priceRangeMax, setPriceRangeMax] = useState(minMaxPrice(prods)[1]);
+  const [priceChanged, setPriceChanged] = useState(false);
   const [color, setColor] = useState('');
   const router = useRouter();
   const path = usePathname();
@@ -18,19 +19,22 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const colorpath = color !== '' ? `color=${color}` : '';
-    const pricePath =
-      priceRangeMin !== minMaxPrice(prods)[0] || priceRangeMax !== minMaxPrice(prods)[1]
-        ? `&priceFrom=${priceRangeMin}&priceTo=${priceRangeMax}`
-        : '';
+    const pricePath = priceChanged ? `priceFrom=${priceRangeMin}&priceTo=${priceRangeMax}` : '';
+    const sortPath = query.has('sortby') ? 'sortby=' + query.get('sortby') : '';
     setColor('');
     setPriceRangeMin(minMaxPrice(prods)[0]);
     setPriceRangeMax(minMaxPrice(prods)[1]);
     setFiltersVisible(false);
-    router.push(`${path}?${colorpath}${pricePath}`);
+    setPriceChanged(false)
+    router.push(
+      `${path}?${colorpath}${(pricePath || sortPath) && colorpath ? '&' : ''}${pricePath}${
+        sortPath ? '&' : ''
+      }${sortPath}`
+    );
   }
   return (
     <>
-      <div className="flex flex-col items-end justify-start w-96">
+      <div className="flex flex-col items-end justify-start w-52 md:w-[20rem]">
         <button
           className="w-fit px-5 border-spacing-2 border-2 border-emerald-900 rounded font-bold"
           onClick={() => setFiltersVisible(!filtersVisible)}
@@ -38,7 +42,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
           Filters
         </button>
         {filtersVisible && (
-          <form className="flex " onSubmit={handleSubmit}>
+          <form className="flex flex-col md:flex-row" onSubmit={handleSubmit}>
             <div className="flex flex-col my-2 mx-2">
               <p className="flex">
                 <label htmlFor="minPrice" className=" w-24 flex font-bold text-emerald-900">
@@ -52,7 +56,11 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                   min={minMaxPrice(prods)[0]}
                   max={priceRangeMax - 1}
                   value={priceRangeMin}
-                  onChange={(e) => setPriceRangeMin(Number(e.target.value))}
+                  onClick={() =>  setPriceChanged(true)}
+                  onChange={(e) => {
+                    setPriceRangeMin(Number(e.target.value));
+                  
+                  }}
                 ></input>
                 <span className="leading-6 text-sm">USD</span>
               </p>
@@ -68,7 +76,10 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                   min={priceRangeMin + 1}
                   max={minMaxPrice(prods)[1]}
                   value={priceRangeMax}
-                  onChange={(e) => setPriceRangeMax(Number(e.target.value))}
+                  onClick={() => setPriceChanged(true)}
+                  onChange={(e) => {
+                    setPriceRangeMax(Number(e.target.value));
+                  }}
                 ></input>
                 <span className=" text-sm leading-6">USD</span>
               </p>
@@ -85,7 +96,10 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                 })}
               </select>
               {query.has('color') || query.has('priceTo') ? (
-                <Link href={path} className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6">
+                <Link
+                  href={`${path}${query.has('sortby') ? '?sortby=' + query.get('sortby') : ''}`}
+                  className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6"
+                >
                   Reset
                 </Link>
               ) : (
