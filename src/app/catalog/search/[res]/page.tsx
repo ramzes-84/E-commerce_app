@@ -23,12 +23,12 @@ export default async function Page({
   const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
   const search = params.res;
   const products = await catalogService.getProductsBySearch(filters, sort, search);
-  const list = cardsInfo(products)
-  
+  const list = cardsInfo(products);
+
   return (
     <>
       <div className="searchRes flex w-2/3 md:w-3/4 lg:w-4/5 xl:w-5/6 mb-3 justify-between md:mx-10 mx-28 flex-col min-[820px]:flex-row">
-      <h3 className=' text-lg font-bold text-emerald-900'>Search resuls for: &quot;{params.res}&quot;</h3>
+        <h3 className=" text-lg font-bold text-emerald-900">Search resuls for: &quot;{decodeURI(params.res)}&quot;</h3>
         <div className="flex flex-col min-[630px]:flex-row max-[630px]:items-end">
           <FiltersForm prods={products} />
           <SortForm />

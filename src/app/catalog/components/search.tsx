@@ -8,7 +8,7 @@ export default function SearchForm() {
   const [searchstring, setSearchstring] = useState('');
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push(`/catalog/search/${searchstring}`);
+    router.push(`/catalog/search/${searchstring.trim()}`);
     setSearchstring('');
   }
   return (
@@ -20,7 +20,7 @@ export default function SearchForm() {
           name="searchfield"
           id="searchfield"
           value={searchstring}
-          onChange={(e) => setSearchstring(e.target.value.toLowerCase().trim())}
+          onChange={(e) => setSearchstring(e.target.value)}
         />
         <button type="submit" className="w-fit px-5 border-spacing-2 border-2 border-white rounded">
           Search
