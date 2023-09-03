@@ -68,14 +68,21 @@ export default class CatalogService extends ApiService {
     return products.body.results;
   }
 
-  public async getAllProducts() {
+  public async getProductsBySearch(filter: Filters, sort: string, search?: string) {
     const products = await this.apiRoot
       .productProjections()
       .search()
       .get({
         queryArgs: {
+          filter: [
+            filter.color ? `variants.attributes.glass-color:"${filter.color}"` : '',
+            filter.priceFrom && filter.priceTo
+              ? `variants.price.centAmount:range (${filter.priceFrom * 100} to ${filter.priceTo * 100})`
+              : '',
+          ].filter((x) => x !== ''),
           limit: 100,
-          sort: 'price desc',
+          sort: [sort],
+          'text.en-US': search,
         },
       })
       .execute();

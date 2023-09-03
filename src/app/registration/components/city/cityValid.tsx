@@ -39,7 +39,6 @@ export default function CityValid({ city, setFormData }: CityProps) {
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         type="text"
         name="city"
@@ -48,6 +47,11 @@ export default function CityValid({ city, setFormData }: CityProps) {
         onChange={handleInputChange}
         className={style.input}
       />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

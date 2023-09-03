@@ -3,11 +3,10 @@
 import style from '../../page.module.css';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import Label from '../../elements/wrapper';
 
 interface PasswordProps {
   password?: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export default function PasswordValid({ password, setPassword }: PasswordProps) {
@@ -34,21 +33,23 @@ export default function PasswordValid({ password, setPassword }: PasswordProps) 
 
   return (
     <>
-      <Label label="Password">
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          type={passwordVisible ? 'text' : 'password'}
-          name="password"
-          pattern="^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$"
-          minLength={8}
-          value={password}
-          onChange={handleInputChange}
-          className={style.input}
-        />
-      </Label>
-      <button className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
+      <input
+        type={passwordVisible ? 'text' : 'password'}
+        name="password"
+        pattern="^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$"
+        minLength={8}
+        value={password}
+        onChange={handleInputChange}
+        className={style.input}
+      />
+      <button className="absolute top-[28px] right-2" onClick={togglePasswordVisibility} type="button">
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
       </button>
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

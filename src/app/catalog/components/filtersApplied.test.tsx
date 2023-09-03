@@ -10,7 +10,8 @@ jest.mock('next/navigation', () => ({
       return true;
     },
     get(prp: string) {
-      return prp;
+      prp === 'sortby'
+      return 'nameASC';
     },
   }),
 }));
@@ -21,8 +22,29 @@ describe('Catalog filters', () => {
 
     const color = screen.getByText('Color: green ×');
     const price = screen.getByText('Price range: 15-40USD ×');
+    const sort = screen.getByText('Sort: nameASC ×')
 
     expect(color).toBeInTheDocument();
     expect(price).toBeInTheDocument();
+    expect(sort).toBeInTheDocument();
+  });
+
+  it('renders panel', () => {
+    render(<FiltersApplied searchParams={{ color: 'red' }} />);
+
+    const color = screen.getByText('Color: red ×');
+    const sort = screen.getByText('Sort: nameASC ×')
+
+    expect(color).toBeInTheDocument();
+    expect(sort).toBeInTheDocument();
+  });
+  it('renders panel', () => {
+    render(<FiltersApplied searchParams={{  priceFrom: 20, priceTo: 30  }} />);
+
+    const price = screen.getByText('Price range: 20-30USD ×');
+    const sort = screen.getByText('Sort: nameASC ×')
+
+    expect(price).toBeInTheDocument();
+    expect(sort).toBeInTheDocument();
   });
 });

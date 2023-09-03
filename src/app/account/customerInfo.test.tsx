@@ -1,35 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { CustomerInfo } from './CustomerInfo';
+import { expectedData } from './account-action.test';
+
+jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 describe('CustomerInfo', () => {
-  const mockCustomer = {
-    id: '15648jfh',
-    email: 'test@test.com',
-    password: '123456qQ',
-    firstName: 'Elena',
-    lastName: 'Bill',
-    dateOfBirth: '1990-01-01',
-    version: 1,
-    addresses: [
-      {
-        streetName: 'Street',
-        city: 'City',
-        postalCode: '123456',
-        country: 'KZ',
-        defaultShippingAddress: true,
-      },
-      {
-        streetName: 'Street 2',
-        city: 'City 2',
-        postalCode: '67890',
-        country: 'ES',
-        defaultShippingAddress: false,
-      },
-    ],
-  };
+  afterEach(cleanup);
   it('display if have Customer', () => {
-    render(<CustomerInfo customer={mockCustomer} />);
+    render(<CustomerInfo customer={expectedData} />);
 
     const firstNameField = screen.getByText('Name:');
     const lastNameField = screen.getByText('Lastname:');

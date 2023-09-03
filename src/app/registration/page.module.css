@@ -5,7 +5,7 @@
 
 .input {
   padding-left: 5px;
-  width: 90%;
+  width: 100%;
   margin-bottom: 10px;
   border-radius: 4px;
   outline: none;
@@ -41,7 +41,10 @@
 }
 
 .selectCountry {
-  width: 90%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
   margin-bottom: 10px;
   padding: 2px 0px;
   border-radius: 4px;
@@ -54,16 +57,36 @@
 }
 
 .errorMessage {
-  position: absolute;
-  bottom: 25px;
-  left: 0;
-  width: 100%;
+  max-width: 290px;
+  max-height: 40px;
   text-align: end;
   color: rgb(153 27 27);
-  font-size: 0.75rem /* 12px */;
+  font-size: 0.9rem;
   line-height: 1rem /* 16px */;
 }
 
 .labelInput {
   position: relative;
+  display: flow-root;
+}
+
+.input[type='date'] {
+  position: relative;
+}
+
+.input[type='date']::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
+.input[type='date']::-webkit-inner-spin-button,
+.input[type='date']::-webkit-clear-button {
+  z-index: -10;
 }

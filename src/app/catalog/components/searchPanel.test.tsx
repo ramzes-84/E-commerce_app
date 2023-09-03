@@ -1,5 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { useRouter } from 'next/navigation';
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn().mockReturnValue(''),
+}));
 
 import SearchPanel from './searchPanel';
 import { Category } from '@commercetools/platform-sdk';

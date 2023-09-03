@@ -34,7 +34,6 @@ export default function EmailValid({ email, setEmail }: EmailProps) {
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         type="text"
         name="email"
@@ -44,6 +43,11 @@ export default function EmailValid({ email, setEmail }: EmailProps) {
         onChange={handleInputChange}
         className={style.input}
       />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

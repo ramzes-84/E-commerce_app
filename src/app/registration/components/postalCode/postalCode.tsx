@@ -47,7 +47,6 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         className={style.input}
         type="text"
@@ -56,6 +55,11 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
         onChange={handleInputChange}
         pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
       />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

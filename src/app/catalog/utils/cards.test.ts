@@ -30,7 +30,7 @@ const products: ProductProjection[] = [
     metaKeywords: {
       'en-US': 'green-mirror',
     },
-    metaDescription: {
+    description: {
       'en-US': 'Square mirror in light-green glass frame',
       ru: 'Зеркало квадратное в раме из светло-зеленого стекла',
     },
@@ -127,7 +127,7 @@ const products: ProductProjection[] = [
     metaKeywords: {
       'en-US': 'honeycomb',
     },
-    metaDescription: {
+    description: {
       'en-US': 'Honeycomb wall hanging made of yellow and orange glass',
       ru: 'Панно из стекла в желтых оттенках в форме сот',
     },
@@ -135,40 +135,6 @@ const products: ProductProjection[] = [
       id: 1,
       sku: 'U0005',
       key: 'U0005',
-      prices: [
-        {
-          id: '36a786e9-581e-47e2-9232-0aaef27c331f',
-          value: {
-            type: 'centPrecision',
-            currencyCode: 'USD',
-            centAmount: 3300,
-            fractionDigits: 2,
-          },
-        },
-      ],
-      images: [
-        {
-          url: 'https://static.tildacdn.com/stor3065-3634-4633-b330-643930373864/80820334.jpg ',
-          dimensions: {
-            w: 0,
-            h: 0,
-          },
-        },
-        {
-          url: ' https://static.tildacdn.com/stor6536-6538-4766-b233-613230313666/92812729.jpg ',
-          dimensions: {
-            w: 0,
-            h: 0,
-          },
-        },
-        {
-          url: ' https://static.tildacdn.com/stor6163-6665-4263-b564-386634626630/74378147.jpg',
-          dimensions: {
-            w: 0,
-            h: 0,
-          },
-        },
-      ],
       attributes: [
         {
           name: 'glass-color',
@@ -204,5 +170,9 @@ describe('Catalog card', () => {
 
     expect(cards[0].name).toBe('Square mirror in light-green frame');
     expect(cards[1].name).toBe('Honeycomb wall hanging');
+    expect(cards[0].price).toBe(3000);
+    expect(cards[1].price).toBe(undefined);
+    expect(cards[1].mainImage).toBe(undefined);
+    expect(cards[1].description).toBe('Honeycomb wall hanging made of yellow and orange glass');
   });
 });

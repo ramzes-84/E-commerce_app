@@ -209,4 +209,19 @@ export default class CustomerService extends ApiService {
       .execute();
     return result.body;
   }
+
+  public async changePassword(customer: IMyCustomer, newPassword: string, currentPassword: string) {
+    const result = await this.apiRoot
+      .me()
+      .password()
+      .post({
+        body: {
+          version: customer.version,
+          currentPassword,
+          newPassword,
+        },
+      })
+      .execute();
+    return result.body;
+  }
 }
