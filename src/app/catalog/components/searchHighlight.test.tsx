@@ -1,4 +1,4 @@
-import {  render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useRouter } from 'next/navigation';
 import SearchForm from './search';
 import SearchHighlight from './searchHighlight';
@@ -9,15 +9,14 @@ jest.mock('next/navigation', () => ({
 
 const arr: ProductCard[] = [
   {
-    name: "Frame with pressed fern",
-    ID: '1'
-  }
-
-]
+    name: 'Frame with pressed fern',
+    ID: '1',
+  },
+];
 
 describe('Search res ', () => {
   it('highlight search res', () => {
-    render(<SearchHighlight res='fern' list={arr} />);
+    render(<SearchHighlight res="fern" list={arr} />);
 
     const fern = screen.getByText('fern');
 
