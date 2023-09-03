@@ -15,7 +15,7 @@ export default function SearchForm() {
     <>
       <form name="search" onSubmit={handleSubmit} className="flex flex-col w-full mt-6">
         <input
-          className="flex my-3 w-40 border-spacing-2 border-2 border-gray-500 rounded text-black"
+          className="flex my-3 w-32 md:w-40 border-spacing-2 border-2 border-gray-500 rounded text-black"
           type="text"
           name="searchfield"
           id="searchfield"
