@@ -1,4 +1,4 @@
-import CatalogService, { Filters } from '@/service/api/CatalogService';
+import CatalogService, { Filters, SortParams } from '@/service/api/CatalogService';
 import CatalogCard from '../components/catalogCard';
 import { cardsInfo } from '../utils/cards';
 import CatalogNavPanel from '../components/navPanel';
@@ -19,14 +19,14 @@ export default async function Page({
     priceTo: searchParams.priceTo ? Number(searchParams.priceTo) : undefined,
     catID: cat.id,
   };
-
-  const products = await catalogService.getProductsByFilters(filters);
+  const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
+  const products = await catalogService.getProductsByFilters(filters, sort);
   const list = cardsInfo(products);
   return (
     <>
       <CatalogNavPanel category={cat} products={products} />
       <FiltersApplied searchParams={filters} />
-      <div className="min-[1100px]:columns-3 gap-6 mx-4 min-[820px]:columns-2 min-[1320px]:columns-4 columns-1 ">
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 justify-start mx-3">
         {products.length !== 0 ? (
           list.map((p) => <CatalogCard key={p.name} product={p} />)
         ) : (

@@ -1,10 +1,9 @@
-import CatalogService from '@/service/api/CatalogService';
 import Slider from './Slider';
 import { DrawAttributes } from './DrawAttributes';
+import { getProductById } from './product-functions';
 
 export default async function Page({ params }: { params: { ID: string } }) {
-  const catalogService = new CatalogService();
-  const product = await catalogService.getProductObjById(params.ID);
+  const product = await getProductById(params.ID);
 
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
