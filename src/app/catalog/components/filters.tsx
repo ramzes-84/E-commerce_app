@@ -25,7 +25,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
     setPriceRangeMin(minMaxPrice(prods)[0]);
     setPriceRangeMax(minMaxPrice(prods)[1]);
     setFiltersVisible(false);
-    setPriceChanged(false)
+    setPriceChanged(false);
     router.push(
       `${path}?${colorpath}${(pricePath || sortPath) && colorpath ? '&' : ''}${pricePath}${
         sortPath ? '&' : ''
@@ -56,10 +56,9 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
                   min={minMaxPrice(prods)[0]}
                   max={priceRangeMax - 1}
                   value={priceRangeMin}
-                  onClick={() =>  setPriceChanged(true)}
+                  onClick={() => setPriceChanged(true)}
                   onChange={(e) => {
                     setPriceRangeMin(Number(e.target.value));
-                  
                   }}
                 ></input>
                 <span className="leading-6 text-sm">USD</span>
