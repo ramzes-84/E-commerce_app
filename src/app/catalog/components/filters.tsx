@@ -28,7 +28,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
     setPriceChanged(false);
     router.push(
       `${path}?${colorpath}${(pricePath || sortPath) && colorpath ? '&' : ''}${pricePath}${
-        sortPath ? '&' : ''
+        sortPath && pricePath ? '&' : ''
       }${sortPath}`
     );
   }
