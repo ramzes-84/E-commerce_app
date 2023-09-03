@@ -77,9 +77,9 @@ export const updateEmail = async (customer: IMyCustomer, actionType: ChangeEmail
   return result;
 };
 
-export const updatePassword = async (customer: IMyCustomer, currentPassword: string, newPassword: string) => {
+export const updatePassword = async (customer: IMyCustomer, newPassword: string, currentPassword: string) => {
   const customerService = new CustomerService();
-  const newCustomer = await customerService.changePassword(customer, currentPassword, newPassword);
+  const newCustomer = await customerService.changePassword(customer, newPassword, currentPassword);
   const result = returnCustomerData(newCustomer);
   return result;
 };

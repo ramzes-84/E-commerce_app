@@ -2,8 +2,8 @@
 
 import Wrapper from './components/wrapper/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
-import { useState } from 'react';
-import { updateAddressField, updateEmail, updateUserField } from './account-actions';
+import { useEffect, useState } from 'react';
+import { logout, updateAddressField, updateEmail, updateUserField } from './account-actions';
 import { ChangeAddresAction, ChangeEmail, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
@@ -14,18 +14,18 @@ import SelectCountry from '../registration/components/selectCountry/selectCountr
 import PostalCode from '../registration/components/postalCode/postalCode';
 import SuccessPopup from './components/popup/successPopup';
 import EmailValid from '../registration/components/email/emailValid';
-import PasswordValid from '../registration/components/password/passwordValid';
 import PasswordChange from './components/passwordChange/passwordChange';
+import { useRouter } from 'next/navigation';
 
 interface CustomerInfoProps {
   customer: IMyCustomer;
 }
 
 export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
+  const router = useRouter();
   const [customer, setCustomer] = useState(currentCustomer);
 
   const [email, setEmail] = useState(customer.email);
-  const [password, setPassword] = useState(customer.password);
   const [firstName, setFirstName] = useState(customer.firstName);
   const [lastName, setLastName] = useState(customer.lastName);
   const [dateOfBirth, setDateOfBirth] = useState(customer.dateOfBirth);
@@ -58,6 +58,17 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
     }, 3000);
     if (newCustomer) setCustomer(newCustomer);
   };
+
+  const [savePassword, setSavePassword] = useState(false);
+
+  useEffect(() => {
+    if (savePassword) {
+      logout();
+      router.refresh();
+      router.push('./login');
+      processResult('Update! Please, login with new password', undefined, true, undefined);
+    }
+  }, [savePassword, router]);
 
   const [chageMessage, setChageMessage] = useState('');
   const [successChange, setSuccessChange] = useState(false);
@@ -165,7 +176,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
               <Wrapper title="Email:" handleSubmit={handleSubmitChangeEmail('changeEmail', email)}>
                 <EmailValid email={email} setEmail={setEmail} />
               </Wrapper>
-              <PasswordChange password={password} setPassword={setPassword} title="Password:" />
+              <PasswordChange title="Password:" customer={customer} setSavePassword={setSavePassword} />
             </Border>
           </div>
         </div>

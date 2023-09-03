@@ -33,7 +33,6 @@ export default function PasswordValid({ password, setPassword }: PasswordProps) 
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         type={passwordVisible ? 'text' : 'password'}
         name="password"
@@ -43,9 +42,14 @@ export default function PasswordValid({ password, setPassword }: PasswordProps) 
         onChange={handleInputChange}
         className={style.input}
       />
-      <button className="absolute top-[25px] right-2" onClick={togglePasswordVisibility}>
+      <button className="absolute top-[28px] right-2" onClick={togglePasswordVisibility} type="button">
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
       </button>
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

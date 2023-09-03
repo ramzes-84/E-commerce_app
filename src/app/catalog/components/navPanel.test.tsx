@@ -7,9 +7,11 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn().mockReturnValue(''),
   usePathname: jest.fn().mockReturnValue(''),
   useSearchParams: jest.fn().mockReturnValue({
-    color: "green",
-    has(prp: string) {return  true }
-   }),
+    color: 'green',
+    has(prp: string) {
+      return true;
+    },
+  }),
 }));
 
 const category: Category = {

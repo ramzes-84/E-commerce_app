@@ -4,48 +4,31 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import ChangePasswordPopup from './popup/passwordChangePopup';
 import InputPasswordChange from './inputPasswordChange';
+import { IMyCustomer } from '@/service/api/CustomerService';
 
 interface PasswordProps {
-  password?: string;
-  setPassword: React.Dispatch<React.SetStateAction<string | undefined>>;
   title: string;
+  customer: IMyCustomer;
+  setSavePassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function PasswordChange({ password, setPassword, title }: PasswordProps) {
-  const [error, setError] = useState('');
+export default function PasswordChange({ title, customer, setSavePassword }: PasswordProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-
-  // const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   if (isEditing) {
-  //     setIsSaving(true);
-  //     setIsEditing(false);
-  //   } else {
-  //     setIsSaving(false);
-  //     await handleSubmit(event);
-  //     setIsEditing(true);
-  //   }
-  // };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value.trim();
-    setPassword(value);
-  };
+  setSavePassword(isSaving);
 
   return (
     <>
       <form data-testid="wrapper-form" className="relative">
         <fieldset disabled>
           <legend className="text-lg py-1 font-bold text-emerald-800 m-1.5">{title}</legend>
-          {error && <p className={style.errorMessage}>{error}</p>}
           <input
             type="password"
             name="password"
-            value={password}
-            onChange={handleInputChange}
             className={`${style.input} relative`}
             data-testid="input-password"
+            defaultValue={customer.password}
+            readOnly
           />
         </fieldset>
         <button
@@ -66,7 +49,7 @@ export default function PasswordChange({ password, setPassword, title }: Passwor
                 setIsOpen(false);
               }}
             >
-              <InputPasswordChange currentPassword={password} />
+              <InputPasswordChange customer={customer} onClose={() => setIsOpen(false)} setIsSaving={setIsSaving} />
             </ChangePasswordPopup>,
             document.body
           )}

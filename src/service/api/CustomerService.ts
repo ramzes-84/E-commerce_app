@@ -210,7 +210,7 @@ export default class CustomerService extends ApiService {
     return result.body;
   }
 
-  public async changePassword(customer: IMyCustomer, currentPassword: string, newPassword: string) {
+  public async changePassword(customer: IMyCustomer, newPassword: string, currentPassword: string) {
     const result = await this.apiRoot
       .me()
       .password()
