@@ -33,7 +33,6 @@ export default function FirstNameValid({ firstName, setFirstName }: FirstNamePro
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         type="text"
         name="firstName"
@@ -43,6 +42,11 @@ export default function FirstNameValid({ firstName, setFirstName }: FirstNamePro
         className={style.input}
         data-testid="firstName-input"
       />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

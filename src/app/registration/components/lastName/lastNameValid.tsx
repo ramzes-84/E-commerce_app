@@ -33,7 +33,6 @@ export default function LastNameValid({ lastName, setLastName }: LastNameProps) 
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         type="text"
         name="lastName"
@@ -43,6 +42,11 @@ export default function LastNameValid({ lastName, setLastName }: LastNameProps) 
         className={style.input}
         data-testid="lastName-input"
       />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

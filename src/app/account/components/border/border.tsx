@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import style from '../style.module.css';
+import style from '../../style.module.css';
 
 export default function Border({ title, children }: { title: string; children: ReactNode }) {
   return (

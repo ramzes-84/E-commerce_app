@@ -39,7 +39,6 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
 
   return (
     <>
-      {error && <p className={style.errorMessage}>{error}</p>}
       <input
         type="text"
         name="streetName"
@@ -48,6 +47,11 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
         onChange={handleInputChange}
         className={style.input}
       />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

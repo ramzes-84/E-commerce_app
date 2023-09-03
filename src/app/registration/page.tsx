@@ -13,14 +13,14 @@ import Link from 'next/link';
 import ShippingAddress from './components/sippingAddress/shippingAddress';
 import BillingAddress from './components/billingAddress/billingAddress';
 import CheckboxAddress from './elements/checkbox/checkbox';
-import { IAddress, IMyAddress } from '@/service/api/CustomerService';
+import { IMyAddress } from '@/service/api/CustomerService';
 import Label from './elements/wrapper';
 
 export default function Page() {
   const router = useRouter();
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState<string | undefined>('');
   const [firstName, setFirstName] = useState<string | undefined>('');
   const [lastName, setLastName] = useState<string | undefined>('');
   const [dateOfBirth, setDateOfBirth] = useState<string | undefined>('');
@@ -66,7 +66,7 @@ export default function Page() {
     const postalCodeRegex = /^[1-90]{5,}$/;
     const countryRegex = /^.+$/;
     const emailValid = emailRegex.test(email);
-    const passwordValid = passwordRegex.test(password);
+    const passwordValid = passwordRegex.test(password!);
     const firstNameValid = firstNameRegex.test(firstName!);
     const lastNameValid = lastNameRegex.test(lastName!);
     const streetValid = streetRegex.test(formShippingAddress.streetName!);
@@ -143,8 +143,10 @@ export default function Page() {
                   <EmailValid email={email} setEmail={setEmail} />
                 </Label>
               </div>
-              <div className="relative">
-                <PasswordValid password={password} setPassword={setPassword} />
+              <div>
+                <Label label="Password">
+                  <PasswordValid password={password} setPassword={setPassword} />
+                </Label>
               </div>
               <div>
                 <Label label="First Name">

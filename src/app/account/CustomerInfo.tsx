@@ -1,25 +1,28 @@
 'use client';
 
-import Wrapper from './components/wrapper';
+import Wrapper from './components/wrapper/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
-import { useState } from 'react';
-import { updateAddressField, updateEmail, updateUserField } from './account-actions';
+import { useEffect, useState } from 'react';
+import { logout, updateAddressField, updateEmail, updateUserField } from './account-actions';
 import { ChangeAddresAction, ChangeEmail, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
-import Border from './components/border';
+import Border from './components/border/border';
 import StreetValid from '../registration/components/streetValid/streetValid';
 import CityValid from '../registration/components/city/cityValid';
 import SelectCountry from '../registration/components/selectCountry/selectCountry';
 import PostalCode from '../registration/components/postalCode/postalCode';
-import SuccessPopup from './components/successPopup';
+import SuccessPopup from './components/popup/successPopup';
 import EmailValid from '../registration/components/email/emailValid';
+import PasswordChange from './components/passwordChange/passwordChange';
+import { useRouter } from 'next/navigation';
 
 interface CustomerInfoProps {
   customer: IMyCustomer;
 }
 
 export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
+  const router = useRouter();
   const [customer, setCustomer] = useState(currentCustomer);
 
   const [email, setEmail] = useState(customer.email);
@@ -55,6 +58,17 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
     }, 3000);
     if (newCustomer) setCustomer(newCustomer);
   };
+
+  const [savePassword, setSavePassword] = useState(false);
+
+  useEffect(() => {
+    if (savePassword) {
+      logout();
+      router.refresh();
+      router.push('./login');
+      processResult('Update! Please, login with new password', undefined, true, undefined);
+    }
+  }, [savePassword, router]);
 
   const [chageMessage, setChageMessage] = useState('');
   const [successChange, setSuccessChange] = useState(false);
@@ -162,9 +176,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
               <Wrapper title="Email:" handleSubmit={handleSubmitChangeEmail('changeEmail', email)}>
                 <EmailValid email={email} setEmail={setEmail} />
               </Wrapper>
-              <p className=" text-lg py-1">
-                <span className=" font-bold text-emerald-800">Password:</span> {customer.password}
-              </p>
+              <PasswordChange title="Password:" customer={customer} setSavePassword={setSavePassword} />
             </Border>
           </div>
         </div>
