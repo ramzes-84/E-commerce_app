@@ -21,7 +21,8 @@ export default async function Page({
   };
   const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
   const products = await catalogService.getProductsByFilters(filters, sort);
-  const list = cardsInfo(products);
+  const discountedProd = await catalogService.getDiscoutedProducts();
+  const list = cardsInfo(products, discountedProd);
   return (
     <>
       <CatalogNavPanel category={cat} products={products} />
