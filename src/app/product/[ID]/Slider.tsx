@@ -2,20 +2,17 @@
 
 import { useState } from 'react';
 import SimpleImageSlider from 'react-simple-image-slider';
+import FsLightbox from 'fslightbox-react';
 
 export default function Slider({ urlArr }: { urlArr: string[] }) {
   const images: { url: string }[] = urlArr.map((path) => {
     return { url: path };
   });
 
-  const [popupVisible, setPopupVisible] = useState(false);
+  const [toggler, setToggler] = useState(false);
 
   function showPopup() {
-    setPopupVisible(true);
-  }
-
-  function closePopup() {
-    setPopupVisible(false);
+    setToggler(true);
   }
 
   return (
@@ -29,17 +26,7 @@ export default function Slider({ urlArr }: { urlArr: string[] }) {
         style={{ position: 'relative', borderRadius: '15px', cursor: 'pointer' }}
         onClick={showPopup}
       />
-      <div className={popupVisible ? 'absolute top-6 shadow-2xl' : 'hidden'}>
-        <SimpleImageSlider
-          width={600}
-          height={800}
-          images={images}
-          showBullets={images.length > 1 ? true : false}
-          showNavs={images.length > 1 ? true : false}
-          style={{ marginTop: '10px' }}
-          onClick={closePopup}
-        />
-      </div>
+      <FsLightbox toggler={toggler} sources={urlArr} />
     </>
   );
 }
