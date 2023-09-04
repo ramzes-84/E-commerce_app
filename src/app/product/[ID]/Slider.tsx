@@ -11,10 +11,6 @@ export default function Slider({ urlArr }: { urlArr: string[] }) {
 
   const [toggler, setToggler] = useState(false);
 
-  function showPopup() {
-    setToggler(true);
-  }
-
   return (
     <>
       <SimpleImageSlider
@@ -24,7 +20,7 @@ export default function Slider({ urlArr }: { urlArr: string[] }) {
         showBullets={images.length > 1 ? true : false}
         showNavs={images.length > 1 ? true : false}
         style={{ position: 'relative', borderRadius: '15px', cursor: 'pointer' }}
-        onClick={showPopup}
+        onClick={() => setToggler(!toggler)}
       />
       <FsLightbox toggler={toggler} sources={urlArr} />
     </>

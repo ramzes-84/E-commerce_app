@@ -1,6 +1,7 @@
 import Slider from './Slider';
 import { DrawAttributes } from './DrawAttributes';
 import { getProductById } from './product-functions';
+import { ProductNavBar } from './ProductNavBar';
 
 export default async function Page({ params }: { params: { ID: string } }) {
   const product = await getProductById(params.ID);
@@ -36,6 +37,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
           </button>
         </div>
       </section>
+      <ProductNavBar />
     </>
   );
 }
