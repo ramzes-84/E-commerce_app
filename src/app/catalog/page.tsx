@@ -13,7 +13,8 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
   };
   const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
   const products = await catalogService.getProductsByFilters(filters, sort);
-  const productsArr = cardsInfo(products);
+  const discountedProd = await catalogService.getDiscoutedProducts();
+  const productsArr = cardsInfo(products, discountedProd);
   return (
     <>
       <CatalogNavPanel products={products} />

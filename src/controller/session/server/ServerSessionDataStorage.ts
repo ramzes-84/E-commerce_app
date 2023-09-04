@@ -12,8 +12,6 @@ export default class ServerSessionDataStorage extends SessionDataStorage {
     const cookie = this.saveToString();
     try {
       cookies().set(this.options.cookieName, cookie);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }
 }
