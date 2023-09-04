@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import { DrawAttributes } from './DrawAttributes';
 import Page from './page';
 import { getProductById } from './product-functions';
+import { useRouter } from 'next/navigation';
 
 jest.mock('./product-functions', () => ({
   getProductById: jest.fn().mockReturnValue({
@@ -71,6 +72,7 @@ jest.mock('./product-functions', () => ({
     },
   }),
 }));
+jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 describe('Product page', () => {
   it('renders attributes', () => {
