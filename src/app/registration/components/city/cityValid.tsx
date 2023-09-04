@@ -1,21 +1,26 @@
 'use client';
 
+import { IMyAddress } from '@/service/api/CustomerService';
 import style from '../../page.module.css';
-import { IAddress } from '../../page';
 import React, { useState } from 'react';
 
 interface CityProps {
-  city: string;
-  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
+  city?: string;
+  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
 }
+
+const infoInput = {
+  pattern: '^([a-zA-Zа-яА-Я]+-?s*)+$',
+  textMistake: 'Must contain at least one character and no special characters or numbers',
+};
 
 export default function CityValid({ city, setFormData }: CityProps) {
   const [error, setError] = useState('');
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value;
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value.trim();
     setFormData(
-      (prevState): IAddress => ({
+      (prevState): IMyAddress => ({
         ...prevState,
         city: value,
       })
@@ -24,8 +29,9 @@ export default function CityValid({ city, setFormData }: CityProps) {
       setError('');
       return;
     }
-    if (!/^([a-zA-Zа-яА-Я]+-?\s*)+$/.test(value)) {
-      setError('Must contain at least one character and no special characters or numbers');
+    const regexp = new RegExp(infoInput.pattern);
+    if (!regexp.test(value)) {
+      setError(infoInput.textMistake);
       return;
     }
     setError('');
@@ -33,18 +39,19 @@ export default function CityValid({ city, setFormData }: CityProps) {
 
   return (
     <>
-      <label className={style.labelInput}>
-        City:<span className="text-rose-600">*</span>
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          className={style.input}
-          type="text"
-          name="city"
-          pattern="^([a-zA-Zа-яА-Я]+-?\s*)+$"
-          value={city}
-          onChange={handleCityChange}
-        />
-      </label>
+      <input
+        type="text"
+        name="city"
+        pattern="^([a-zA-Zа-яА-Я]+-?s*)+$"
+        value={city ?? ''}
+        onChange={handleInputChange}
+        className={style.input}
+      />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }

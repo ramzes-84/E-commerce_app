@@ -1,38 +1,26 @@
 import { render, screen } from '@testing-library/react';
-import { useRouter } from 'next/navigation';
 import Page from './page';
 import '@testing-library/jest-dom';
-import { getUserInfo, logout } from '../account/account-actions';
+import { LogoutButton } from './LogoutButton';
 
-jest.mock('../account/account-actions', () => ({ getUserInfo: jest.fn().mockReturnValue(Promise.resolve(res)) }));
+jest.mock('@/service/api');
+
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
-const res = {
-  statusCode: 200,
-  body: {
-    email: '111@test.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    password: '****IUk=',
-    addresses: [],
-    shippingAddressIds: [],
-    billingAddressIds: [],
-  },
-};
-
 describe('Account page', () => {
-  it('renders a header', () => {
-    render(<Page />);
+  it('renders a logout button', () => {
+    render(<LogoutButton />);
 
-    const startMessage = screen.getByText('Account section');
+    const logoutBttn = screen.getByText('Logout');
 
-    expect(startMessage).toBeInTheDocument();
+    expect(logoutBttn).toBeInTheDocument();
   });
-  it('renrer logout button', () => {
-    render(<Page />);
 
-    const logoutButton = screen.getByText('Logout');
+  it('renders a logout button', () => {
+    render(<LogoutButton />);
 
-    expect(logoutButton).toBeInTheDocument();
+    const logoutBttn = screen.getByText('Logout');
+
+    expect(logoutBttn).toBeInTheDocument();
   });
 });

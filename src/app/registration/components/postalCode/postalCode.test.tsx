@@ -1,27 +1,32 @@
 import React, { Dispatch } from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import PostalCode from './postalCode';
-import { IFormData } from '../../page';
+import { IMyAddress } from '@/service/api/CustomerService';
 
 describe('PostalCode component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IFormData>> = jest.fn();
+  const setFormData: Dispatch<React.SetStateAction<IMyAddress>> = jest.fn();
 
   test('renders correctly', () => {
-    const { getByLabelText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
     expect(postalCodeInput).toBeInTheDocument();
     expect(postalCodeInput).toHaveAttribute('type', 'text');
   });
+  test('renders correctly if value is undefined', () => {
+    render(<PostalCode country="US" postalCode={undefined} setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
+    expect(postalCodeInput).toHaveValue('');
+  });
 
   test('updates value on input change', () => {
-    const { getByLabelText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
     fireEvent.change(postalCodeInput, { target: { value: '12345' } });
   });
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    const { getByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(postalCodeInput, { target: { value: '1234' } });
     expect(
@@ -30,8 +35,8 @@ describe('PostalCode component', () => {
   });
 
   test('show error message', () => {
-    const { getByLabelText, getByText } = render(<PostalCode country="BY" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    const { getByText } = render(<PostalCode country="BY" postalCode="" setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(postalCodeInput, { target: { value: '12345' } });
     expect(
@@ -40,8 +45,8 @@ describe('PostalCode component', () => {
   });
 
   test('does not show error message', () => {
-    const { getByLabelText, queryByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
-    const postalCodeInput = getByLabelText('Postal code:');
+    const { queryByText } = render(<PostalCode country="US" postalCode="" setFormData={setFormData} />);
+    const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(postalCodeInput, { target: { value: '12345' } });
     expect(

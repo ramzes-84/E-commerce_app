@@ -4,8 +4,9 @@ import style from '../registration/page.module.css';
 import React, { useEffect } from 'react';
 import { login } from './login-actions';
 import { useState } from 'react';
-import EmailLoginValid from './components/email/emailValidLogin';
-import PasswordValidLogin from './components/password/passwordValidLogin';
+import EmailValid from '../registration/components/email/emailValid';
+import PasswordValid from '../registration/components/password/passwordValid';
+import Label from '../registration/elements/wrapper';
 
 export interface IFormDataLogin {
   email: string;
@@ -13,10 +14,8 @@ export interface IFormDataLogin {
 }
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState<IFormDataLogin>({
-    email: '',
-    password: '',
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState<string | undefined>('');
 
   const [formValid, setFormValid] = useState(false);
   const [authError, setAuthError] = useState('');
@@ -29,14 +28,14 @@ export default function LoginForm() {
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$/;
-    const emailValid = emailRegex.test(formData.email);
-    const passwordValid = passwordRegex.test(formData.password);
+    const emailValid = emailRegex.test(email);
+    const passwordValid = passwordRegex.test(password!);
     setFormValid(emailValid && passwordValid);
-  }, [formData]);
+  }, [email, password]);
 
   async function handleSubmit(formData: FormData) {
     const formJson = Object.fromEntries(formData.entries());
-    await login(formJson.name.toString(), formJson.pass.toString())
+    await login(formJson.email.toString(), formJson.password.toString())
       .then(() => {
         setLogingSuccess(true);
         setMsgVisible(true);
@@ -53,13 +52,21 @@ export default function LoginForm() {
       <div className={style.container + ' font-serif'}>
         <form action={handleSubmit}>
           <div>
-            <EmailLoginValid email={formData.email} setFormData={setFormData} />
+            <Label label="Email">
+              <EmailValid email={email} setEmail={setEmail} />
+            </Label>
           </div>
-          <div className="relative">
-            <PasswordValidLogin password={formData.password} setFormData={setFormData} />
-          </div>
+          <Label label="Password">
+            <PasswordValid password={password} setPassword={setPassword} />
+          </Label>
           <div className="flex gap-4 my-8">
-            <span className={style.sentFormBtn} onClick={() => setFormData({ email: '', password: '' })}>
+            <span
+              className={style.sentFormBtn}
+              onClick={() => {
+                setEmail('');
+                setPassword('');
+              }}
+            >
               Reset form
             </span>
             <button

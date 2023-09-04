@@ -1,10 +1,12 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import Navbar from './header';
+import { useRouter } from 'next/navigation';
+jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 
 afterEach(cleanup);
 
-it('CheckboxWithLabel changes the text after click', () => {
-  render(<Navbar />);
+it('Navbar changes after click', () => {
+  render(<Navbar authorized={true} />);
 
   const buttonMenu = screen.getByAltText('menu');
   expect(screen.getByTestId('nav')).toHaveClass('hidden');

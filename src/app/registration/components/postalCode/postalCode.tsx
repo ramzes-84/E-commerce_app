@@ -1,19 +1,25 @@
 'use client';
 
+import { IMyAddress } from '@/service/api/CustomerService';
 import style from '../../page.module.css';
-import { IAddress } from '../../page';
 import React, { useState } from 'react';
 
 interface PostalCodeProps {
   country: string;
-  postalCode: string;
-  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
+  postalCode?: string;
+  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
 }
+
+const infoInput = {
+  patternSixNum: '^[1-90]{6}$',
+  patternSFiveNum: '^[1-90]{5}$',
+  textMistake: 'Enter the postal code in the format of your country without spaces, commas and dashes',
+};
 
 export default function PostalCode({ country, postalCode, setFormData }: PostalCodeProps) {
   const [error, setError] = useState('');
 
-  const handlePostalCodeChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
     setFormData((prevState) => ({
       ...prevState,
@@ -24,13 +30,15 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
       return;
     }
     if (country === 'BY' || country === 'RU' || country === 'KZ') {
-      if (!/^[1-90]{6}$/.test(value)) {
-        setError('Enter the postal code in the format of your country without spaces, commas and dashes');
+      const regexp = new RegExp(infoInput.patternSixNum);
+      if (!regexp.test(value)) {
+        setError(infoInput.textMistake);
         return;
       }
     } else {
-      if (!/^[1-90]{5}$/.test(value)) {
-        setError('Enter the postal code in the format of your country without spaces, commas and dashes');
+      const regexp = new RegExp(infoInput.patternSFiveNum);
+      if (!regexp.test(value)) {
+        setError(infoInput.textMistake);
         return;
       }
     }
@@ -39,18 +47,19 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
 
   return (
     <>
-      <label className={style.labelInput}>
-        Postal code:<span className="text-rose-600">*</span>
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          className={style.input}
-          type="text"
-          name="postalCode"
-          value={postalCode}
-          onChange={handlePostalCodeChange}
-          pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
-        />
-      </label>
+      <input
+        className={style.input}
+        type="text"
+        name="postalCode"
+        value={postalCode ?? ''}
+        onChange={handleInputChange}
+        pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
+      />
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }
