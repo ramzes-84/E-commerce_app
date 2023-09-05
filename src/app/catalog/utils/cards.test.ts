@@ -1,7 +1,7 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { cardsInfo } from './cards';
 
-const discount:ProductProjection[] = [
+const discount: ProductProjection[] = [
   {
     id: '113496b7-5958-4130-8f32-b803059297da',
     version: 1,
@@ -44,22 +44,21 @@ const discount:ProductProjection[] = [
             type: 'centPrecision',
             currencyCode: 'USD',
             centAmount: 2550,
-            fractionDigits: 2
+            fractionDigits: 2,
           },
           discount: {
             typeId: 'product-discount',
-            id: '63a23295-dbdd-4820-aa09-3b7d373448f8'
-          }
+            id: '63a23295-dbdd-4820-aa09-3b7d373448f8',
+          },
         },
         value: {
           type: 'centPrecision',
           currencyCode: 'USD',
           centAmount: 3000,
-          fractionDigits: 2
+          fractionDigits: 2,
         },
-        id: 'e80e99e3-20d1-45dd-a877-a9fab2b2a989'
-      }
-    ,
+        id: 'e80e99e3-20d1-45dd-a877-a9fab2b2a989',
+      },
       images: [
         {
           url: 'https://static.tildacdn.com/stor3064-3162-4033-a238-303130343766/26813283.jpg ',
@@ -110,7 +109,7 @@ const discount:ProductProjection[] = [
     createdAt: '2023-08-25T17:14:14.232Z',
     lastModifiedAt: '2023-08-25T17:14:14.232Z',
   },
-]
+];
 
 const products: ProductProjection[] = [
   {

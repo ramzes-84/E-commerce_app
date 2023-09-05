@@ -9,6 +9,23 @@ import {
 } from './account-actions';
 import CustomerService, { IMyAddress, IMyCustomer } from '@/service/api/CustomerService';
 
+const mockLogout = jest.fn();
+const mockGetCurrentCustomer = jest.fn();
+const mockIsLogged = jest.fn();
+const mockUpdateFieldName = jest.fn();
+const mockChangeAddAddress = jest.fn();
+jest.mock('@/service/api/CustomerService', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      logout: mockLogout,
+      getCurrentCustomer: mockGetCurrentCustomer,
+      isLogged: mockIsLogged,
+      updateFieldName: mockUpdateFieldName,
+      changeAddAddress: mockChangeAddAddress,
+    };
+  });
+});
+
 export const newCustomer: Customer = {
   email: 'test@test.com',
   password: '123456qQ',
@@ -88,51 +105,34 @@ describe('Function returnCustomerData', () => {
   });
 });
 
-const mockLogout = jest.fn();
-const mockGetCurrentCustomer = jest.fn();
-const mockIsLogged = jest.fn();
-const mockUpdateFieldName = jest.fn();
-const mockChangeAddAddress = jest.fn();
-jest.mock('@/service/api/CustomerService', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      logout: mockLogout,
-      getCurrentCustomer: mockGetCurrentCustomer,
-      isLogged: mockIsLogged,
-      updateFieldName: mockUpdateFieldName,
-      changeAddAddress: mockChangeAddAddress,
-    };
-  });
-});
-
 beforeEach(() => {
-  (CustomerService as jest.Mock).mockClear();
+  jest.resetAllMocks();
 });
 
-describe('Account action functions', () => {
-  //   it('shold call CustomerService class & class method on logout', () => {
-  //     logout();
-  //     expect(CustomerService).toHaveBeenCalledTimes(1);
-  //     expect(mockLogout).toHaveBeenCalled();
-  //   });
-  // it('shold call CustomerService class & class method on userIsLogged', () => {
-  //   userIsLogged();
-  //   expect(CustomerService).toHaveBeenCalledTimes(1);
-  //   expect(mockIsLogged).toHaveBeenCalled();
-  // });
-  // it('shold call CustomerService class & class method on getUserInfo', () => {
-  //   getUserInfo();
-  //   expect(CustomerService).toHaveBeenCalledTimes(1);
-  //   expect(mockGetCurrentCustomer).toHaveBeenCalled();
-  // });
-  // it('shold call CustomerService class & class method on updateUserField', () => {
-  //   updateUserField(expectedData, 'string', 'setFirstName', 'string2');
-  //   expect(CustomerService).toHaveBeenCalledTimes(1);
-  //   expect(mockUpdateFieldName).toHaveBeenCalled();
-  // });
-  // it('shold call CustomerService class & class method on updateAddressField', () => {
-  //   updateAddressField(expectedData, 'changeAddress', myAddress);
-  //   expect(CustomerService).toHaveBeenCalledTimes(1);
-  //   expect(mockChangeAddAddress).toHaveBeenCalled();
-  // });
-});
+// describe('Account action functions', () => {
+//   it('should call CustomerService class & class method on logout', () => {
+//     logout();
+//     expect(CustomerService).toHaveBeenCalledTimes(1);
+//     expect(mockLogout).toHaveBeenCalled();
+//   });
+// it('should call CustomerService class & class method on userIsLogged', () => {
+//   userIsLogged();
+//   expect(CustomerService).toHaveBeenCalledTimes(1);
+//   expect(mockIsLogged).toHaveBeenCalled();
+// });
+// it('should call CustomerService class & class method on getUserInfo', () => {
+//   getUserInfo();
+//   expect(CustomerService).toHaveBeenCalledTimes(1);
+//   expect(mockGetCurrentCustomer).toHaveBeenCalled();
+// });
+// it('should call CustomerService class & class method on updateUserField', () => {
+//   updateUserField(expectedData, 'string', 'setFirstName', 'string2');
+//   expect(CustomerService).toHaveBeenCalledTimes(1);
+//   expect(mockUpdateFieldName).toHaveBeenCalled();
+// });
+// it('should call CustomerService class & class method on updateAddressField', () => {
+//   updateAddressField(expectedData, 'changeAddress', myAddress);
+//   expect(CustomerService).toHaveBeenCalledTimes(1);
+//   expect(mockChangeAddAddress).toHaveBeenCalled();
+// });
+// });

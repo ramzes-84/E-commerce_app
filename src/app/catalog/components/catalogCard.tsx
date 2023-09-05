@@ -17,10 +17,16 @@ export default function CatalogCard({ product }: { product: ProductCard }) {
         <p className=" text-center font-bold text-base leading-4 text-emerald-900 highlightedSearch">{product.name}</p>
         <div className="flex" style={img}></div>
         <p className="leading-4 text-justify highlightedSearch">{product.description}</p>
-        <div className={`my-3 flex items-center  w-full ${product.discountedPrice ? 'justify-between': 'justify-around'}`}>
-          <div className='flex flex-col'>
-            {product.discountedPrice && (<span className='font-bold text-red-800'>{(product.discountedPrice / 100).toFixed(2)} USD</span>)}
-            <span className={`font-bold text-emerald-900 ${product.discountedPrice ? 'line-through' : ''}` }>{product.price ? product.price / 100 : null} USD</span>
+        <div
+          className={`my-3 flex items-center  w-full ${product.discountedPrice ? 'justify-between' : 'justify-around'}`}
+        >
+          <div className="flex flex-col">
+            {product.discountedPrice && (
+              <span className="font-bold text-red-800">{(product.discountedPrice / 100).toFixed(2)} USD</span>
+            )}
+            <span className={`font-bold text-emerald-900 ${product.discountedPrice ? 'line-through' : ''}`}>
+              {product.price ? product.price / 100 : null} USD
+            </span>
           </div>
           <button className="border border-solid border-transparent rounded flex bg-emerald-900 text-white cursor-pointer px-2 ml-2">
             Add to cart
