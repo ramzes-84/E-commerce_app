@@ -30,6 +30,4 @@ describe('Catalog filters', () => {
     expect(price).toBeInTheDocument();
     expect(sort).toBeInTheDocument();
   });
-
-
 });
