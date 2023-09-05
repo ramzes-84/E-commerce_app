@@ -3,7 +3,6 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import PostalCode from './postalCode';
 
 describe('PostalCode component', () => {
-
   test('renders correctly', () => {
     render(<PostalCode country="US" postalCode="" onUpdate={() => {}} />);
     const postalCodeInput: HTMLInputElement = screen.getByRole('textbox');

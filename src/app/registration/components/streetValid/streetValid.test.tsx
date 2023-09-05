@@ -3,7 +3,6 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import StreetValid from './streetValid';
 
 describe('StreetValid component', () => {
-
   test('renders correctly', () => {
     render(<StreetValid streetName="" onUpdate={() => {}} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');

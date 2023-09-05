@@ -9,7 +9,11 @@ type IShippingAddressProps = {
   formShippingAddress: IMyAddress;
   customer: IMyCustomer;
   addressType: 'Shipping' | 'Billing';
-  handleSubmitChangeAddress: (action: ChangeAddresAction, actionRemove: ChangeAction, address: IMyAddress) => (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleSubmitChangeAddress: (
+    action: ChangeAddresAction,
+    actionRemove: ChangeAction,
+    address: IMyAddress
+  ) => (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
   deleteAddress: (
     action: ChangeAction,
     address: IMyAddress

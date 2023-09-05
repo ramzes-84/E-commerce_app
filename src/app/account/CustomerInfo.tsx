@@ -125,8 +125,8 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
             addCustomer,
             actionRemove,
             addCustomer.addresses[addCustomer.addresses.length - 1]
-            );
-            processResult('Address is update!', newCustomer, true, undefined);
+          );
+          processResult('Address is update!', newCustomer, true, undefined);
         }
         processResult('Address is update!', addCustomer, true, undefined);
       } catch {

@@ -4,7 +4,6 @@ import CityValid from './cityValid';
 import { IMyAddress } from '@/service/api/CustomerService';
 
 describe('CityValid component', () => {
-
   test('renders correctly', () => {
     const city = 'Example';
     render(<CityValid city={city} onUpdate={() => {}} />);
