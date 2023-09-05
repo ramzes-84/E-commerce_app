@@ -24,11 +24,11 @@ export default async function Page({ params }: { params: { key: string } }) {
   return (
     <>
       <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">{productName}</h2>
-      <section className="flex flex-col md:flex-row gap-4 justify-center items-center">
+      <section className="flex flex-col md:flex-row gap-4 justify-center items-center font-serif">
         <Slider urlArr={masterVarImgs} />
         <div>
           <p className=" font-bold text-emerald-800">Description:</p>
-          <p className="font-serif">{productDesc}</p>
+          <p>{productDesc}</p>
           {masterVarAttrs && <DrawAttributes attrArr={masterVarAttrs} />}
           <p>
             <span className=" font-bold text-emerald-800">SKU:</span> {masterVarSKU}
