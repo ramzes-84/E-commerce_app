@@ -5,7 +5,7 @@ export default function CategoryLink({ item }: { item: CategoryItem }) {
   const link = `/catalog/${item.slug}`;
   return item.children ? (
     <>
-      <Link href={link} className="hover:opacity-75 my-1 hover:-translate-y-0.5">
+      <Link href={link} className="hover:opacity-75 my-1 hover:-translate-y-0.5 sm:text-base text-sm">
         {item.name}
       </Link>
       <ul>
@@ -16,7 +16,7 @@ export default function CategoryLink({ item }: { item: CategoryItem }) {
     </>
   ) : (
     <li className={item.parent ? 'ml-3' : ''} key={item.name}>
-      <Link href={link} className="hover:opacity-75 my-1 hover:-translate-y-0.5">
+      <Link href={link} className="hover:opacity-75 my-1 hover:-translate-y-0.5 sm:text-base text-sm">
         {item.name}
       </Link>
     </li>
