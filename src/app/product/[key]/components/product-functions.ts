@@ -10,8 +10,9 @@ export async function getProductById(id: string): Promise<ProductProjection> {
 export async function getProductByKey(key: string) {
   const catalogService = new CatalogService();
   const product = await catalogService.getProductObjByKey(key);
+  const discount = await catalogService.getDiscoutProduct(key);
   if (product.length === 1) {
-    return product[0];
-  } else if (product.length === 0) throw new Error('There is no variants with such a parameters');
-  else if (product.length > 1) throw new Error('There are more than one variant with such a parameters');
+    return { product: product[0], discount: discount[0] };
+  } else if (product.length === 0) throw new Error('There is no variants with such parameters');
+  else if (product.length > 1) throw new Error('There are more than one variant with such parameters');
 }

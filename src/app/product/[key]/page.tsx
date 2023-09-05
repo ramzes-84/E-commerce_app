@@ -1,11 +1,13 @@
 import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
-import { getProductById, getProductByKey } from './components/product-functions';
+import { getProductByKey } from './components/product-functions';
 
 export default async function Page({ params }: { params: { key: string } }) {
-  const product = await getProductByKey(params.key);
-  if (!product) return <div>Search fails</div>;
+  const res = await getProductByKey(params.key);
+  const product = res?.product;
+  const discount = res?.discount;
+  if (!product) return <div>Getting product fails</div>;
 
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
@@ -17,6 +19,7 @@ export default async function Page({ params }: { params: { key: string } }) {
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
+  const discountPrices = discount?.masterVariant?.price?.discounted?.value.centAmount;
 
   return (
     <>
@@ -33,6 +36,9 @@ export default async function Page({ params }: { params: { key: string } }) {
           <p>
             <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
           </p>
+          {/* <p>
+            <span className=" font-bold text-emerald-800">Discount price:</span> {discountPrices}$
+          </p> */}
           <button className="border border-solid border-transparent rounded  bg-emerald-900 text-white cursor-pointer py-1 px-3">
             Add to cart
           </button>

@@ -91,14 +91,14 @@ export default class CatalogService extends ApiService {
     return products.body.results;
   }
 
-  public async isDiscoutedProduct(sku: string) {
+  public async getDiscoutProduct(key: string) {
     const product = await this.apiRoot
       .productProjections()
       .search()
       .get({
         queryArgs: {
           priceCurrency: 'USD',
-          filter: ['variants.scopedPriceDiscounted:true', `variants.sku:"${sku}"`],
+          filter: ['variants.scopedPriceDiscounted:true', `variants.sku:"${key}"`],
         },
       })
       .execute();

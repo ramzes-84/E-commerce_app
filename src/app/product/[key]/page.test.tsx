@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DrawAttributes } from './components/DrawAttributes';
 import Page from './page';
-import { getProductById, getProductByKey } from './components/product-functions';
+import { getProductByKey } from './components/product-functions';
 
 const expectedProd = {
   id: 'd722a425-aef3-4eee-bce3-0e3829053ea8',
@@ -71,8 +71,7 @@ const expectedProd = {
 };
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 jest.mock('./components/product-functions', () => ({
-  getProductById: jest.fn().mockReturnValue(expectedProd),
-  getProductByKey: jest.fn().mockReturnValue(expectedProd),
+  getProductByKey: jest.fn().mockReturnValue({ product: expectedProd }),
 }));
 jest.mock('./components/DrawAttributes', () => ({ DrawAttributes: jest.fn().mockReturnValue('') }));
 
