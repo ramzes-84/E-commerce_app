@@ -19,15 +19,19 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   const query = useSearchParams();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const colorpath = color !== '' ? `color=${color}` : '';
-    const pricePath = priceChanged ? `priceFrom=${priceRangeMin}&priceTo=${priceRangeMax}` : '';
-    const sortPath = query.has('sortby') ? 'sortby=' + query.get('sortby') : '';
+    const sort = query.has('sortby') ? query.get('sortby') : '';
     setColor('');
     setPriceRangeMin(minMaxPrice(prods)[0]);
     setPriceRangeMax(minMaxPrice(prods)[1]);
     setFiltersVisible(false);
     setPriceChanged(false);
-    const url = urlBuilder({ basePath: path, colorPath: colorpath, pricePath: pricePath, sortPath: sortPath });
+    const url = urlBuilder({
+      basePath: path,
+      color: color,
+      priceFrom: priceChanged ? String(priceRangeMin) : undefined,
+      priceTo: priceChanged ? String(priceRangeMax) : undefined,
+      sort: sort,
+    });
     router.push(url);
   }
   return (
@@ -95,7 +99,7 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
               {query.has('color') || query.has('priceTo') ? (
                 <Link
                   href={`${path}${query.has('sortby') ? '?sortby=' + query.get('sortby') : ''}`}
-                  className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6"
+                  className="mt-1 px-4 rounded bg-emerald-900 text-white leading-6 py-1"
                 >
                   Reset
                 </Link>

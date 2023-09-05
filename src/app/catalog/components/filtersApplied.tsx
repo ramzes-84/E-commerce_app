@@ -4,36 +4,40 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import urlBuilder from '../utils/urlBuilder';
 
-export default function FiltersApplied({ searchParams }: { searchParams: Filters }) {
+export default function FiltersApplied() {
   const path = usePathname();
-  const colorPath = searchParams.color ? `color=${searchParams.color}` : '';
-  const pricePath =
-    searchParams.priceFrom && searchParams.priceTo
-      ? `priceFrom=${String(searchParams.priceFrom)}&priceTo=${String(searchParams.priceTo)}`
-      : '';
   const query = useSearchParams();
-  const sortPath = query.has('sortby') ? `sortby=${query.get('sortby')}` : '';
   return (
     <div className="w-full flex justify-end mb-2 mr-6">
-      {searchParams.color && (
+      {query.has('color') && (
         <Link
-          href={urlBuilder({ basePath: path, pricePath: pricePath, sortPath: sortPath })}
+          href={urlBuilder({
+            basePath: path,
+            priceFrom: query.get('priceFrom'),
+            priceTo: query.get('priceTo'),
+            sort: query.get('sortby'),
+          })}
           className=" hover:cursor-pointer underline underline-offset-2 mx-2"
         >
-          Color: {searchParams.color} ×
+          Color: {query.get('color')} ×
         </Link>
       )}
-      {searchParams.priceFrom && (
+      {query.has('priceFrom') && (
         <Link
-          href={urlBuilder({ basePath: path, colorPath: colorPath, sortPath: sortPath })}
+          href={urlBuilder({ basePath: path, color: query.get('color'), sort: query.get('sortby') })}
           className=" hover:cursor-pointer underline underline-offset-2 mx-2"
         >
-          Price range: {String(searchParams.priceFrom)}-{String(searchParams.priceTo)}USD ×
+          Price range: {query.get('priceFrom')}-{query.get('priceTo')}USD ×
         </Link>
       )}
       {query.has('sortby') && (
         <Link
-          href={urlBuilder({ basePath: path, colorPath: colorPath, pricePath: pricePath })}
+          href={urlBuilder({
+            basePath: path,
+            color: query.get('color'),
+            priceFrom: query.get('priceFrom'),
+            priceTo: query.get('priceTo'),
+          })}
           className=" hover:cursor-pointer underline underline-offset-2 mx-2"
         >
           Sort: {query.get('sortby')} ×
