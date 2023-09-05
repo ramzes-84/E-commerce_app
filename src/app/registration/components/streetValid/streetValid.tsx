@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 interface StreetProps {
   streetName?: string;
-  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
+  onUpdate: (street: string) => void;
 }
 
 const infoInput = {
@@ -14,17 +14,13 @@ const infoInput = {
   textMistake: 'Must contain at least one character',
 };
 
-export default function StreetValid({ streetName, setFormData }: StreetProps) {
+export default function StreetValid({ streetName, onUpdate }: StreetProps) {
   const [error, setError] = useState('');
+  const [street, setStreet] = useState(streetName);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData(
-      (prevState): IMyAddress => ({
-        ...prevState,
-        streetName: value,
-      })
-    );
+    setStreet(value);
     if (!value) {
       setError('');
       return;
@@ -34,6 +30,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
       setError(infoInput.textMistake);
       return;
     }
+    onUpdate(value);
     setError('');
   };
 
@@ -43,7 +40,7 @@ export default function StreetValid({ streetName, setFormData }: StreetProps) {
         type="text"
         name="streetName"
         pattern="^.+$"
-        value={streetName ?? ''}
+        value={street ?? ''}
         onChange={handleInputChange}
         className={style.input}
       />

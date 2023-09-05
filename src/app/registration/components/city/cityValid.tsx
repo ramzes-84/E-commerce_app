@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 
 interface CityProps {
   city?: string;
-  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
+  // setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
+  onUpdate: (street: string) => void;
 }
 
 const infoInput = {
@@ -14,17 +15,19 @@ const infoInput = {
   textMistake: 'Must contain at least one character and no special characters or numbers',
 };
 
-export default function CityValid({ city, setFormData }: CityProps) {
+export default function CityValid({ city, onUpdate }: CityProps) {
   const [error, setError] = useState('');
+  const [citySate, setCityState] = useState(city);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData(
-      (prevState): IMyAddress => ({
-        ...prevState,
-        city: value,
-      })
-    );
+    setCityState(value);
+    // setFormData(
+    //   (prevState): IMyAddress => ({
+    //     ...prevState,
+    //     city: value,
+    //   })
+    // );
     if (!value) {
       setError('');
       return;
@@ -34,6 +37,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
       setError(infoInput.textMistake);
       return;
     }
+    onUpdate(value);
     setError('');
   };
 
@@ -43,7 +47,7 @@ export default function CityValid({ city, setFormData }: CityProps) {
         type="text"
         name="city"
         pattern="^([a-zA-Zа-яА-Я]+-?s*)+$"
-        value={city ?? ''}
+        value={citySate ?? ''}
         onChange={handleInputChange}
         className={style.input}
       />

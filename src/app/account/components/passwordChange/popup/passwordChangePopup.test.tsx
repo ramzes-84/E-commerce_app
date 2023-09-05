@@ -1,14 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import ChangePasswordPopup from './passwordChangePopup';
+import BigPopup from './passwordChangePopup';
 
 describe('ChangePasswordPopup', () => {
   const onClose = jest.fn();
 
   it('renders children and button Close', () => {
     render(
-      <ChangePasswordPopup onClose={onClose}>
+      <BigPopup onClose={onClose}>
         <div>Test</div>
-      </ChangePasswordPopup>
+      </BigPopup>
     );
 
     expect(screen.getByText('Test')).toBeInTheDocument();
@@ -17,9 +17,9 @@ describe('ChangePasswordPopup', () => {
 
   it('calls onClose when button Close is clicked', () => {
     render(
-      <ChangePasswordPopup onClose={onClose}>
+      <BigPopup onClose={onClose}>
         <div>Test</div>
-      </ChangePasswordPopup>
+      </BigPopup>
     );
 
     const closeButton = screen.getByTitle('Exit');

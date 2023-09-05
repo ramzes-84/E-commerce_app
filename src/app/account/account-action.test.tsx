@@ -19,7 +19,6 @@ export const newCustomer: Customer = {
   addresses: [
     {
       id: '1',
-      key: 'shipping',
       streetName: 'Baker st',
       city: 'London',
       postalCode: '12345',
@@ -27,7 +26,6 @@ export const newCustomer: Customer = {
     },
     {
       id: '2',
-      key: 'billing',
       streetName: 'St',
       city: 'Paris',
       postalCode: '12345',
@@ -53,7 +51,6 @@ export const expectedData: IMyCustomer = {
   addresses: [
     {
       id: '1',
-      key: 'shipping',
       streetName: 'Baker st',
       city: 'London',
       postalCode: '12345',
@@ -61,7 +58,6 @@ export const expectedData: IMyCustomer = {
     },
     {
       id: '2',
-      key: 'billing',
       streetName: 'St',
       city: 'Paris',
       postalCode: '12345',
