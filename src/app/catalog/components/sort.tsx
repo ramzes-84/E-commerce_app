@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import urlBuilder from '../utils/urlBuilder';
 
 export default function SortForm() {
   const [sortVisible, setSortVisible] = useState(false);
@@ -12,10 +13,15 @@ export default function SortForm() {
   const query = useSearchParams();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const sortPath = `sortby=${sort}`;
-    const queryPath = query.toString().split('sortby')[0];
     setSortVisible(false);
-    router.push(`${path}?${queryPath}${queryPath ? '&' : ''}${sortPath}`);
+    const url = urlBuilder({
+      basePath: path,
+      color: query.get('color'),
+      priceFrom: query.get('priceFrom'),
+      priceTo: query.get('priceTo'),
+      sort: sort,
+    });
+    router.push(url);
   }
   return (
     <>

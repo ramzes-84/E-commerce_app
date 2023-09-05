@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { CustomerInfo } from './CustomerInfo';
 import { LogoutButton } from './LogoutButton';
 import { getUserInfo, userIsLogged } from './account-actions';

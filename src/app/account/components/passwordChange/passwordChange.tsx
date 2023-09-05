@@ -2,7 +2,7 @@ import style from '../../../registration/page.module.css';
 import { FaPencilAlt } from 'react-icons/fa';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import ChangePasswordPopup from './popup/passwordChangePopup';
+import BigPopup from './popup/passwordChangePopup';
 import InputPasswordChange from './inputPasswordChange';
 import { IMyCustomer } from '@/service/api/CustomerService';
 
@@ -43,14 +43,14 @@ export default function PasswordChange({ title, customer, setSavePassword }: Pas
         </button>
         {isOpen &&
           createPortal(
-            <ChangePasswordPopup
+            <BigPopup
               onClose={(event) => {
                 event.preventDefault();
                 setIsOpen(false);
               }}
             >
               <InputPasswordChange customer={customer} onClose={() => setIsOpen(false)} setIsSaving={setIsSaving} />
-            </ChangePasswordPopup>,
+            </BigPopup>,
             document.body
           )}
       </form>

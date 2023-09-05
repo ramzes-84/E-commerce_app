@@ -64,7 +64,6 @@ export interface IAddress {
 
 export interface IMyAddress {
   id: string;
-  key: string;
   streetName?: string;
   city?: string;
   postalCode?: string;
@@ -81,6 +80,12 @@ interface UpdateCustomer {
 interface ChangeAddressCustomer {
   action: ChangeAddresAction;
   address: IAddress;
+  addressId?: string;
+  addressKey?: string;
+}
+
+interface RemoveAddressCustomer {
+  action: ChangeAction;
   addressId?: string;
   addressKey?: string;
 }
@@ -168,7 +173,6 @@ export default class CustomerService extends ApiService {
     if (customer.version) {
       const myAddress: IMyAddress = {
         id: address.id,
-        key: address.key,
         country: address.country,
         city: address.city,
         streetName: address.streetName,
@@ -178,7 +182,6 @@ export default class CustomerService extends ApiService {
         action: actionType,
         address: myAddress,
         addressId: myAddress.id,
-        addressKey: myAddress.key,
       };
       const result = await this.apiRoot
         .me()
@@ -223,5 +226,31 @@ export default class CustomerService extends ApiService {
       })
       .execute();
     return result.body;
+  }
+
+  public async deleteSetAddress(customer: IMyCustomer, actionType: ChangeAction, address: IMyAddress) {
+    if (customer.version) {
+      const myAddress: IMyAddress = {
+        id: address.id,
+        country: address.country,
+        city: address.city,
+        streetName: address.streetName,
+        postalCode: address.postalCode,
+      };
+      const actionArr: RemoveAddressCustomer = {
+        action: actionType,
+        addressId: myAddress.id,
+      };
+      const result = await this.apiRoot
+        .me()
+        .post({
+          body: {
+            version: customer.version,
+            actions: [actionArr],
+          },
+        })
+        .execute();
+      return result.body;
+    }
   }
 }
