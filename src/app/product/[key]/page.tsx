@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { key: string } }) {
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
-  const discountPrices = discount?.masterVariant?.price?.discounted?.value.centAmount;
+  const discountPrice = discount ? discount / 100 : undefined;
 
   return (
     <>
@@ -33,12 +33,17 @@ export default async function Page({ params }: { params: { key: string } }) {
           <p>
             <span className=" font-bold text-emerald-800">SKU:</span> {masterVarSKU}
           </p>
-          <p>
-            <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
-          </p>
-          {/* <p>
-            <span className=" font-bold text-emerald-800">Discount price:</span> {discountPrices}$
-          </p> */}
+          {discountPrice ? (
+            <p>
+              <span className=" font-bold text-emerald-800">Price: </span>
+              <span className="font-bold text-red-800">{discountPrice}$ </span>
+              <span className="font-bold text-emerald-900 line-through">{masterVarPrices}$</span>
+            </p>
+          ) : (
+            <p>
+              <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
+            </p>
+          )}
           <button className="border border-solid border-transparent rounded  bg-emerald-900 text-white cursor-pointer py-1 px-3">
             Add to cart
           </button>
