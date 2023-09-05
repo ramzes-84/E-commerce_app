@@ -6,6 +6,7 @@ import minMaxPrice from '../utils/priceRange';
 import { useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import urlBuilder from '../utils/urlBuilder';
 
 export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -26,11 +27,8 @@ export default function FiltersForm({ prods }: { prods: ProductProjection[] }) {
     setPriceRangeMax(minMaxPrice(prods)[1]);
     setFiltersVisible(false);
     setPriceChanged(false);
-    router.push(
-      `${path}?${colorpath}${(pricePath || sortPath) && colorpath ? '&' : ''}${pricePath}${
-        sortPath && pricePath ? '&' : ''
-      }${sortPath}`
-    );
+    const url = urlBuilder({ basePath: path, colorPath: colorpath, pricePath: pricePath, sortPath: sortPath });
+    router.push(url);
   }
   return (
     <>
