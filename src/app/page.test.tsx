@@ -6,7 +6,7 @@ describe('Main page', () => {
   it('renders greeting', () => {
     const { getByText } = render(<Home />);
 
-    const greeting = getByText('Hello, Main page!');
+    const greeting = getByText('Welcome to Ostara Glass Shop!');
     const loginBttn = getByText('Log in');
     const registerBttn = getByText('Registration');
 
