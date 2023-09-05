@@ -1,9 +1,11 @@
 import { CustomerInfo } from './CustomerInfo';
 import { LogoutButton } from './LogoutButton';
 import { getUserInfo, userIsLogged } from './account-actions';
+import { redirect } from 'next/navigation';
 
 export default async function Page() {
   const isLogged = userIsLogged();
+  if (!isLogged) redirect('/login/');
   const customer = await getUserInfo();
 
   return (

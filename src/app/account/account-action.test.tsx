@@ -26,6 +26,20 @@ jest.mock('@/service/api/CustomerService', () => {
   });
 });
 
+// jest.mock('@/service/api/CustomerService', () => ({
+//   CustomerService: function () {
+//     return {
+//       logout: mockLogout,
+//     };
+//   },
+// }));
+
+// jest.mock('@/service/api/CustomerService', () => {
+//   return jest.fn().mockImplementation(() => {
+//     return { logout: mockLogout };
+//   });
+// });
+
 export const newCustomer: Customer = {
   email: 'test@test.com',
   password: '123456qQ',
@@ -109,30 +123,30 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-// describe('Account action functions', () => {
-//   it('should call CustomerService class & class method on logout', () => {
-//     logout();
-//     expect(CustomerService).toHaveBeenCalledTimes(1);
-//     expect(mockLogout).toHaveBeenCalled();
-//   });
-// it('should call CustomerService class & class method on userIsLogged', () => {
-//   userIsLogged();
-//   expect(CustomerService).toHaveBeenCalledTimes(1);
-//   expect(mockIsLogged).toHaveBeenCalled();
-// });
-// it('should call CustomerService class & class method on getUserInfo', () => {
-//   getUserInfo();
-//   expect(CustomerService).toHaveBeenCalledTimes(1);
-//   expect(mockGetCurrentCustomer).toHaveBeenCalled();
-// });
-// it('should call CustomerService class & class method on updateUserField', () => {
-//   updateUserField(expectedData, 'string', 'setFirstName', 'string2');
-//   expect(CustomerService).toHaveBeenCalledTimes(1);
-//   expect(mockUpdateFieldName).toHaveBeenCalled();
-// });
-// it('should call CustomerService class & class method on updateAddressField', () => {
-//   updateAddressField(expectedData, 'changeAddress', myAddress);
-//   expect(CustomerService).toHaveBeenCalledTimes(1);
-//   expect(mockChangeAddAddress).toHaveBeenCalled();
-// });
-// });
+describe('Account action functions', () => {
+  // it('should call CustomerService class & class method on logout', () => {
+  //   logout();
+  //   expect(CustomerService).toHaveBeenCalledTimes(1);
+  //   expect(mockLogout).toHaveBeenCalled();
+  // });
+  // it('should call CustomerService class & class method on userIsLogged', () => {
+  //   userIsLogged();
+  //   expect(CustomerService).toHaveBeenCalledTimes(1);
+  //   expect(mockIsLogged).toHaveBeenCalled();
+  // });
+  // it('should call CustomerService class & class method on getUserInfo', () => {
+  //   getUserInfo();
+  //   expect(CustomerService).toHaveBeenCalledTimes(1);
+  //   expect(mockGetCurrentCustomer).toHaveBeenCalled();
+  // });
+  // it('should call CustomerService class & class method on updateUserField', () => {
+  //   updateUserField(expectedData, 'string', 'setFirstName', 'string2');
+  //   expect(CustomerService).toHaveBeenCalledTimes(1);
+  //   expect(mockUpdateFieldName).toHaveBeenCalled();
+  // });
+  // it('should call CustomerService class & class method on updateAddressField', () => {
+  //   updateAddressField(expectedData, 'changeAddress', myAddress);
+  //   expect(CustomerService).toHaveBeenCalledTimes(1);
+  //   expect(mockChangeAddAddress).toHaveBeenCalled();
+  // });
+});
