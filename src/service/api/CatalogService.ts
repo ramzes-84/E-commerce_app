@@ -7,6 +7,7 @@ export type ProductCard = {
   discountedPrice?: number;
   description?: string;
   ID: string;
+  key: string | undefined;
 };
 
 export type Filters = {
@@ -90,6 +91,22 @@ export default class CatalogService extends ApiService {
     return products.body.results;
   }
 
+  public async getDiscoutProduct(key: string) {
+    const res = await this.apiRoot
+      .productProjections()
+      .search()
+      .get({
+        queryArgs: {
+          priceCurrency: 'USD',
+          filter: ['variants.scopedPriceDiscounted:true'],
+        },
+      })
+      .execute();
+    const product = res.body.results.find((item) => item.key === key);
+
+    return product?.masterVariant.price?.discounted?.value.centAmount || undefined;
+  }
+
   public async getDiscoutedProducts() {
     const products = await this.apiRoot
       .productProjections()
@@ -102,6 +119,19 @@ export default class CatalogService extends ApiService {
       })
       .execute();
     return products.body.results;
+  }
+
+  public async getProductObjByKey(productKey: string) {
+    const product = await this.apiRoot
+      .productProjections()
+      .search()
+      .get({
+        queryArgs: {
+          filter: `key:"${productKey}"`,
+        },
+      })
+      .execute();
+    return product.body.results;
   }
 
   public async getProductObjById(productID: string) {

@@ -13,7 +13,7 @@ jest.mock('next/navigation', () => ({
       if (prp === 'sortby') return 'nameASC';
       else if (prp === 'priceFrom') return 15;
       else if (prp === 'priceTo') return 40;
-      if (prp === 'color') return 'green'
+      if (prp === 'color') return 'green';
     },
   }),
 }));
