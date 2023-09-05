@@ -10,6 +10,7 @@ export function cardsInfo(prods: ProductProjection[], discounted: ProductProject
       discountedPrice: discounted.find((d) => d.id === p.id)?.masterVariant.price?.discounted?.value.centAmount,
       description: p.description ? p.description['en-US'] : undefined,
       ID: p.id,
+      key: p.key,
     };
     return product;
   });

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DrawAttributes } from './components/DrawAttributes';
 import Page from './page';
-import { getProductById } from './components/product-functions';
+import { getProductById, getProductByKey } from './components/product-functions';
 
 const expectedProd = {
   id: 'd722a425-aef3-4eee-bce3-0e3829053ea8',
@@ -70,16 +70,19 @@ const expectedProd = {
   },
 };
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
-jest.mock('./components/product-functions', () => ({ getProductById: jest.fn().mockReturnValue(expectedProd) }));
+jest.mock('./components/product-functions', () => ({
+  getProductById: jest.fn().mockReturnValue(expectedProd),
+  getProductByKey: jest.fn().mockReturnValue(expectedProd),
+}));
 jest.mock('./components/DrawAttributes', () => ({ DrawAttributes: jest.fn().mockReturnValue('') }));
 
 describe('Product page', () => {
   it('renders product info', async () => {
-    const Result = await Page({ params: { ID: '1' } });
+    const Result = await Page({ params: { key: '1' } });
     render(Result);
 
     expect(screen.getByText('Honeycomb wall hanging')).toBeInTheDocument();
-    expect(getProductById).toHaveBeenCalled();
-    expect(getProductById).toHaveBeenCalledWith('1');
+    expect(getProductByKey).toHaveBeenCalled();
+    expect(getProductByKey).toHaveBeenCalledWith('1');
   });
 });

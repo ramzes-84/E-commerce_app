@@ -1,10 +1,11 @@
 import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
-import { getProductById } from './components/product-functions';
+import { getProductById, getProductByKey } from './components/product-functions';
 
-export default async function Page({ params }: { params: { ID: string } }) {
-  const product = await getProductById(params.ID);
+export default async function Page({ params }: { params: { key: string } }) {
+  const product = await getProductByKey(params.key);
+  if (!product) return <div>Search fails</div>;
 
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
