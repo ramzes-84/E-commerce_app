@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Breadcrumbs({ cat }: { cat?: Category }) {
   return (
-    <div>
+    <div className="mb-4">
       <Link
         className=" hover:cursor-pointer hover:underline hover:underline-offset-2 text-lg font-bold text-emerald-900"
         href="/catalog"

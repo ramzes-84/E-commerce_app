@@ -1,33 +1,30 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import StreetValid from './streetValid';
-import { IMyAddress } from '@/service/api/CustomerService';
 
 describe('StreetValid component', () => {
-  const setFormData: Dispatch<React.SetStateAction<IMyAddress>> = jest.fn();
-
   test('renders correctly', () => {
-    render(<StreetValid streetName="" setFormData={setFormData} />);
+    render(<StreetValid streetName="" onUpdate={() => {}} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');
     expect(streetInput).toBeInTheDocument();
     expect(streetInput).toHaveValue('');
   });
 
   test('renders correctly if value is undefined', () => {
-    render(<StreetValid streetName={undefined} setFormData={setFormData} />);
+    render(<StreetValid streetName={undefined} onUpdate={() => {}} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');
     expect(streetInput).toBeInTheDocument();
     expect(streetInput).toHaveValue('');
   });
 
   test('updates street value on input change', () => {
-    render(<StreetValid streetName="" setFormData={setFormData} />);
+    render(<StreetValid streetName="" onUpdate={() => {}} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');
     fireEvent.change(streetInput, { target: { value: 'Baker Street' } });
   });
 
   test('show error message', () => {
-    const { queryByText } = render(<StreetValid streetName="" setFormData={setFormData} />);
+    const { queryByText } = render(<StreetValid streetName="" onUpdate={() => {}} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(streetInput, { target: { value: '1!' } });
@@ -35,7 +32,7 @@ describe('StreetValid component', () => {
   });
 
   test('does not show error message', () => {
-    const { queryByText } = render(<StreetValid streetName="" setFormData={setFormData} />);
+    const { queryByText } = render(<StreetValid streetName="" onUpdate={() => {}} />);
     const streetInput: HTMLInputElement = screen.getByRole('textbox');
 
     fireEvent.change(streetInput, { target: { value: 'Baker Street' } });

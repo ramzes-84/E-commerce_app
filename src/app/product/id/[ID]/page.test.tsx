@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { DrawAttributes } from './DrawAttributes';
 import Page from './page';
-import { getProductById } from './product-functions';
 import { useRouter } from 'next/navigation';
+import { DrawAttributes } from '../../[key]/components/DrawAttributes';
+import { getProductById } from '../../[key]/components/product-functions';
 
-jest.mock('./product-functions', () => ({
+jest.mock('../../[key]/components/product-functions', () => ({
   getProductById: jest.fn().mockReturnValue({
     id: 'd722a425-aef3-4eee-bce3-0e3829053ea8',
     name: {

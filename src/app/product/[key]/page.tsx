@@ -1,10 +1,13 @@
-import Slider from './Slider';
-import { DrawAttributes } from './DrawAttributes';
-import { getProductById } from './product-functions';
-import { ProductNavBar } from './ProductNavBar';
+import { DrawAttributes } from './components/DrawAttributes';
+import { ProductNavBar } from './components/ProductNavBar';
+import Slider from './components/Slider';
+import { getProductByKey } from './components/product-functions';
 
-export default async function Page({ params }: { params: { ID: string } }) {
-  const product = await getProductById(params.ID);
+export default async function Page({ params }: { params: { key: string } }) {
+  const res = await getProductByKey(params.key);
+  const product = res?.product;
+  const discount = res?.discount;
+  if (!product) return <div>Getting product fails</div>;
 
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
@@ -16,6 +19,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
+  const discountPrice = discount ? discount / 100 : undefined;
 
   return (
     <>
@@ -24,14 +28,22 @@ export default async function Page({ params }: { params: { ID: string } }) {
         <Slider urlArr={masterVarImgs} />
         <div>
           <p className=" font-bold text-emerald-800">Description:</p>
-          <p>{productDesc}</p>
+          <p className="font-serif">{productDesc}</p>
           {masterVarAttrs && <DrawAttributes attrArr={masterVarAttrs} />}
           <p>
             <span className=" font-bold text-emerald-800">SKU:</span> {masterVarSKU}
           </p>
-          <p>
-            <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
-          </p>
+          {discountPrice ? (
+            <p>
+              <span className=" font-bold text-emerald-800">Price: </span>
+              <span className="font-bold text-red-800">{discountPrice}$ </span>
+              <span className="font-bold text-emerald-900 line-through">{masterVarPrices}$</span>
+            </p>
+          ) : (
+            <p>
+              <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
+            </p>
+          )}
           <button className="border border-solid border-transparent rounded  bg-emerald-900 text-white cursor-pointer py-1 px-3">
             Add to cart
           </button>
