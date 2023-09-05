@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: { key: string } }) {
         <Slider urlArr={masterVarImgs} />
         <div>
           <p className=" font-bold text-emerald-800">Description:</p>
-          <p>{productDesc}</p>
+          <p className="font-serif">{productDesc}</p>
           {masterVarAttrs && <DrawAttributes attrArr={masterVarAttrs} />}
           <p>
             <span className=" font-bold text-emerald-800">SKU:</span> {masterVarSKU}
