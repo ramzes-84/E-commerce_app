@@ -10,8 +10,7 @@ import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
 import { autoLogin, register } from './register-actions';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import ShippingAddress from './components/sippingAddress/shippingAddress';
-import BillingAddress from './components/billingAddress/billingAddress';
+import AddressSection from './components/addresses/addressSection';
 import CheckboxAddress from './elements/checkbox/checkbox';
 import { IMyAddress } from '@/service/api/CustomerService';
 import Label from './elements/wrapper';
@@ -27,7 +26,6 @@ export default function Page() {
 
   const [formShippingAddress, setFormShippingAddress] = useState<IMyAddress>({
     id: '',
-    key: '',
     streetName: '',
     city: '',
     postalCode: '',
@@ -37,7 +35,6 @@ export default function Page() {
 
   const [formBillingAddress, setFormBillingAddress] = useState<IMyAddress>({
     id: '',
-    key: '',
     streetName: '',
     city: '',
     postalCode: '',
@@ -164,13 +161,22 @@ export default function Page() {
                 </Label>
               </div>
             </div>
-            <ShippingAddress
+            <AddressSection
               formShippingAddress={formShippingAddress}
-              setFormShippingAddress={setFormShippingAddress}
+              onUpdate={(address: IMyAddress, isDefault: boolean) => {
+                const newState = { ...address, defaultShippingAddress: isDefault };
+                setFormShippingAddress(newState);
+              }}
             />
             <CheckboxAddress label="Use for Billing address" checked={isChecked} onChange={handleCheckboxChange} />
             {!isChecked && (
-              <BillingAddress formBillingAddress={formBillingAddress} setFormBillingAddress={setFormBillingAddress} />
+              <AddressSection
+                formShippingAddress={formBillingAddress}
+                onUpdate={(address: IMyAddress, isDefault: boolean) => {
+                  const newState = { ...address, defaultBillingAddress: isDefault };
+                  setFormBillingAddress(newState);
+                }}
+              />
             )}
           </div>
           <button

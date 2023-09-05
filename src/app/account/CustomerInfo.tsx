@@ -3,19 +3,24 @@
 import Wrapper from './components/wrapper/wrapper';
 import FirstNameValid from '../registration/components/firstName/firstNameValid';
 import { useEffect, useState } from 'react';
-import { logout, updateAddressField, updateEmail, updateUserField } from './account-actions';
-import { ChangeAddresAction, ChangeEmail, IMyAddress, IMyCustomer, UpdateAction } from '@/service/api/CustomerService';
+import { logout, removeSetAddress, updateAddressField, updateEmail, updateUserField } from './account-actions';
+import {
+  ChangeAction,
+  ChangeAddresAction,
+  ChangeEmail,
+  IMyAddress,
+  IMyCustomer,
+  UpdateAction,
+} from '@/service/api/CustomerService';
 import LastNameValid from '../registration/components/lastName/lastNameValid';
 import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
 import Border from './components/border/border';
-import StreetValid from '../registration/components/streetValid/streetValid';
-import CityValid from '../registration/components/city/cityValid';
-import SelectCountry from '../registration/components/selectCountry/selectCountry';
-import PostalCode from '../registration/components/postalCode/postalCode';
 import SuccessPopup from './components/popup/successPopup';
 import EmailValid from '../registration/components/email/emailValid';
 import PasswordChange from './components/passwordChange/passwordChange';
 import { useRouter } from 'next/navigation';
+import AddAddress from './components/addAddress/addAddress';
+import AddressSectionAccount from './components/addresses/addressSectionAccount';
 
 interface CustomerInfoProps {
   customer: IMyCustomer;
@@ -30,25 +35,37 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
   const [lastName, setLastName] = useState(customer.lastName);
   const [dateOfBirth, setDateOfBirth] = useState(customer.dateOfBirth);
 
-  const [formShippingAddress, setFormShippingAddress] = useState<IMyAddress>({
-    id: customer.addresses[0].id,
-    key: customer.addresses[0].key,
-    streetName: customer.addresses[0].streetName,
-    city: customer.addresses[0].city,
-    postalCode: customer.addresses[0].postalCode,
-    country: customer.addresses[0].country,
-    defaultShippingAddress: false,
+  let shippingAddressObjects = customer.addresses.filter((address) => {
+    return customer.shippingAddressIds?.includes(address.id);
   });
 
-  const [formBillingAddress, setFormBillingAddress] = useState<IMyAddress>({
-    id: customer.addresses[1].id,
-    key: customer.addresses[1].key,
-    streetName: customer.addresses[1].streetName,
-    city: customer.addresses[1].city,
-    postalCode: customer.addresses[1].postalCode,
-    country: customer.addresses[1].country,
+  const initialFormShippingAddress = shippingAddressObjects.map((address) => ({
+    id: address.id,
+    streetName: address.streetName,
+    city: address.city,
+    postalCode: address.postalCode,
+    country: address.country,
     defaultShippingAddress: false,
+  }));
+
+  const [formShippingAddress, setFormShippingAddress] = useState<IMyAddress[]>(initialFormShippingAddress);
+
+  let billingAddressObjects = customer.addresses.filter((address) => {
+    return customer.billingAddressIds?.includes(address.id);
   });
+
+  const initialFormBillingAddress = billingAddressObjects.map((address) => ({
+    id: address.id,
+    streetName: address.streetName,
+    city: address.city,
+    postalCode: address.postalCode,
+    country: address.country,
+    defaultShippingAddress: false,
+  }));
+
+  const [formBillingAddress, setFormBillingAddress] = useState<IMyAddress[]>(initialFormBillingAddress);
+
+  const [defaultShipping, setDefaultShipping] = useState(false);
 
   const processResult = (message: string, newCustomer?: IMyCustomer, isSuccess?: boolean, isError?: boolean) => {
     isSuccess ? setSuccessChange(isSuccess) : isError ? setErrorChange(isError) : null;
@@ -86,11 +103,11 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
     };
   };
 
-  const handleSubmitChangeAddress = (action: ChangeAddresAction, address: IMyAddress) => {
+  const handleSubmitChangeEmail = (action: ChangeEmail, value: string) => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
-        const newCustomer = await updateAddressField(customer, action, address);
+        const newCustomer = await updateEmail(customer, action, value);
         processResult('Field is update!', newCustomer, true, undefined);
       } catch {
         processResult('Oops... Try again, please!', undefined, undefined, true);
@@ -98,12 +115,55 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
     };
   };
 
-  const handleSubmitChangeEmail = (action: ChangeEmail, value: string) => {
+  const handleSubmitChangeAddress = (action: ChangeAddresAction, actionRemove: ChangeAction, address: IMyAddress) => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       try {
-        const newCustomer = await updateEmail(customer, action, value);
-        processResult('Field is update!', newCustomer, true, undefined);
+        const addCustomer = await updateAddressField(customer, action, address);
+        if (defaultShipping && addCustomer) {
+          const newCustomer = await removeSetAddress(
+            addCustomer,
+            actionRemove,
+            addCustomer.addresses[addCustomer.addresses.length - 1]
+            );
+            processResult('Address is update!', newCustomer, true, undefined);
+        }
+        processResult('Address is update!', addCustomer, true, undefined);
+      } catch {
+        processResult('Oops... Try again, please!', undefined, undefined, true);
+      }
+    };
+  };
+
+  const deleteAddress = (action: ChangeAction, address: IMyAddress) => {
+    return async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      try {
+        const newCustomer = await removeSetAddress(customer, action, address);
+        processResult('Address removed!', newCustomer, true, undefined);
+      } catch {
+        processResult('Oops... Try again, please!', undefined, undefined, true);
+      }
+    };
+  };
+
+  const handleSubmitAddAddress = (
+    actionUpdate: ChangeAddresAction,
+    actionRemove: ChangeAction,
+    address: IMyAddress
+  ) => {
+    return async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      try {
+        const addCustomer = await updateAddressField(customer, actionUpdate, address);
+        if (addCustomer) {
+          const newCustomer = await removeSetAddress(
+            addCustomer,
+            actionRemove,
+            addCustomer.addresses[addCustomer.addresses.length - 1]
+          );
+          processResult('Field is update!', newCustomer, true, undefined);
+        }
       } catch {
         processResult('Oops... Try again, please!', undefined, undefined, true);
       }
@@ -129,47 +189,67 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
             </Border>
 
             <Border title="Shipping address">
-              <Wrapper title="Street:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
-                <StreetValid streetName={formShippingAddress.streetName} setFormData={setFormShippingAddress} />
-              </Wrapper>
-              <Wrapper title="City:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
-                <CityValid city={formShippingAddress.city} setFormData={setFormShippingAddress} />
-              </Wrapper>
-              <Wrapper title="Country:" handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}>
-                <SelectCountry country={formShippingAddress.country} setFormData={setFormShippingAddress} />
-              </Wrapper>
-              <Wrapper
-                title="Postal code:"
-                handleSubmit={handleSubmitChangeAddress('changeAddress', formShippingAddress)}
-              >
-                <PostalCode
-                  country={formShippingAddress.country}
-                  postalCode={formShippingAddress.postalCode}
-                  setFormData={setFormShippingAddress}
+              <div className="flex flex-wrap gap-1 justify-start items-center">
+                <AddAddress
+                  addressType="Shipping"
+                  handleSubmitAddAddress={handleSubmitAddAddress}
+                  onUpdate={(address: IMyAddress) => {
+                    const newAddressState = [...formShippingAddress, address];
+                    setFormShippingAddress(newAddressState);
+                  }}
                 />
-              </Wrapper>
+                {shippingAddressObjects.length !== 0 ? (
+                  shippingAddressObjects.map((address) => (
+                    <AddressSectionAccount
+                      key={address.id}
+                      customer={customer}
+                      formShippingAddress={address}
+                      addressType="Shipping"
+                      handleSubmitChangeAddress={handleSubmitChangeAddress}
+                      deleteAddress={deleteAddress}
+                      onUpdate={(addresses: IMyAddress) => {
+                        const newAddressState = [...formShippingAddress, addresses];
+                        setFormShippingAddress(newAddressState);
+                        setCustomer(customer);
+                      }}
+                    />
+                  ))
+                ) : (
+                  <p className=" text-xl text-emerald-900">No matching results</p>
+                )}
+              </div>
             </Border>
 
             <Border title="Billing address">
-              <Wrapper title="Street:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
-                <StreetValid streetName={formBillingAddress.streetName} setFormData={setFormBillingAddress} />
-              </Wrapper>
-              <Wrapper title="City:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
-                <CityValid city={formBillingAddress.city} setFormData={setFormBillingAddress} />
-              </Wrapper>
-              <Wrapper title="Country:" handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}>
-                <SelectCountry country={formBillingAddress.country} setFormData={setFormBillingAddress} />
-              </Wrapper>
-              <Wrapper
-                title="Postal code:"
-                handleSubmit={handleSubmitChangeAddress('changeAddress', formBillingAddress)}
-              >
-                <PostalCode
-                  country={formBillingAddress.country}
-                  postalCode={formBillingAddress.postalCode}
-                  setFormData={setFormBillingAddress}
+              <div className="flex flex-wrap gap-1 justify-start items-center">
+                <AddAddress
+                  addressType="Billing"
+                  handleSubmitAddAddress={handleSubmitAddAddress}
+                  onUpdate={(address: IMyAddress) => {
+                    const newAddressState = [...formBillingAddress, address];
+                    setFormBillingAddress(newAddressState);
+                  }}
                 />
-              </Wrapper>
+                {billingAddressObjects.length !== 0 ? (
+                  billingAddressObjects.map((address) => (
+                    <AddressSectionAccount
+                      key={address.id}
+                      customer={customer}
+                      formShippingAddress={address}
+                      addressType="Billing"
+                      handleSubmitChangeAddress={handleSubmitChangeAddress}
+                      deleteAddress={deleteAddress}
+                      onUpdate={(addresses: IMyAddress) => {
+                        const newAddressState = [...formBillingAddress, addresses];
+                        setFormBillingAddress(newAddressState);
+                        setCustomer(customer);
+                      }}
+                    />
+                  ))
+                ) : (
+                  <p className=" text-xl text-emerald-900">No matching results</p>
+                )}
+              </div>
             </Border>
 
             <Border title="Login & Security">

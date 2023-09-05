@@ -1,6 +1,7 @@
 'use server';
 
 import CustomerService, {
+  ChangeAction,
   ChangeAddresAction,
   ChangeEmail,
   IMyAddress,
@@ -80,6 +81,13 @@ export const updateEmail = async (customer: IMyCustomer, actionType: ChangeEmail
 export const updatePassword = async (customer: IMyCustomer, newPassword: string, currentPassword: string) => {
   const customerService = new CustomerService();
   const newCustomer = await customerService.changePassword(customer, newPassword, currentPassword);
+  const result = returnCustomerData(newCustomer);
+  return result;
+};
+
+export const removeSetAddress = async (customer: IMyCustomer, action: ChangeAction, address: IMyAddress) => {
+  const customerService = new CustomerService();
+  const newCustomer = await customerService.deleteSetAddress(customer, action, address);
   const result = returnCustomerData(newCustomer);
   return result;
 };

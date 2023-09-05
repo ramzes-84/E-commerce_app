@@ -7,7 +7,8 @@ import React, { useState } from 'react';
 interface PostalCodeProps {
   country: string;
   postalCode?: string;
-  setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
+  // setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
+  onUpdate: (street: string) => void;
 }
 
 const infoInput = {
@@ -16,15 +17,17 @@ const infoInput = {
   textMistake: 'Enter the postal code in the format of your country without spaces, commas and dashes',
 };
 
-export default function PostalCode({ country, postalCode, setFormData }: PostalCodeProps) {
+export default function PostalCode({ country, postalCode, onUpdate }: PostalCodeProps) {
   const [error, setError] = useState('');
+  const [postalCodeState, setPostalCode] = useState(postalCode);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData((prevState) => ({
-      ...prevState,
-      postalCode: value,
-    }));
+    setPostalCode(value);
+    // setFormData((prevState) => ({
+    //   ...prevState,
+    //   postalCode: value,
+    // }));
     if (!value) {
       setError('');
       return;
@@ -42,6 +45,7 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
         return;
       }
     }
+    onUpdate(value);
     setError('');
   };
 
@@ -51,7 +55,7 @@ export default function PostalCode({ country, postalCode, setFormData }: PostalC
         className={style.input}
         type="text"
         name="postalCode"
-        value={postalCode ?? ''}
+        value={postalCodeState ?? ''}
         onChange={handleInputChange}
         pattern={country === 'BY' || country === 'RU' || country === 'KZ' ? '^[1-90]{6}$' : '^[1-90]{5}$'}
       />

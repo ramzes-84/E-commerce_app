@@ -19,10 +19,6 @@ describe('CustomerInfo', () => {
     const blockPersonalInfo = screen.getByText('Personal information');
     const blockShippingAddress = screen.getByText('Shipping address');
     const blockBillingAddress = screen.getByText('Billing address');
-    const streetField = screen.getAllByText('Street:');
-    const cityField = screen.getAllByText('City:');
-    const countryField = screen.getAllByText('Country:');
-    const postalCodeField = screen.getAllByText('Postal code:');
 
     expect(firstNameField).toBeInTheDocument();
     expect(lastNameField).toBeInTheDocument();
@@ -33,17 +29,5 @@ describe('CustomerInfo', () => {
     expect(blockPersonalInfo).toBeInTheDocument();
     expect(blockShippingAddress).toBeInTheDocument();
     expect(blockBillingAddress).toBeInTheDocument();
-    streetField.forEach((i) => {
-      expect(i).toBeInTheDocument();
-    });
-    countryField.forEach((i) => {
-      expect(i).toBeInTheDocument();
-    });
-    cityField.forEach((i) => {
-      expect(i).toBeInTheDocument();
-    });
-    postalCodeField.forEach((i) => {
-      expect(i).toBeInTheDocument();
-    });
   });
 });
