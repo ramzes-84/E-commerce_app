@@ -33,10 +33,10 @@ describe('Catalog card', () => {
 
     const productName = screen.getByText('Medium heather moon');
     const productPrice = screen.getByText('25 USD');
-    const disc =screen.getByText('22.50 USD')
+    const disc = screen.getByText('22.50 USD');
 
     expect(productName).toBeInTheDocument();
     expect(productPrice).toBeInTheDocument();
-    expect(disc).toBeInTheDocument(); 
+    expect(disc).toBeInTheDocument();
   });
 });
