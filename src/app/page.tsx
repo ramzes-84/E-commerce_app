@@ -12,7 +12,7 @@ export default function Home() {
         <Link href="/catalog/mirrors" className="underline hover:cursor-pointer underline-offset-2">
           Mirrors
         </Link>
-        , {' '}
+        ,{' '}
         <Link href="/catalog/flower-moons" className=" hover:cursor-pointer underline underline-offset-2">
           Flower moons
         </Link>

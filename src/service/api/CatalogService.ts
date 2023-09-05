@@ -4,7 +4,7 @@ export type ProductCard = {
   name: string;
   mainImage?: string;
   price?: number;
-  discountedPrice?: number,
+  discountedPrice?: number;
   description?: string;
   ID: string;
 };
@@ -97,10 +97,11 @@ export default class CatalogService extends ApiService {
       .get({
         queryArgs: {
           priceCurrency: 'USD',
-          filter: 'variants.scopedPriceDiscounted:true'
-        }
-      }).execute();
-      return products.body.results;
+          filter: 'variants.scopedPriceDiscounted:true',
+        },
+      })
+      .execute();
+    return products.body.results;
   }
 
   public async getProductObjById(productID: string) {
