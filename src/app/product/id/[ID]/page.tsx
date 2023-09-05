@@ -1,8 +1,7 @@
-import { DrawAttributes } from "../../[key]/components/DrawAttributes";
-import { ProductNavBar } from "../../[key]/components/ProductNavBar";
-import Slider from "../../[key]/components/Slider";
-import { getProductById } from "../../[key]/components/product-functions";
-
+import { DrawAttributes } from '../../[key]/components/DrawAttributes';
+import { ProductNavBar } from '../../[key]/components/ProductNavBar';
+import Slider from '../../[key]/components/Slider';
+import { getProductById } from '../../[key]/components/product-functions';
 
 export default async function Page({ params }: { params: { ID: string } }) {
   const product = await getProductById(params.ID);
