@@ -21,28 +21,28 @@ export default async function Page({ params }: { params: { ID: string } }) {
   const discountPrice = discount ? discount / 100 : undefined;
   return (
     <>
-      <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">{productName}</h2>
-      <section className="flex flex-col md:flex-row gap-4 justify-center items-center">
+      <h2 className="text-center uppercase md:text-2xl text-xl font-serif my-5 font-bold text-emerald-900">{productName}</h2>
+      <section className="flex flex-col md:flex-row gap-4 justify-center items-center font-serif text-lg">
         <Slider urlArr={masterVarImgs} />
-        <div>
-          <p className=" font-bold text-emerald-800">Description:</p>
-          <p>{productDesc}</p>
+        <div className=' md:w-96 mx-6'>
+          <p className=" font-bold text-emerald-800 ">Description:</p>
+          <p className="mb-2">{productDesc}</p>
           {masterVarAttrs && <DrawAttributes attrArr={masterVarAttrs} />}
-          <p>
+          <p className='my-2'>
             <span className=" font-bold text-emerald-800">SKU:</span> {masterVarSKU}
           </p>
           {discountPrice ? (
-            <p>
+            <p className=' mt-2'>
               <span className=" font-bold text-emerald-800">Price: </span>
-              <span className="font-bold text-red-800">{discountPrice.toFixed(2)}$ </span>
-              <span className="font-bold text-emerald-900 line-through">{masterVarPrices}$</span>
+              <span className="font-bold text-red-800">{discountPrice.toFixed(2)} USD</span>
+              <span className="font-bold text-emerald-900 ml-2 line-through">{masterVarPrices} USD</span>
             </p>
           ) : (
-            <p>
+            <p className='mt-2 font-bold text-emerald-900 '>
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <button className="border border-solid border-transparent rounded  bg-emerald-900 text-white cursor-pointer py-1 px-3">
+          <button className="border border-solid border-transparent rounded mt-3 bg-emerald-900 text-white cursor-pointer py-1 px-3">
             Add to cart
           </button>
         </div>
