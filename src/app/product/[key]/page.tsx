@@ -15,8 +15,7 @@ export default async function Page({ params }: { params: { key: string } }) {
     : ['https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'];
   const masterVarAttrs = product.masterVariant.attributes;
   const masterVarSKU = product.masterVariant.sku || 'Not created';
-  const catalogService = new CatalogService();
-  const discount = await catalogService.getDiscoutProduct(masterVarSKU);
+  const discount = res?.discount;
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';

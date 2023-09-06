@@ -91,15 +91,30 @@ export default class CatalogService extends ApiService {
     return products.body.results;
   }
 
-  public async getDiscoutProduct(sku: string) {
+  public async getDiscoutProduct(key: string) {
     const res = await this.apiRoot
       .productProjections()
       .search()
       .get({
         queryArgs: {
           priceCurrency: 'USD',
-          filter: ['variants.scopedPriceDiscounted:true',
-            `variants.sku: "${sku}"`],
+          filter: ['variants.scopedPriceDiscounted:true', `key:"${key}"`],
+        },
+      })
+      .execute();
+    const product = res.body.results[0];
+
+    return product?.masterVariant.price?.discounted?.value.centAmount || undefined;
+  }
+
+  public async getDiscoutProductById(id: string) {
+    const res = await this.apiRoot
+      .productProjections()
+      .search()
+      .get({
+        queryArgs: {
+          priceCurrency: 'USD',
+          filter: ['variants.scopedPriceDiscounted:true', `id:"${id}"`],
         },
       })
       .execute();

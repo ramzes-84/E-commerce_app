@@ -5,8 +5,8 @@ import Slider from '../../[key]/components/Slider';
 import { getProductById } from '../../[key]/components/product-functions';
 
 export default async function Page({ params }: { params: { ID: string } }) {
-  const product = await getProductById(params.ID);
- 
+  const res = await getProductById(params.ID);
+  const product = res?.product;
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
@@ -14,8 +14,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
     : ['https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'];
   const masterVarAttrs = product.masterVariant.attributes;
   const masterVarSKU = product.masterVariant.sku || 'Not created';
-  const catalogService = new CatalogService();
-  const discount = await catalogService.getDiscoutProduct(masterVarSKU);
+  const discount = res?.discount;
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
