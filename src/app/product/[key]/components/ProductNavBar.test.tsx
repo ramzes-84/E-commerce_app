@@ -8,7 +8,7 @@ jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }
 describe('ProductNavBar', () => {
   it('should render Back button', () => {
     const { getByText } = render(<ProductNavBar />);
-    const backButton = getByText('Previous page');
+    const backButton = getByText('To previous page');
     expect(backButton).toBeInTheDocument();
   });
 });
