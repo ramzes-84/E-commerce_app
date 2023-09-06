@@ -7,7 +7,6 @@ import { FaTrash } from 'react-icons/fa';
 
 type IShippingAddressProps = {
   formShippingAddress: IMyAddress;
-  customer: IMyCustomer;
   addressType: 'Shipping' | 'Billing';
   handleSubmitChangeAddress: (
     action: ChangeAddresAction,
@@ -18,12 +17,11 @@ type IShippingAddressProps = {
     action: ChangeAction,
     address: IMyAddress
   ) => (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
-  onUpdate: (address: IMyAddress) => void;
+  onUpdate: (address: IMyAddress, isDefault: boolean) => void;
 };
 
 export default function AddressSectionAccount({
   formShippingAddress,
-  customer: currentCustomer,
   addressType,
   handleSubmitChangeAddress,
   deleteAddress,
@@ -54,7 +52,7 @@ export default function AddressSectionAccount({
             setIsOpen(false);
           }}
         >
-          <div className="font-serif flex justify-center flex-col items-center w-full">
+          <div className="font-serif flex justify-center flex-col items-center w-full mt-14">
             <div className="lg:w-3/6 md:w-4/5 sm:w-4/5 min-[320px]:w-4/5">
               <Wrapper
                 title={`${addressType} address`}
@@ -63,9 +61,9 @@ export default function AddressSectionAccount({
                 <AddressSection
                   formShippingAddress={addresses}
                   onUpdate={(address: IMyAddress, isDefault: boolean) => {
-                    const newState = { ...address, defaultShippingAddress: isDefault };
+                    const newState = { ...address, [`default${addressType}Address`]: isDefault };
                     setAddresses({ ...address, ...newState });
-                    onUpdate(newState);
+                    setDefaultShipping(isDefault);
                   }}
                 />
               </Wrapper>

@@ -1,8 +1,8 @@
 'use client';
 
+import style from './../../../registration/page.module.css';
 import { useRouter } from 'next/navigation';
-import { logout } from './account-actions';
-import style from '../registration/page.module.css';
+import { logout } from '../../account-actions';
 
 export function LogoutButton() {
   const router = useRouter();
