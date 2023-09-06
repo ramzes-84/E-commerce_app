@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import Page from './page';
 import { getUserInfo, userIsLogged } from './account-actions';
-import { CustomerInfo } from './CustomerInfo';
-import { LogoutButton } from './LogoutButton';
+import { CustomerInfo } from './components/customerInfo/CustomerInfo';
+import { LogoutButton } from './components/loggoutButton/LogoutButton';
 
-jest.mock('./LogoutButton');
-jest.mock('./CustomerInfo');
+jest.mock('./components/loggoutButton/LogoutButton.tsx');
+jest.mock('./components/customerInfo/CustomerInfo.tsx');
 jest.mock('./account-actions', () => ({
   userIsLogged: jest.fn().mockReturnValue(true),
   getUserInfo: jest.fn().mockReturnValue({

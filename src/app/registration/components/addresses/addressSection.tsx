@@ -23,8 +23,8 @@ export default function AddressSection({ formShippingAddress, onUpdate }: IShipp
   };
 
   return (
-    <div className="adress-field">
-      <h3 className="ml-2.5 text-lg">Fill in the address fields</h3>
+    <div className="adress-field mt-14">
+      <h3 className="ml-2.5 lg:text-lg sm:text-base">Fill in the address fields</h3>
       <div>
         <Label label="Street">
           <StreetValid
@@ -33,7 +33,6 @@ export default function AddressSection({ formShippingAddress, onUpdate }: IShipp
               const newState = { ...address, streetName: street };
               setAddress(newState);
               onUpdate(newState, isChecked);
-              setIsChecked(false);
             }}
           />
         </Label>
@@ -46,7 +45,6 @@ export default function AddressSection({ formShippingAddress, onUpdate }: IShipp
               const newState = { ...address, city: city };
               setAddress(newState);
               onUpdate(newState, isChecked);
-              setIsChecked(false);
             }}
           />
         </Label>
@@ -59,7 +57,6 @@ export default function AddressSection({ formShippingAddress, onUpdate }: IShipp
               const newState = { ...address, country: country };
               setAddress(newState);
               onUpdate(newState, isChecked);
-              setIsChecked(false);
             }}
           />
         </Label>
@@ -73,7 +70,6 @@ export default function AddressSection({ formShippingAddress, onUpdate }: IShipp
               const newState = { ...address, postalCode: postalCode };
               setAddress(newState);
               onUpdate(newState, isChecked);
-              setIsChecked(false);
             }}
           />
         </Label>

@@ -57,7 +57,12 @@ export default function LoginForm() {
             </Label>
           </div>
           <Label label="Password">
-            <PasswordValid password={password} setPassword={setPassword} />
+            <PasswordValid
+              password={password}
+              onUpdate={(password) => {
+                setPassword(password);
+              }}
+            />
           </Label>
           <div className="flex gap-4 my-8">
             <span

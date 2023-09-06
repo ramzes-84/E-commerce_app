@@ -142,7 +142,12 @@ export default function Page() {
               </div>
               <div>
                 <Label label="Password">
-                  <PasswordValid password={password} setPassword={setPassword} />
+                  <PasswordValid
+                    password={password}
+                    onUpdate={(password) => {
+                      setPassword(password);
+                    }}
+                  />
                 </Label>
               </div>
               <div>

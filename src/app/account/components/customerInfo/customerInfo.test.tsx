@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { CustomerInfo } from './CustomerInfo';
-import { expectedData } from './account-action.test';
+import { expectedData } from '../../account-action.test';
 import { IMyCustomer } from '@/service/api/CustomerService';
 
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));

@@ -1,9 +1,16 @@
 'use client';
 
-import Wrapper from './components/wrapper/wrapper';
-import FirstNameValid from '../registration/components/firstName/firstNameValid';
-import { useEffect, useState } from 'react';
-import { logout, removeSetAddress, updateAddressField, updateEmail, updateUserField } from './account-actions';
+import Wrapper from '../wrapper/wrapper';
+import FirstNameValid from '../../../registration/components/firstName/firstNameValid';
+import { useState } from 'react';
+import {
+  logout,
+  removeSetAddress,
+  updateAddressField,
+  updateEmail,
+  updatePassword,
+  updateUserField,
+} from '../../account-actions';
 import {
   ChangeAction,
   ChangeAddresAction,
@@ -12,22 +19,21 @@ import {
   IMyCustomer,
   UpdateAction,
 } from '@/service/api/CustomerService';
-import LastNameValid from '../registration/components/lastName/lastNameValid';
-import DataOfBirthValid from '../registration/components/dataOfBirth/dataOfBirthValid';
-import Border from './components/border/border';
-import SuccessPopup from './components/popup/successPopup';
-import EmailValid from '../registration/components/email/emailValid';
-import PasswordChange from './components/passwordChange/passwordChange';
-import { useRouter } from 'next/navigation';
-import AddAddress from './components/addAddress/addAddress';
-import AddressSectionAccount from './components/addresses/addressSectionAccount';
+import LastNameValid from '../../../registration/components/lastName/lastNameValid';
+import DataOfBirthValid from '../../../registration/components/dataOfBirth/dataOfBirthValid';
+import Border from '../border/border';
+import SuccessPopup from '../popup/successPopup';
+import EmailValid from '../../../registration/components/email/emailValid';
+import PasswordChange from '../passwordChange/passwordChange';
+import AddAddress from '../addAddress/addAddress';
+import AddressSectionAccount from '../addresses/addressSectionAccount';
+import { login } from '@/app/login/login-actions';
 
 interface CustomerInfoProps {
   customer: IMyCustomer;
 }
 
 export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
-  const router = useRouter();
   const [customer, setCustomer] = useState(currentCustomer);
 
   const [email, setEmail] = useState(customer.email);
@@ -76,17 +82,6 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
     if (newCustomer) setCustomer(newCustomer);
   };
 
-  const [savePassword, setSavePassword] = useState(false);
-
-  useEffect(() => {
-    if (savePassword) {
-      logout();
-      router.refresh();
-      router.push('./login');
-      processResult('Update! Please, login with new password', undefined, true, undefined);
-    }
-  }, [savePassword, router]);
-
   const [chageMessage, setChageMessage] = useState('');
   const [successChange, setSuccessChange] = useState(false);
   const [errorChange, setErrorChange] = useState(false);
@@ -120,12 +115,8 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
       event.preventDefault();
       try {
         const addCustomer = await updateAddressField(customer, action, address);
-        if (defaultShipping && addCustomer) {
-          const newCustomer = await removeSetAddress(
-            addCustomer,
-            actionRemove,
-            addCustomer.addresses[addCustomer.addresses.length - 1]
-          );
+        if (defaultShipping === true && addCustomer) {
+          const newCustomer = await removeSetAddress(addCustomer, actionRemove, address);
           processResult('Address is update!', newCustomer, true, undefined);
         }
         processResult('Address is update!', addCustomer, true, undefined);
@@ -170,6 +161,26 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
     };
   };
 
+  const handleSubmitPasswordChange = (oldpassword?: string, newpassword?: string, confirmpassword?: string) => {
+    return async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (newpassword !== confirmpassword) {
+        processResult(`New password and repeated password mismatch!`, undefined, undefined, true);
+        return;
+      }
+      try {
+        if (newpassword && oldpassword) {
+          const newCustomer = await updatePassword(customer, newpassword, oldpassword);
+          logout();
+          await login(customer.email, newpassword);
+          processResult('Password is update!', newCustomer, true, undefined);
+        }
+      } catch (err) {
+        processResult('Password didnt update!', undefined, undefined, true);
+      }
+    };
+  };
+
   return (
     <>
       {customer ? (
@@ -189,7 +200,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
             </Border>
 
             <Border title="Shipping address">
-              <div className="flex flex-wrap gap-1 justify-start items-center">
+              <div className="flex flex-wrap gap-1 lg:justify-start items-center md:justify-start sm:justify-center min-[320px]:justify-center">
                 <AddAddress
                   addressType="Shipping"
                   handleSubmitAddAddress={handleSubmitAddAddress}
@@ -202,14 +213,14 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
                   shippingAddressObjects.map((address) => (
                     <AddressSectionAccount
                       key={address.id}
-                      customer={customer}
                       formShippingAddress={address}
                       addressType="Shipping"
                       handleSubmitChangeAddress={handleSubmitChangeAddress}
                       deleteAddress={deleteAddress}
-                      onUpdate={(addresses: IMyAddress) => {
+                      onUpdate={(addresses: IMyAddress, isDefault: boolean) => {
                         const newAddressState = [...formShippingAddress, addresses];
                         setFormShippingAddress(newAddressState);
+                        setDefaultShipping(isDefault);
                         setCustomer(customer);
                       }}
                     />
@@ -221,7 +232,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
             </Border>
 
             <Border title="Billing address">
-              <div className="flex flex-wrap gap-1 justify-start items-center">
+              <div className="flex flex-wrap gap-1 lg:justify-start items-center md:justify-start sm:justify-center min-[320px]:justify-center">
                 <AddAddress
                   addressType="Billing"
                   handleSubmitAddAddress={handleSubmitAddAddress}
@@ -234,14 +245,14 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
                   billingAddressObjects.map((address) => (
                     <AddressSectionAccount
                       key={address.id}
-                      customer={customer}
                       formShippingAddress={address}
                       addressType="Billing"
                       handleSubmitChangeAddress={handleSubmitChangeAddress}
                       deleteAddress={deleteAddress}
-                      onUpdate={(addresses: IMyAddress) => {
+                      onUpdate={(addresses: IMyAddress, isDefault: boolean) => {
                         const newAddressState = [...formBillingAddress, addresses];
                         setFormBillingAddress(newAddressState);
+                        setDefaultShipping(isDefault);
                         setCustomer(customer);
                       }}
                     />
@@ -256,7 +267,12 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
               <Wrapper title="Email:" handleSubmit={handleSubmitChangeEmail('changeEmail', email)}>
                 <EmailValid email={email} setEmail={setEmail} />
               </Wrapper>
-              <PasswordChange title="Password:" customer={customer} setSavePassword={setSavePassword} />
+
+              <PasswordChange
+                title="Password:"
+                customer={customer}
+                handleSubmitPasswordChange={handleSubmitPasswordChange}
+              />
             </Border>
           </div>
         </div>
