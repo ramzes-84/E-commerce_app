@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { CustomerInfo } from './CustomerInfo';
-import { LogoutButton } from './LogoutButton';
+import { CustomerInfo } from './components/customerInfo/CustomerInfo';
+import { LogoutButton } from './components/loggoutButton/LogoutButton';
 import { getUserInfo, userIsLogged } from './account-actions';
 
 export default async function Page() {

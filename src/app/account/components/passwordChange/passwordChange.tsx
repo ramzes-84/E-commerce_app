@@ -9,13 +9,18 @@ import { IMyCustomer } from '@/service/api/CustomerService';
 interface PasswordProps {
   title: string;
   customer: IMyCustomer;
-  setSavePassword: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmitPasswordChange: (
+    oldpassword?: string,
+    newpassword?: string,
+    confirmpassword?: string
+  ) => (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
-export default function PasswordChange({ title, customer, setSavePassword }: PasswordProps) {
+export default function PasswordChange({ title, customer, handleSubmitPasswordChange }: PasswordProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  setSavePassword(isSaving);
+  const [oldPassword, setOldPassword] = useState<string | undefined>('');
+  const [newPassword, setNewPassword] = useState<string | undefined>('');
+  const [confirmPassword, setConfirmPassword] = useState<string | undefined>('');
 
   return (
     <>
@@ -49,7 +54,16 @@ export default function PasswordChange({ title, customer, setSavePassword }: Pas
                 setIsOpen(false);
               }}
             >
-              <InputPasswordChange customer={customer} onClose={() => setIsOpen(false)} setIsSaving={setIsSaving} />
+              <form
+                className="relative"
+                onSubmit={handleSubmitPasswordChange(oldPassword, newPassword, confirmPassword)}
+              >
+                <InputPasswordChange
+                  onUpdateOldPass={(oldpassword?: string) => setOldPassword(oldpassword)}
+                  onUpdateNewPass={(newpassword?: string) => setNewPassword(newpassword)}
+                  onUpdateConfirmPass={(confirmpassword?: string) => setConfirmPassword(confirmpassword)}
+                />
+              </form>
             </BigPopup>,
             document.body
           )}

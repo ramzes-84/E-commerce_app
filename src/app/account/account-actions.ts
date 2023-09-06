@@ -9,6 +9,7 @@ import CustomerService, {
   UpdateAction,
 } from '@/service/api/CustomerService';
 import { Customer } from '@commercetools/platform-sdk';
+import { login } from '../login/login-actions';
 
 export const returnCustomerData = (newCustomer: Customer | undefined) => {
   if (newCustomer) {
