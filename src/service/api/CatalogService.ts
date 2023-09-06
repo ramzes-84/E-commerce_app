@@ -91,18 +91,19 @@ export default class CatalogService extends ApiService {
     return products.body.results;
   }
 
-  public async getDiscoutProduct(key: string) {
+  public async getDiscoutProduct(sku: string) {
     const res = await this.apiRoot
       .productProjections()
       .search()
       .get({
         queryArgs: {
           priceCurrency: 'USD',
-          filter: ['variants.scopedPriceDiscounted:true'],
+          filter: ['variants.scopedPriceDiscounted:true',
+            `variants.sku: "${sku}"`],
         },
       })
       .execute();
-    const product = res.body.results.find((item) => item.key === key);
+    const product = res.body.results[0];
 
     return product?.masterVariant.price?.discounted?.value.centAmount || undefined;
   }

@@ -1,3 +1,4 @@
+import CatalogService from '@/service/api/CatalogService';
 import { DrawAttributes } from '../../[key]/components/DrawAttributes';
 import { ProductNavBar } from '../../[key]/components/ProductNavBar';
 import Slider from '../../[key]/components/Slider';
@@ -5,7 +6,7 @@ import { getProductById } from '../../[key]/components/product-functions';
 
 export default async function Page({ params }: { params: { ID: string } }) {
   const product = await getProductById(params.ID);
-
+ 
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
@@ -13,10 +14,12 @@ export default async function Page({ params }: { params: { ID: string } }) {
     : ['https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'];
   const masterVarAttrs = product.masterVariant.attributes;
   const masterVarSKU = product.masterVariant.sku || 'Not created';
+  const catalogService = new CatalogService();
+  const discount = await catalogService.getDiscoutProduct(masterVarSKU);
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
-
+  const discountPrice = discount ? discount / 100 : undefined;
   return (
     <>
       <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">{productName}</h2>
@@ -29,9 +32,17 @@ export default async function Page({ params }: { params: { ID: string } }) {
           <p>
             <span className=" font-bold text-emerald-800">SKU:</span> {masterVarSKU}
           </p>
-          <p>
-            <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
-          </p>
+          {discountPrice ? (
+            <p>
+              <span className=" font-bold text-emerald-800">Price: </span>
+              <span className="font-bold text-red-800">{discountPrice.toFixed(2)}$ </span>
+              <span className="font-bold text-emerald-900 line-through">{masterVarPrices}$</span>
+            </p>
+          ) : (
+            <p>
+              <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
+            </p>
+          )}
           <button className="border border-solid border-transparent rounded  bg-emerald-900 text-white cursor-pointer py-1 px-3">
             Add to cart
           </button>

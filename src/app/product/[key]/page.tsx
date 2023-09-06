@@ -1,3 +1,4 @@
+import CatalogService from '@/service/api/CatalogService';
 import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
@@ -6,9 +7,7 @@ import { getProductByKey } from './components/product-functions';
 export default async function Page({ params }: { params: { key: string } }) {
   const res = await getProductByKey(params.key);
   const product = res?.product;
-  const discount = res?.discount;
   if (!product) return <div>Getting product fails</div>;
-
   const productName = product.name['en-US'];
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
@@ -16,6 +15,8 @@ export default async function Page({ params }: { params: { key: string } }) {
     : ['https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'];
   const masterVarAttrs = product.masterVariant.attributes;
   const masterVarSKU = product.masterVariant.sku || 'Not created';
+  const catalogService = new CatalogService();
+  const discount = await catalogService.getDiscoutProduct(masterVarSKU);
   const masterVarPrices = product.masterVariant.prices
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
@@ -36,7 +37,7 @@ export default async function Page({ params }: { params: { key: string } }) {
           {discountPrice ? (
             <p>
               <span className=" font-bold text-emerald-800">Price: </span>
-              <span className="font-bold text-red-800">{discountPrice}$ </span>
+              <span className="font-bold text-red-800">{discountPrice.toFixed(2)}$ </span>
               <span className="font-bold text-emerald-900 line-through">{masterVarPrices}$</span>
             </p>
           ) : (
