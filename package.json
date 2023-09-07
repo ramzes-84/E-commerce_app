@@ -53,5 +53,10 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1"
   },
-  "lint-staged": { "**/*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write --ignore-path .gitignore ."]}
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write --ignore-path .gitignore ."
+    ]
+  }
 }
