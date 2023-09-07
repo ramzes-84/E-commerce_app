@@ -8,8 +8,8 @@ describe('InputPasswordChange', () => {
       <InputPasswordChange onUpdateOldPass={() => {}} onUpdateNewPass={() => {}} onUpdateConfirmPass={() => {}} />
     );
 
-    expect(getByText("Change password")).toBeInTheDocument();
-    expect(getByText("To change the password for your Ostara Glass account, use this form")).toBeInTheDocument();
+    expect(getByText('Change password')).toBeInTheDocument();
+    expect(getByText('To change the password for your Ostara Glass account, use this form')).toBeInTheDocument();
     expect(getByText('Reset')).toBeInTheDocument();
     expect(getByText('Save')).toBeInTheDocument();
   });
