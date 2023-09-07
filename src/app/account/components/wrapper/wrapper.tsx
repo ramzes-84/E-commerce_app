@@ -25,13 +25,13 @@ export default function Wrapper({ children, title, handleSubmit }: WrapperProps)
 
   return (
     <>
-      <form data-testid="wrapper-form" className="relative" onSubmit={handleFormSubmit}>
+      <form data-testid='wrapper-form' className='relative' onSubmit={handleFormSubmit}>
         <fieldset disabled={isEditing}>
-          <legend className="text-lg py-1 font-bold text-emerald-800 m-1.5">{title}</legend>
+          <legend className='text-lg py-1 font-bold text-emerald-800 m-1.5'>{title}</legend>
           {children}
         </fieldset>
         <button
-          className="absolute top-10 right-2 p-1.5 rounded-[50%] transition-property: all duration-300 group/item hover:bg-[#e5ea5976]"
+          className='absolute top-10 right-2 p-1.5 rounded-[50%] transition-property: all duration-300 group/item hover:bg-[#e5ea5976]'
           type="submit"
         >
           {isSaving ? (
