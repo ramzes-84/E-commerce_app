@@ -5,7 +5,7 @@ import { getUserInfo, userIsLogged } from './account-actions';
 
 export default async function Page() {
   const isLogged = userIsLogged();
-  if (!isLogged) redirect("/login/");
+  if (!isLogged) redirect('/login/');
   const customer = await getUserInfo();
 
   return (
