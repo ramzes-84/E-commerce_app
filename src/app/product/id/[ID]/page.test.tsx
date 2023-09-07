@@ -72,8 +72,8 @@ const expectedProd = {
 };
 
 jest.mock('../../[key]/components/product-functions', () => ({
-  getProductById: jest.fn().mockReturnValue(expectedProd)
-}))
+  getProductById: jest.fn().mockReturnValue(expectedProd),
+}));
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 jest.mock('../../[key]/components/product-functions', () => ({
   getProductById: jest.fn().mockReturnValue({ product: expectedProd }),
