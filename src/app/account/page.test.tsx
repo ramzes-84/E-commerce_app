@@ -9,10 +9,10 @@ jest.mock('./components/customerInfo/CustomerInfo.tsx');
 jest.mock('./account-actions', () => ({
   userIsLogged: jest.fn().mockReturnValue(true),
   getUserInfo: jest.fn().mockReturnValue({
-    id: "4a3b5783-6d4b-45b7-9c2a-f9268a6259c9",
+    id: '4a3b5783-6d4b-45b7-9c2a-f9268a6259c9',
     version: 1,
-    createdAt: "2023-07-30T16:10:42.771Z",
-    lastModifiedAt: "2023-07-30T16:10:42.771Z",
+    createdAt: '2023-07-30T16:10:42.771Z',
+    lastModifiedAt: '2023-07-30T16:10:42.771Z',
     email: 'samplecustomer.germany@example.com',
     firstName: 'Sample Customer',
     lastName: 'Germany',
