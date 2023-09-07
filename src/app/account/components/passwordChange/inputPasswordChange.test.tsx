@@ -10,8 +10,8 @@ describe('InputPasswordChange', () => {
 
     expect(getByText("Change password")).toBeInTheDocument();
     expect(getByText("To change the password for your Ostara Glass account, use this form")).toBeInTheDocument();
-    expect(getByText('Reset')).toBeInTheDocument();
-    expect(getByText('Save')).toBeInTheDocument();
+    expect(getByText("Reset")).toBeInTheDocument();
+    expect(getByText("Save")).toBeInTheDocument();
   });
 
   it('should disable save button when form is invalid', () => {
