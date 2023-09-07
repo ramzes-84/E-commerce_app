@@ -10,7 +10,7 @@ export default async function Page() {
 
   return (
     <>
-      <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">Your Account</h2>
+      <h2 className='text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900'>Your Account</h2>
       {isLogged && customer && <CustomerInfo customer={customer} />}
       {isLogged && <LogoutButton />}
     </>
