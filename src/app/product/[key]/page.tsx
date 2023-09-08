@@ -10,6 +10,7 @@ export default async function Page({ params }: { params: { key: string } }) {
   const product = res?.product;
   if (!product) return <div>Getting product fails</div>;
   const productName = product.name['en-US'];
+  const productID = product.id;
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
     ? product.masterVariant.images.map((item) => item.url)
@@ -47,7 +48,7 @@ export default async function Page({ params }: { params: { key: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <ButtonCart />
+          <ButtonCart productID={productID} />
         </div>
       </section>
       <ProductNavBar />
