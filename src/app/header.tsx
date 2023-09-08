@@ -5,8 +5,9 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { logout } from './account/account-actions';
+import { FaShoppingCart } from 'react-icons/fa';
 
-function NavLink({ name, link, callback }: { name: string; link?: string; callback?: () => void }) {
+function NavLink({ name, link, callback, img }: { name: string; link?: string; img?: boolean; callback?: () => void }) {
   return (
     <li className="nav-item">
       {link && (
@@ -14,6 +15,7 @@ function NavLink({ name, link, callback }: { name: string; link?: string; callba
           className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
           href={link}
         >
+          {img && <FaShoppingCart />}
           <span className="ml-2">{name}</span>
         </Link>
       )}
@@ -33,6 +35,7 @@ type navItem = {
   name: string;
   link?: string | '';
   visibleForAuthorized?: boolean;
+  img?: boolean;
   callback?: () => void;
 };
 
@@ -47,7 +50,9 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   const navItems: navItem[] = [
+    { name: `Cart`, link: '/basket', img: true },
     { name: 'Catalog', link: '/catalog' },
+    { name: 'About Us', link: '/about' },
     { name: 'Account', visibleForAuthorized: true, link: '/account' },
     { name: 'Log in', visibleForAuthorized: false, link: '/login' },
     { name: 'Register', visibleForAuthorized: false, link: '/registration' },
@@ -78,7 +83,13 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
               {navItems.map((item) => {
                 return (
                   (item.visibleForAuthorized === undefined || item.visibleForAuthorized === authorized) && (
-                    <NavLink key={item.name} link={item.link} name={item.name} callback={item.callback} />
+                    <NavLink
+                      key={item.name}
+                      link={item.link}
+                      name={item.name}
+                      callback={item.callback}
+                      img={item.img}
+                    />
                   )
                 );
               })}
