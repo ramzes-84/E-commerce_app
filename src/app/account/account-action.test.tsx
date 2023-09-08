@@ -101,7 +101,6 @@ export const expectedData: IMyCustomer = {
 
 const myAddress: IMyAddress = {
   id: 'string',
-  key: 'string',
   country: 'string',
 };
 
