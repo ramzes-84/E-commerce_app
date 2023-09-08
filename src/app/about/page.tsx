@@ -5,6 +5,7 @@ import PersonCard from './components/personCard';
 import PersonDetailes from './components/personDetailes';
 import BigPopup from '../account/components/passwordChange/popup/passwordChangePopup';
 import Border from '../account/components/border/border';
+import Image from 'next/image';
 
 export type PersonInfo = {
   name: string;
@@ -51,6 +52,11 @@ export default function Page() {
   };
   return (
     <>
+      <div className="fixed top-[70px] right-0 h-screen sm:w-20 flex flex-col justify-start cursor-pointer z-50">
+        <a href="https://rs.school/" target="_blanck">
+          <Image className="mb-5 mr-5" width={80} height={80} src="/label.png" alt="logo_RSSchool" />
+        </a>
+      </div>
       <h1 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">About US</h1>
       <div className="flex flex-col items-center gap-y-6">
         {persons.map((person, index) => (
