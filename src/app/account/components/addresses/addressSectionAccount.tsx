@@ -69,7 +69,7 @@ export default function AddressSectionAccount({
               </Wrapper>
               <button
                 type="button"
-                className="absolute right-[70px]"
+                className="absolute xl:right-[300px] lg:right-[220px] md:right-[70px] min-[300px]:right-[70px]"
                 onClick={deleteAddress('removeAddress', addresses)}
               >
                 {<FaTrash style={{ color: '#276339' }} title="Delete" />}
