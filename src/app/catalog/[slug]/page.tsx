@@ -20,7 +20,7 @@ export default async function Page({
     catID: cat.id,
   };
   const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
-  const products = await catalogService.getProductsByFilters(filters, sort);
+  const products = await catalogService.getProductsByFilters(filters, sort, 10, 0);
   const discountedProd = await catalogService.getDiscoutedProducts();
   const list = cardsInfo(products, discountedProd);
   return (
