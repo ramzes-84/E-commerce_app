@@ -3,6 +3,7 @@ import { DrawAttributes } from '../../[key]/components/DrawAttributes';
 import { ProductNavBar } from '../../[key]/components/ProductNavBar';
 import Slider from '../../[key]/components/Slider';
 import { getProductById } from '../../[key]/components/product-functions';
+import { ButtonCart } from '../../[key]/components/ButtonCart';
 
 export default async function Page({ params }: { params: { ID: string } }) {
   const res = await getProductById(params.ID);
@@ -44,9 +45,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <button className="border border-solid border-transparent rounded mt-3 bg-emerald-900 text-white cursor-pointer py-1 px-3">
-            Add to cart
-          </button>
+          <ButtonCart />
         </div>
       </section>
       <ProductNavBar />

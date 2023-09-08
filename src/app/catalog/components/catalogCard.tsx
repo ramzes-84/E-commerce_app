@@ -1,3 +1,4 @@
+import { ButtonCart } from '@/app/product/[key]/components/ButtonCart';
 import { ProductCard } from '@/service/api/CatalogService';
 import Link from 'next/link';
 
@@ -28,9 +29,7 @@ export default function CatalogCard({ product }: { product: ProductCard }) {
               {product.price ? product.price / 100 : null} USD
             </span>
           </div>
-          <button className="border border-solid border-transparent rounded flex bg-emerald-900 text-white cursor-pointer px-2 ml-2">
-            Add to cart
-          </button>
+          <ButtonCart />
         </div>
       </div>
     </Link>
