@@ -29,7 +29,7 @@ export default function CatalogCard({ product }: { product: ProductCard }) {
               {product.price ? product.price / 100 : null} USD
             </span>
           </div>
-          <ButtonCart />
+          <ButtonCart productID={product.ID} />
         </div>
       </div>
     </Link>

@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <ButtonCart />
+          <ButtonCart productID={product.id} />
         </div>
       </section>
       <ProductNavBar />
