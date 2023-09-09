@@ -22,7 +22,7 @@ export default async function Page({ searchParams }: { searchParams: { [key: str
     <>
       <CatalogNavPanel products={products} />
       <FiltersApplied />
-      <Pagination filters={filters} sort={sort} productsArr={productsArr} />
+      <Pagination filters={filters} sort={sort} productsArr={productsArr} maxProds={products.length} />
     </>
   );
 }
