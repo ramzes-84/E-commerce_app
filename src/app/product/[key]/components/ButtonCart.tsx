@@ -1,14 +1,15 @@
-import CartService from '@/service/api/CartService';
+'use client';
+
+import addToCartFunc from '../utils/addToCart';
 
 export function ButtonCart({ productID }: { productID: string }) {
-  async function addToCart() {
-    'use server';
-    const cartService = new CartService();
-    const res = await cartService.addProductToCart(productID);
-  }
+  const addToCart = (productID: string) => async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await addToCartFunc(productID);
+  };
 
   return (
-    <form action={addToCart}>
+    <form onSubmit={addToCart(productID)}>
       <button
         type="submit"
         className="border border-solid border-transparent rounded mt-3 bg-emerald-900 text-white cursor-pointer py-1 px-1"
