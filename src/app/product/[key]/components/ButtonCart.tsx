@@ -5,7 +5,6 @@ export function ButtonCart({ productID }: { productID: string }) {
     'use server';
     const cartService = new CartService();
     const res = await cartService.addProductToCart(productID);
-    console.log('---------------', res);
   }
 
   return (

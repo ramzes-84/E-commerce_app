@@ -1,4 +1,3 @@
-import CatalogService from '@/service/api/CatalogService';
 import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
