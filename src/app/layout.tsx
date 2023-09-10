@@ -4,6 +4,7 @@ import Navbar from './header';
 import { SessionProvider } from '@/controller/session/client';
 import { PropsWithChildren } from 'react';
 import { CustomerService } from '@/service/api';
+import CartService from '@/service/api/CartService';
 
 export const metadata: Metadata = {
   title: 'Cyber Ducks App',
@@ -12,11 +13,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const isLogged = new CustomerService().isLogged();
+  const cartProdsQty = new CartService().cartProdsQty();
   return (
     <html lang="en">
       <body>
         <SessionProvider>
-          <Navbar authorized={isLogged} />
+          <Navbar authorized={isLogged} qty={cartProdsQty ? cartProdsQty : 0} />
           {children}
         </SessionProvider>
       </body>

@@ -1,8 +1,11 @@
+import { SessionDataStorage } from '@/controller/session/server';
 import { ApiService } from '@/service/api/ApiService';
+import { Cart } from '@commercetools/platform-sdk';
 
 export default class CartService extends ApiService {
   public async getActiveCart() {
     const response = await this.apiRoot.me().activeCart().get().execute();
+    this.updateCartProdsQty(response.body);
     return response.body;
   }
 
@@ -32,6 +35,7 @@ export default class CartService extends ApiService {
         },
       })
       .execute();
+    this.updateCartProdsQty(req.body);
   }
 
   public async removeProductFromCart(lineItemId: string) {
@@ -55,5 +59,18 @@ export default class CartService extends ApiService {
         },
       })
       .execute();
+    this.updateCartProdsQty(req.body);
+  }
+
+  public cartProdsQty() {
+    const session = new SessionDataStorage().getData();
+    return session.qty;
+  }
+
+  public updateCartProdsQty(cart: Cart) {
+    const storage = new SessionDataStorage();
+    const session = storage.getData();
+    session.qty = cart.totalLineItemQuantity;
+    storage.save(session);
   }
 }
