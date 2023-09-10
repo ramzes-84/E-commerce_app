@@ -23,6 +23,8 @@ export default function Pagination({
   const maxPage = Math.ceil(maxProds / 12) - 1;
   const query = useSearchParams();
   const [isLoading, setIsLoading] = React.useState(true);
+  const [page, setPage] = React.useState(0);
+  const [pageProducts, setPageProducts] = React.useState(productsArr);
   useEffect(() => {
     setPage(0);
     const updatePage = async () => {
@@ -32,18 +34,14 @@ export default function Pagination({
     };
     updatePage();
   }, [query]);
-
-  const [page, setPage] = React.useState(0);
-  const [pageProducts, setPageProducts] = React.useState(productsArr);
   useEffect(() => {
-    const btn1 = window.document.getElementById('>') as HTMLButtonElement;
-    if (btn1) btn1.disabled = page === maxPage;
-    const btn2 = window.document.getElementById('>>') as HTMLButtonElement;
-    if (btn2) btn2.disabled = page === maxPage;
-    const btn3 = window.document.getElementById('<') as HTMLButtonElement;
-    if (btn3) btn3.disabled = page === 0;
-    const btn4 = window.document.getElementById('<<') as HTMLButtonElement;
-    if (btn4) btn4.disabled = page === 0;
+    const btns = window.document.querySelectorAll('.pagination');
+    btns.forEach((btn) => {
+      if (btn instanceof HTMLButtonElement) {
+        if (btn.textContent === '>' || btn.textContent === '>>') btn.disabled = page === maxPage;
+        if (btn.textContent === '<' || btn.textContent === '<<') btn.disabled = page === 0;
+      }
+    });
   }, [pageProducts]);
   const handleSubmit = (page: number) => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
