@@ -1,15 +1,15 @@
-import CatalogService from '@/service/api/CatalogService';
 import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
 import { getProductByKey } from './components/product-functions';
-import { ButtonCart } from './components/ButtonCart';
+import { ButtonAddToCart } from './components/ButtonAddToCart';
 
 export default async function Page({ params }: { params: { key: string } }) {
   const res = await getProductByKey(params.key);
   const product = res?.product;
   if (!product) return <div>Getting product fails</div>;
   const productName = product.name['en-US'];
+  const productID = product.id;
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
     ? product.masterVariant.images.map((item) => item.url)
@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: { key: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <ButtonCart />
+          <ButtonAddToCart productID={productID} />
         </div>
       </section>
       <ProductNavBar />

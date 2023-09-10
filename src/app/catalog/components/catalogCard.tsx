@@ -1,4 +1,4 @@
-import { ButtonCart } from '@/app/product/[key]/components/ButtonCart';
+import { ButtonAddToCart } from '@/app/product/[key]/components/ButtonAddToCart';
 import { ProductCard } from '@/service/api/CatalogService';
 import Link from 'next/link';
 
@@ -29,7 +29,7 @@ export default function CatalogCard({ product }: { product: ProductCard }) {
               {product.price ? product.price / 100 : null} USD
             </span>
           </div>
-          <ButtonCart />
+          {/* <ButtonAddToCart /> */}
         </div>
       </div>
     </Link>
