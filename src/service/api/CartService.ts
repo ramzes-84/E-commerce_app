@@ -33,4 +33,27 @@ export default class CartService extends ApiService {
       })
       .execute();
   }
+
+  public async removeProductFromCart(lineItemId: string) {
+    const activeCart = await this.apiRoot.me().activeCart().get().execute();
+    const activeCartID: string = activeCart.body.id;
+    const activeCartVersion = activeCart.body.version;
+    const req = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: activeCartID })
+      .post({
+        body: {
+          version: activeCartVersion,
+          actions: [
+            {
+              action: 'removeLineItem',
+              lineItemId,
+              quantity: 1,
+            },
+          ],
+        },
+      })
+      .execute();
+  }
 }

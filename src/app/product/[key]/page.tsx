@@ -2,7 +2,7 @@ import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
 import { getProductByKey } from './components/product-functions';
-import { ButtonCart } from './components/ButtonCart';
+import { ButtonAddToCart } from './components/ButtonAddToCart';
 
 export default async function Page({ params }: { params: { key: string } }) {
   const res = await getProductByKey(params.key);
@@ -47,7 +47,7 @@ export default async function Page({ params }: { params: { key: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <ButtonCart productID={productID} />
+          <ButtonAddToCart productID={productID} />
         </div>
       </section>
       <ProductNavBar />

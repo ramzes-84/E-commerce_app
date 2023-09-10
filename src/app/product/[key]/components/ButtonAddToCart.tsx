@@ -1,6 +1,6 @@
 import CartService from '@/service/api/CartService';
 
-export function ButtonCart({ productID }: { productID: string }) {
+export function ButtonAddToCart({ productID }: { productID: string }) {
   async function addToCart() {
     'use server';
     const cartService = new CartService();

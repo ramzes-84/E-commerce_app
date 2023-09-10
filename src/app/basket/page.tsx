@@ -1,15 +1,16 @@
 import CartService from '@/service/api/CartService';
+import { DrawListItems } from './components/DrawListItems';
 
 export default async function Page() {
   const cartService = new CartService();
   const res = await cartService.getActiveCart();
-  const cartProducts = res.lineItems.map((item) => item.name['en-US']).join(', ');
+  const activeCardID = res.id;
+  const cartProducts = res.lineItems;
 
   return (
     <>
-      <h3>Your basket</h3>
-      <p>Your active cart ID: {res.id ? res.id : 'not found.'}</p>
-      <p>Your active cart: {cartProducts ? cartProducts : 'not found.'}</p>
+      <h2 className="text-center uppercase text-2xl font-serif my-5 font-bold text-emerald-900">Cart</h2>
+      <DrawListItems lineItems={cartProducts} />
     </>
   );
 }
