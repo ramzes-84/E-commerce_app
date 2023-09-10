@@ -39,7 +39,7 @@ type navItem = {
   callback?: () => void;
 };
 
-export default function Navbar({ authorized }: { authorized: boolean }) {
+export default function Navbar({ authorized, qty }: { authorized: boolean; qty: number }) {
   const router = useRouter();
   function handleLogout() {
     logout();
@@ -50,7 +50,7 @@ export default function Navbar({ authorized }: { authorized: boolean }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   const navItems: navItem[] = [
-    { name: `Cart`, link: '/basket', img: true },
+    { name: `Cart (${qty})`, link: '/basket', img: true },
     { name: 'Catalog', link: '/catalog' },
     { name: 'About Us', link: '/about' },
     { name: 'Account', visibleForAuthorized: true, link: '/account' },
