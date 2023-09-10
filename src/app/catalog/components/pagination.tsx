@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React from 'react';
 import { Filters, ProductCard, SortParams } from '@/service/api/CatalogService';
 import getPageProducts from '../utils/pageProducts';
 import CatalogCard from './catalogCard';
@@ -22,7 +22,7 @@ export default function Pagination({
 }) {
   const maxPage = Math.ceil(maxProds / 12) - 1;
   const query = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   useEffect(() => {
     setPage(0);
     const updatePage = async () => {
@@ -33,8 +33,8 @@ export default function Pagination({
     updatePage();
   }, [query]);
 
-  const [page, setPage] = useState(0);
-  const [pageProducts, setPageProducts] = useState(productsArr);
+  const [page, setPage] = React.useState(0);
+  const [pageProducts, setPageProducts] = React.useState(productsArr);
   useEffect(() => {
     const btn1 = window.document.getElementById('>') as HTMLButtonElement;
     if (btn1) btn1.disabled = page === maxPage;
