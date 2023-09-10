@@ -6,7 +6,7 @@ describe('Error page', () => {
   it('renders a correct Error page', () => {
     render(<ErrorPage error={new Error()} reset={() => {}} />);
 
-    const btn = screen.getByText('Try again');
+    const btn = screen.getByText('Try 0000again');
     fireEvent.click(btn);
 
     expect(btn).toBeInTheDocument();
