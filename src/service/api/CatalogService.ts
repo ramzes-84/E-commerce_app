@@ -1,5 +1,8 @@
 import { ApiService } from '@/service/api/ApiService';
 
+export const PRODUCTS_MAX_COUNT = 100;
+export const PRODUCTS_ON_PAGE = 12;
+
 export type ProductCard = {
   name: string;
   mainImage?: string;
@@ -49,7 +52,7 @@ export default class CatalogService extends ApiService {
     return categories.body;
   }
 
-  public async getProductsByFilters(filter: Filters, sort: string) {
+  public async getProductsByFilters(filter: Filters, sort: string, limit = PRODUCTS_MAX_COUNT, page = 0) {
     const products = await this.apiRoot
       .productProjections()
       .search()
@@ -62,7 +65,8 @@ export default class CatalogService extends ApiService {
               : '',
             filter.catID ? `categories.id: subtree("${filter.catID}")` : '',
           ].filter((x) => x !== ''),
-          limit: 100,
+          limit: limit,
+          offset: page * PRODUCTS_ON_PAGE,
           sort: [sort],
         },
       })
@@ -70,7 +74,7 @@ export default class CatalogService extends ApiService {
     return products.body.results;
   }
 
-  public async getProductsBySearch(filter: Filters, sort: string, search?: string) {
+  public async getAllProductsBySearch(filter: Filters, sort: string, search?: string) {
     const products = await this.apiRoot
       .productProjections()
       .search()
