@@ -1,9 +1,8 @@
 import CatalogService, { Filters, SortParams } from '@/service/api/CatalogService';
-import CatalogCard from '../components/catalogCard';
-import { cardsInfo } from '../utils/cards';
 import CatalogNavPanel from '../components/navPanel';
 import FiltersApplied from '../components/filtersApplied';
 import Pagination from '../components/pagination';
+import getPageProducts from '../utils/pageProducts';
 
 export default async function Page({
   params,
@@ -22,14 +21,12 @@ export default async function Page({
   };
   const sort = searchParams.sortby ? SortParams[searchParams.sortby as keyof typeof SortParams] : '';
   const products = await catalogService.getProductsByFilters(filters, sort);
-  const discountedProd = await catalogService.getDiscoutedProducts();
-  const pageProducts = await catalogService.getProductsByFilters(filters, sort, 12, 0);
-  const productsArr = cardsInfo(pageProducts, discountedProd);
+  const pageProducts = await getPageProducts({ page: 0, filters: filters, sort: sort });
   return (
     <>
-      <CatalogNavPanel category={cat} products={products} />
+      <CatalogNavPanel products={products} />
       <FiltersApplied />
-      <Pagination filters={filters} sort={sort} productsArr={productsArr} maxProds={products.length} />
+      <Pagination filters={filters} sort={sort} productsArr={pageProducts} maxProds={products.length} />
     </>
   );
 }
