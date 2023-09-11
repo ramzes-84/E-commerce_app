@@ -1,6 +1,6 @@
 import CartService from '@/service/api/CartService';
 import { DrawListItems } from './components/DrawListItems';
-import EmptyCart from './components/emptyCart';
+import { EmptyCart } from './components/emptyCart';
 
 export default async function Page() {
   const cartService = new CartService();

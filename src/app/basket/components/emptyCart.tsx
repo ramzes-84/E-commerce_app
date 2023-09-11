@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function EmptyCart() {
+export function EmptyCart() {
   return (
     <div className="flex flex-col items-center justify-center w-full font-serif h-96">
       <Image src="/empty-cart.png" width={200} height={200} alt="empty cart" className="inline-block" />

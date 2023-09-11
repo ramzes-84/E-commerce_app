@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import EmptyCart from './emptyCart';
+import { EmptyCart } from './emptyCart';
 
 describe('EmptyCart component', () => {
   it('renders message', () => {
