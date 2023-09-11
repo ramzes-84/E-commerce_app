@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
   const discountPrice = discount ? discount / 100 : undefined;
 
   const cart = await getActiveCart();
-  const lineItemId: LineItem | undefined = cart?.lineItems.find((p) => p.productId === params.ID);
+  const lineItemId: LineItem | undefined = cart.lineItems?.find((p) => p.productId === params.ID);
 
   return (
     <>

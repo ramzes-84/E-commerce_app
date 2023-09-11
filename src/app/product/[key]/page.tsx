@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { key: string } }) {
   const discountPrice = discount ? discount / 100 : undefined;
 
   const cart = await getActiveCart();
-  const lineItemKey = cart.lineItems.find((p) => p.productKey === params.key);
+  const lineItemKey = cart.lineItems?.find((p) => p.productKey === params.key);
 
   return (
     <>
