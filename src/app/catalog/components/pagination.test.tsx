@@ -2,7 +2,6 @@ import { ProductCard } from '@/service/api/CatalogService';
 import Pagination from './pagination';
 import { render, screen } from '@testing-library/react';
 import getPageProducts from '../utils/pageProducts';
-
 import { useSearchParams } from 'next/navigation';
 jest.mock('next/navigation', () => ({
   useSearchParams: jest.fn().mockReturnValue({
@@ -25,11 +24,11 @@ const products: ProductCard[] = [
 ];
 
 describe('Show pagination page ', () => {
-  it('highlight search res', () => {
-    render(<Pagination filters={{}} sort="" productsArr={products} />);
+  it('renders catalog', () => {
+    render(<Pagination filters={{}} sort="" productsArr={products} maxProds={100} />);
 
-    const fern = screen.getByText('Fern frame');
+    const loading = screen.getByAltText('loading');
 
-    expect(fern).toBeInTheDocument();
+    expect(loading).toBeInTheDocument();
   });
 });

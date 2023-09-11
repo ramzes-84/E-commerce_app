@@ -11,6 +11,7 @@ export type ProductCard = {
   description?: string;
   ID: string;
   key: string | undefined;
+  inCart?: number;
 };
 
 export type Filters = {

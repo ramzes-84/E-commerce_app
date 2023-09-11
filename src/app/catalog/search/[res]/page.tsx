@@ -6,6 +6,7 @@ import FiltersApplied from '../../components/filtersApplied';
 import FiltersForm from '../../components/filters';
 import SortForm from '../../components/sort';
 import SearchHighlight from '../../components/searchHighlight';
+import CartService from '@/service/api/CartService';
 
 export default async function Page({
   params,
@@ -24,7 +25,9 @@ export default async function Page({
   const search = params.res;
   const products = await catalogService.getAllProductsBySearch(filters, sort, search);
   const discountedProd = await catalogService.getDiscoutedProducts();
-  const list = cardsInfo(products, discountedProd);
+  const cartService = new CartService();
+  const productsInCart = (await cartService.getActiveCart()).lineItems;
+  const list = cardsInfo(products, discountedProd, productsInCart);
 
   return (
     <>
