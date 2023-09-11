@@ -3,6 +3,9 @@ import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
 import { getProductByKey } from './components/product-functions';
 import { ButtonAddToCart } from './components/ButtonAddToCart';
+import { getActiveCart } from '@/app/basket/utils/cart-actions';
+import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
+import { LineItem } from '@commercetools/platform-sdk';
 
 export default async function Page({ params }: { params: { key: string } }) {
   const res = await getProductByKey(params.key);
@@ -21,6 +24,9 @@ export default async function Page({ params }: { params: { key: string } }) {
     ? product.masterVariant.prices[0].value.centAmount / 100
     : 'Priceless';
   const discountPrice = discount ? discount / 100 : undefined;
+
+  const cart = await getActiveCart();
+  const lineItemKey = cart.lineItems.find((p) => p.productKey === params.key);
 
   return (
     <>
@@ -47,7 +53,11 @@ export default async function Page({ params }: { params: { key: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          <ButtonAddToCart productID={productID} />
+          {lineItemKey ? (
+            <AddToCartBtn inCart={lineItemKey.quantity} itemId={product.id} />
+          ) : (
+            <ButtonAddToCart productID={productID} />
+          )}
         </div>
       </section>
       <ProductNavBar />
