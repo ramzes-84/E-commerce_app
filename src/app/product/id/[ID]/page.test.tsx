@@ -116,11 +116,10 @@ jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }
 jest.mock('@/service/api/CartService', () => {
   return jest.fn().mockImplementation(() => {
     return {
-      getActiveCart: mockGetActiveCart,
+      getActiveCart: jest.fn().mockReturnValue({ cart: expectCart }),
     };
   });
 });
-const mockGetActiveCart = jest.fn();
 
 describe('Product page', () => {
   it('renders attributes', () => {
@@ -141,7 +140,6 @@ describe('Product page', () => {
   });
 
   it('renders product info', async () => {
-    mockGetActiveCart.mockReturnValue({ cart: expectCart });
     const Result = await Page({ params: { ID: '1' } });
     render(Result);
 
