@@ -10,7 +10,7 @@ describe('EmptyCart component', () => {
 
   it('renders button', () => {
     const { getByRole } = render(<EmptyCart />);
-    const startShoppingButton = getByRole('button', { name: 'Start shopping for greate day' });
+    const startShoppingButton = getByRole('button', { name: 'Start shopping for a great day' });
     expect(startShoppingButton).toBeInTheDocument();
   });
 });
