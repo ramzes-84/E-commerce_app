@@ -73,4 +73,15 @@ export default class CartService extends ApiService {
     session.qty = cart.totalLineItemQuantity;
     storage.save(session);
   }
+
+  public async createCart() {
+    const currentCart = this.getActiveCart();
+    if (!currentCart) {
+      const cartDraft = {
+        currency: 'USD',
+      };
+      const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
+      return result.body;
+    }
+  }
 }
