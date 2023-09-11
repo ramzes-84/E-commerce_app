@@ -55,7 +55,7 @@ export default function Pagination({
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <Loader size={90} />
       ) : (
         <section className="flex flex-col items-center">
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 justify-start mx-3">
