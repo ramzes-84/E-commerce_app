@@ -4,9 +4,9 @@ import { ProductNavBar } from '../../[key]/components/ProductNavBar';
 import Slider from '../../[key]/components/Slider';
 import { getProductById } from '../../[key]/components/product-functions';
 import { ButtonAddToCart } from '../../[key]/components/ButtonAddToCart';
-import { getActiveCart } from '@/app/basket/utils/cart-actions';
 import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
 import { LineItem } from '@commercetools/platform-sdk';
+import CartService from '@/service/api/CartService';
 
 export default async function Page({ params }: { params: { ID: string } }) {
   const res = await getProductById(params.ID);
@@ -24,8 +24,8 @@ export default async function Page({ params }: { params: { ID: string } }) {
     : 'Priceless';
   const discountPrice = discount ? discount / 100 : undefined;
 
-  const cart = await getActiveCart();
-  const lineItemId: LineItem | undefined = cart.lineItems?.find((p) => p.productId === params.ID);
+  const cart = new CartService().getActiveCart();
+  const lineItemId = (await cart).lineItems?.find((p) => p.productId === params.ID);
 
   return (
     <>
@@ -52,11 +52,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
               <span className=" font-bold text-emerald-800">Price:</span> {masterVarPrices}$
             </p>
           )}
-          {lineItemId ? (
-            <AddToCartBtn inCart={lineItemId.quantity} itemId={product.id} />
-          ) : (
-            <ButtonAddToCart productID={product.id} />
-          )}
+          <AddToCartBtn inCart={lineItemId ? lineItemId.quantity : 0} itemId={product.id} />
         </div>
       </section>
       <ProductNavBar />

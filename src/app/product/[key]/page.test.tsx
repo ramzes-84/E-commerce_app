@@ -107,10 +107,14 @@ jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }
 jest.mock('./components/product-functions', () => ({
   getProductByKey: jest.fn().mockReturnValue({ product: expectedProd }),
 }));
-jest.mock('../../basket/utils/cart-actions.tsx', () => ({
-  getActiveCart: jest.fn().mockReturnValue({ cart: expectCart }),
-}));
 jest.mock('./components/DrawAttributes', () => ({ DrawAttributes: jest.fn().mockReturnValue('') }));
+jest.mock('@/service/api/CartService', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      getActiveCart: mockGetActiveCart,
+    };
+  });
+});
 const mockGetActiveCart = jest.fn();
 
 describe('Product page', () => {
