@@ -8,7 +8,7 @@ export function EmptyCart() {
       <h1 className=" text-2xl py-3">Your cart is empty!</h1>
       <Link href="/catalog">
         <button className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white text-xl">
-          Start shopping for greate day
+          Start shopping for a great day
         </button>
       </Link>
     </div>
