@@ -114,6 +114,11 @@ export default class CustomerService extends ApiService {
     return this.getCurrentCustomer();
   }
 
+  public async loginAfterRegistration(credentials: UserCredentials) {
+    this.apiRoot = createApiRoot(credentials);
+    return this.getCurrentCustomer();
+  }
+
   public logout() {
     new SessionDataStorage().save({});
   }
@@ -158,8 +163,8 @@ export default class CustomerService extends ApiService {
     if (formBillingAddress.defaultBillingAddress) {
       customerDraft.defaultBillingAddress = 1;
     }
-
-    const result = await this.apiRoot.me().signup().post({ body: customerDraft }).execute();
+    const apiRoot = createApiRoot();
+    const result = await apiRoot.me().signup().post({ body: customerDraft }).execute();
     return result.body;
   }
 
