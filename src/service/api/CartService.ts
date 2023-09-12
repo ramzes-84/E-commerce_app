@@ -1,12 +1,19 @@
 import { SessionDataStorage } from '@/controller/session/server';
 import { ApiService } from '@/service/api/ApiService';
 import { Cart } from '@commercetools/platform-sdk';
+import { createApiRoot } from './client';
 
 export default class CartService extends ApiService {
   public async getActiveCart() {
-    const response = await this.apiRoot.me().activeCart().get().execute();
-    this.updateCartProdsQty(response.body);
-    return response.body;
+    try {
+      const response = await this.apiRoot.me().activeCart().get().execute();
+      this.updateCartProdsQty(response.body);
+      return response.body;
+    } catch {
+      const response = await this.createCart();
+      this.updateCartProdsQty(response);
+      return response;
+    }
   }
 
   public async getAllCarts() {
@@ -15,9 +22,9 @@ export default class CartService extends ApiService {
   }
 
   public async addProductToCart(productId: string) {
-    const activeCart = await this.apiRoot.me().activeCart().get().execute();
-    const activeCartID: string = activeCart.body.id;
-    const activeCartVersion = activeCart.body.version;
+    const activeCart = await this.getActiveCart();
+    const activeCartID: string = activeCart ? activeCart.id : '';
+    const activeCartVersion = activeCart ? activeCart.version : 1;
     const req = await this.apiRoot
       .me()
       .carts()
@@ -39,9 +46,9 @@ export default class CartService extends ApiService {
   }
 
   public async removeProductFromCart(lineItemId: string) {
-    const activeCart = await this.apiRoot.me().activeCart().get().execute();
-    const activeCartID: string = activeCart.body.id;
-    const activeCartVersion = activeCart.body.version;
+    const activeCart = await this.getActiveCart();
+    const activeCartID: string = activeCart ? activeCart.id : '';
+    const activeCartVersion = activeCart ? activeCart.version : 1;
     const req = await this.apiRoot
       .me()
       .carts()
@@ -75,13 +82,11 @@ export default class CartService extends ApiService {
   }
 
   public async createCart() {
-    const currentCart = this.getActiveCart();
-    if (!currentCart) {
-      const cartDraft = {
-        currency: 'USD',
-      };
-      const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
-      return result.body;
-    }
+    this.apiRoot = createApiRoot();
+    const cartDraft = {
+      currency: 'USD',
+    };
+    const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
+    return result.body;
   }
 }

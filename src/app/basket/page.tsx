@@ -5,7 +5,6 @@ import { EmptyCart } from './components/emptyCart';
 export default async function Page() {
   const cartService = new CartService();
   const res = await cartService.getActiveCart();
-  const activeCardID = res.id;
   const cartProducts = res.lineItems;
 
   return (

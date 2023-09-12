@@ -1,6 +1,8 @@
 import createApiRoot from '@/service/api/client/createApiRoot';
 import { ApiService } from '@/service/api/ApiService';
 import { SessionDataStorage } from '@/controller/session/server';
+import SessionTokenCache from './client/token-storage';
+import ServerSessionDataStorage from '@/controller/session/server/ServerSessionDataStorage';
 
 export type UserCredentials = { username: string; password: string };
 
@@ -92,6 +94,22 @@ interface RemoveAddressCustomer {
 
 export default class CustomerService extends ApiService {
   public async login(credentials: UserCredentials) {
+    const apiRoot = createApiRoot();
+    const res = await apiRoot
+      .me()
+      .login()
+      .post({
+        body: {
+          email: credentials.username,
+          password: credentials.password,
+          activeCartSignInMode: 'MergeWithExistingCustomerCart',
+        },
+      })
+      .execute();
+    const storage = new ServerSessionDataStorage();
+    const session = storage.getData();
+    session.customerId = res.body.customer.id;
+    storage.save(session);
     this.apiRoot = createApiRoot(credentials);
     return this.getCurrentCustomer();
   }
