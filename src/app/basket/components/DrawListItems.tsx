@@ -2,6 +2,7 @@ import { ButtonRemoveFromCart } from '@/app/product/[key]/components/ButtonRemov
 import { LineItem } from '@commercetools/platform-sdk';
 import Link from 'next/link';
 import Image from 'next/image';
+import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
 
 export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
   const liArr = lineItems.map((item) => {
@@ -16,12 +17,12 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
         <Link href={link} className="grow dark:text-blue-600 hover:underline">
           <div>{item.name['en-US']}</div>
         </Link>
-        <div>{item.quantity} pcs.</div>
+        <AddToCartBtn inCart={item.quantity} itemId={item.productId} />
         <div> *</div>
         <div>{item.price.value.centAmount / 100} USD</div>
         <div> =</div>
         <div>{item.totalPrice.centAmount / 100} USD</div>
-        <ButtonRemoveFromCart lineItemId={item.id} />
+        <ButtonRemoveFromCart lineItemId={item.id} qty={item.quantity} />
       </li>
     );
   });

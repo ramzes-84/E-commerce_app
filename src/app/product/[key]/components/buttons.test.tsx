@@ -16,7 +16,7 @@ describe('Button "Add to cart"', () => {
 
 describe('Button "Remove from cart"', () => {
   it('contains text', () => {
-    const { getByText } = render(<ButtonRemoveFromCart lineItemId="someID" />);
+    const { getByText } = render(<ButtonRemoveFromCart lineItemId="someID" qty={12} />);
 
     const bttnText = getByText('❌ Remove');
 

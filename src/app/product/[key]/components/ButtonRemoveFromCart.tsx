@@ -1,10 +1,10 @@
 import CartService from '@/service/api/CartService';
 
-export function ButtonRemoveFromCart({ lineItemId }: { lineItemId: string }) {
+export function ButtonRemoveFromCart({ lineItemId, qty }: { lineItemId: string; qty: number }) {
   async function removeFromCart() {
     'use server';
     const cartService = new CartService();
-    const res = await cartService.removeProductFromCart(lineItemId);
+    const res = await cartService.removeProductFromCart(lineItemId, qty);
   }
 
   return (
