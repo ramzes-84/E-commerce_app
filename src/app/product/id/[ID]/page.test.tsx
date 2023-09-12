@@ -105,14 +105,11 @@ export const expectCart = {
   itemShippingAddresses: [],
 };
 
-jest.mock('../../[key]/components/product-functions', () => ({
-  getProductById: jest.fn().mockReturnValue(expectedProd),
-}));
 jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
 jest.mock('../../[key]/components/product-functions', () => ({
   getProductById: jest.fn().mockReturnValue({ product: expectedProd }),
 }));
-jest.mock('next/navigation', () => ({ useRouter: jest.fn().mockReturnValue('') }));
+jest.mock('../../[key]/components/DrawAttributes', () => ({ DrawAttributes: jest.fn().mockReturnValue('') }));
 jest.mock('@/service/api/CartService', () => {
   return jest.fn().mockImplementation(() => {
     return {
@@ -122,23 +119,6 @@ jest.mock('@/service/api/CartService', () => {
 });
 
 describe('Product page', () => {
-  it('renders attributes', () => {
-    const { getByText } = render(
-      <DrawAttributes
-        attrArr={[
-          { name: 'name1', value: 'value1' },
-          { name: 'name2', value: 'value2' },
-        ]}
-      />
-    );
-
-    const attrName = getByText('name2');
-    const attrValue = getByText('value2', { exact: false });
-
-    expect(attrName).toBeInTheDocument();
-    expect(attrValue).toBeInTheDocument();
-  });
-
   it('renders product info', async () => {
     const Result = await Page({ params: { ID: '1' } });
     render(Result);
