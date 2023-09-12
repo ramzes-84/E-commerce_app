@@ -7,7 +7,6 @@ export default async function Page() {
   const activeCard = await cartService.getActiveCart();
   const activeCardID = activeCard.id;
   const cartProducts = activeCard.lineItems;
-
   return (
     <>
       <section className="mx-3 font-serif text-emerald-900">

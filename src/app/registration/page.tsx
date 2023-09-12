@@ -7,7 +7,7 @@ import PasswordValid from './components/password/passwordValid';
 import FirstNameValid from './components/firstName/firstNameValid';
 import LastNameValid from './components/lastName/lastNameValid';
 import DataOfBirthValid from './components/dataOfBirth/dataOfBirthValid';
-import { autoLogin, register } from './register-actions';
+import { register } from './register-actions';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AddressSection from './components/addresses/addressSection';
@@ -108,7 +108,6 @@ export default function Page() {
     if (formValid) {
       await register(formData, shippingAddress, billingAddress)
         .then(() => {
-          autoLogin(formData.email, formData.password);
           setRegSuccess(true);
           setMsgVisible(true);
         })

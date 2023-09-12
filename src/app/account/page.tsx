@@ -3,6 +3,7 @@ import { CustomerInfo } from './components/customerInfo/CustomerInfo';
 import { LogoutButton } from './components/loggoutButton/LogoutButton';
 import { getUserInfo, userIsLogged } from './account-actions';
 import CartService from '@/service/api/CartService';
+import { ButtonDeleteCart } from '../product/[key]/components/ButtonDeleteCart';
 
 export default async function Page() {
   const isLogged = userIsLogged();
@@ -18,9 +19,12 @@ export default async function Page() {
       {isLogged && customer && <CustomerInfo customer={customer} />}
       <p>You have {res.results.length} carts:</p>
       {cartsArr.map((cart) => (
-        <p key={cart.id}>
-          Cart with ID {cart.id} has {cart.lineItems.length} items
-        </p>
+        <div key={cart.id} className="flex">
+          <div>
+            Cart with ID {cart.id} has {cart.lineItems.length} items
+          </div>
+          <ButtonDeleteCart cartID={cart.id} cartVersion={cart.version} />
+        </div>
       ))}
       {isLogged && <LogoutButton />}
     </>

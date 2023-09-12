@@ -4,9 +4,20 @@ import { Cart } from '@commercetools/platform-sdk';
 
 export default class CartService extends ApiService {
   public async getActiveCart() {
-    const response = await this.apiRoot.me().activeCart().get().execute();
-    this.updateCartProdsQty(response.body);
-    return response.body;
+    try {
+      const response = await this.apiRoot.me().activeCart().get().execute();
+      this.updateCartProdsQty(response.body);
+      return response.body;
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.message === 'URI not found: /cyber-ducks-app/me/active-cart') {
+          const response = await this.createCart();
+          this.updateCartProdsQty(response);
+          return response;
+        }
+      }
+      throw new Error();
+    }
   }
 
   public async getAllCarts() {
@@ -14,10 +25,10 @@ export default class CartService extends ApiService {
     return response.body;
   }
 
-  public async addProductToCart(productId: string) {
-    const activeCart = await this.apiRoot.me().activeCart().get().execute();
-    const activeCartID: string = activeCart.body.id;
-    const activeCartVersion = activeCart.body.version;
+  public async addProductToCart(productId: string, qty: number) {
+    const activeCart = await this.getActiveCart();
+    const activeCartID: string = activeCart.id;
+    const activeCartVersion = activeCart.version;
     const req = await this.apiRoot
       .me()
       .carts()
@@ -29,7 +40,7 @@ export default class CartService extends ApiService {
             {
               action: 'addLineItem',
               productId,
-              quantity: 1,
+              quantity: qty,
             },
           ],
         },
@@ -39,9 +50,9 @@ export default class CartService extends ApiService {
   }
 
   public async removeProductFromCart(lineItemId: string, qty: number) {
-    const activeCart = await this.apiRoot.me().activeCart().get().execute();
-    const activeCartID: string = activeCart.body.id;
-    const activeCartVersion = activeCart.body.version;
+    const activeCart = await this.getActiveCart();
+    const activeCartID: string = activeCart.id;
+    const activeCartVersion = activeCart.version;
     const req = await this.apiRoot
       .me()
       .carts()
@@ -75,13 +86,20 @@ export default class CartService extends ApiService {
   }
 
   public async createCart() {
-    const currentCart = this.getActiveCart();
-    if (!currentCart) {
-      const cartDraft = {
-        currency: 'USD',
-      };
-      const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
-      return result.body;
-    }
+    const cartDraft = {
+      currency: 'USD',
+    };
+    const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
+    return result.body;
+  }
+
+  public async deleteCart(cartID: string, cartVersion: number) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .delete({ queryArgs: { version: cartVersion } })
+      .execute();
+    return result.body;
   }
 }
