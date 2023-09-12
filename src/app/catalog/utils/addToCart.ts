@@ -10,5 +10,5 @@ export async function addToCart(id: string) {
 export async function removeFromCart(id: string) {
   const cartService = new CartService();
   const lineItemId = (await cartService.getActiveCart()).lineItems.find((p) => p.productId === id)?.id;
-  await cartService.removeProductFromCart(lineItemId ? lineItemId : '');
+  await cartService.removeProductFromCart(lineItemId ? lineItemId : '', 1);
 }
