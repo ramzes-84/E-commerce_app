@@ -4,10 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
-  let cartCost = 0;
   const liArr = lineItems.map((item) => {
-    const lineCost = (item.price.value.centAmount / 100) * item.quantity;
-    cartCost += lineCost;
     const link = item.productKey ? `/product/${item.productKey}` : `/product/id/${item.productId}`;
     let imgLink = item.variant.images
       ? item.variant.images[0].url
@@ -23,17 +20,10 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
         <div> *</div>
         <div>{item.price.value.centAmount / 100} USD</div>
         <div> =</div>
-        <div>{lineCost} USD</div>
+        <div>{item.totalPrice.centAmount / 100} USD</div>
         <ButtonRemoveFromCart lineItemId={item.id} />
       </li>
     );
   });
-  return (
-    <ul className="list-disc list-outside mx-3 divide-y-4 font-serif text-emerald-600">
-      {liArr}
-      <li className="flex flex-row justify-end items-center gap-2 py-3">
-        <div>Total price: {cartCost} USD</div>
-      </li>
-    </ul>
-  );
+  return <ul className="list-disc list-outside divide-y-4">{liArr}</ul>;
 }
