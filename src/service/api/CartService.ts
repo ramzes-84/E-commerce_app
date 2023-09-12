@@ -1,7 +1,6 @@
 import { SessionDataStorage } from '@/controller/session/server';
 import { ApiService } from '@/service/api/ApiService';
 import { Cart } from '@commercetools/platform-sdk';
-import { createApiRoot } from './client';
 
 export default class CartService extends ApiService {
   public async getActiveCart() {
@@ -82,7 +81,6 @@ export default class CartService extends ApiService {
   }
 
   public async createCart() {
-    this.apiRoot = createApiRoot();
     const cartDraft = {
       currency: 'USD',
     };
