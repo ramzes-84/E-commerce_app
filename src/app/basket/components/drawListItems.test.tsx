@@ -21,7 +21,7 @@ const lineItems: { lineItems: LineItem[] } = {
         sku: 'U0020',
         key: 'U0020',
         prices: [],
-        images: [],
+        images: [{ url: '', dimensions: { h: 100, w: 100 } }],
         attributes: [],
         assets: [],
       },
