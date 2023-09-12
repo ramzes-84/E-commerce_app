@@ -22,8 +22,8 @@ export default class CartService extends ApiService {
 
   public async addProductToCart(productId: string) {
     const activeCart = await this.getActiveCart();
-    const activeCartID: string = activeCart ? activeCart.id : '';
-    const activeCartVersion = activeCart ? activeCart.version : 1;
+    const activeCartID: string = activeCart.id;
+    const activeCartVersion = activeCart.version;
     const req = await this.apiRoot
       .me()
       .carts()
@@ -46,8 +46,8 @@ export default class CartService extends ApiService {
 
   public async removeProductFromCart(lineItemId: string) {
     const activeCart = await this.getActiveCart();
-    const activeCartID: string = activeCart ? activeCart.id : '';
-    const activeCartVersion = activeCart ? activeCart.version : 1;
+    const activeCartID: string = activeCart.id;
+    const activeCartVersion = activeCart.version;
     const req = await this.apiRoot
       .me()
       .carts()
