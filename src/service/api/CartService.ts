@@ -8,10 +8,15 @@ export default class CartService extends ApiService {
       const response = await this.apiRoot.me().activeCart().get().execute();
       this.updateCartProdsQty(response.body);
       return response.body;
-    } catch {
-      const response = await this.createCart();
-      this.updateCartProdsQty(response);
-      return response;
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.message === 'URI not found: /cyber-ducks-app/me/active-cart') {
+          const response = await this.createCart();
+          this.updateCartProdsQty(response);
+          return response;
+        }
+      }
+      throw new Error();
     }
   }
 
@@ -85,6 +90,16 @@ export default class CartService extends ApiService {
       currency: 'USD',
     };
     const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
+    return result.body;
+  }
+
+  public async deleteCart(cartID: string, cartVersion: number) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .delete({ queryArgs: { version: cartVersion } })
+      .execute();
     return result.body;
   }
 }
