@@ -17,7 +17,7 @@ jest.mock('@/service/api/CartService', () => {
 
 describe('Cart page', () => {
   it('renders header & draw lines when they exist', async () => {
-    mockGetActiveCart.mockReturnValue({ id: 'ident', lineItems: ['Text'] });
+    mockGetActiveCart.mockReturnValue({ id: 'ident', lineItems: ['Text'], totalPrice: { centAmount: 500000 } });
 
     const Result = await Page();
     render(Result);
