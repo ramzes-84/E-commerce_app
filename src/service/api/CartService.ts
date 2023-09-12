@@ -89,4 +89,14 @@ export default class CartService extends ApiService {
     const result = await this.apiRoot.me().carts().post({ body: cartDraft }).execute();
     return result.body;
   }
+
+  public async deleteCart(cartID: string, cartVersion: number) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .delete({ queryArgs: { version: cartVersion } })
+      .execute();
+    return result.body;
+  }
 }
