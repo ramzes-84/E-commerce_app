@@ -38,7 +38,7 @@ export default class CartService extends ApiService {
     this.updateCartProdsQty(req.body);
   }
 
-  public async removeProductFromCart(lineItemId: string) {
+  public async removeProductFromCart(lineItemId: string, qty: number) {
     const activeCart = await this.apiRoot.me().activeCart().get().execute();
     const activeCartID: string = activeCart.body.id;
     const activeCartVersion = activeCart.body.version;
@@ -53,7 +53,7 @@ export default class CartService extends ApiService {
             {
               action: 'removeLineItem',
               lineItemId,
-              quantity: 1,
+              quantity: qty,
             },
           ],
         },

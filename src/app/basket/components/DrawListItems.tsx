@@ -21,7 +21,7 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
         <div>{item.price.value.centAmount / 100} USD</div>
         <div> =</div>
         <div>{item.totalPrice.centAmount / 100} USD</div>
-        <ButtonRemoveFromCart lineItemId={item.id} />
+        <ButtonRemoveFromCart lineItemId={item.id} qty={item.quantity} />
       </li>
     );
   });

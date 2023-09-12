@@ -12,7 +12,7 @@ describe('Button "Add to cart"', () => {
     expect(bttnText).toBeInTheDocument();
   });
   it('contains text', () => {
-    const { getByText } = render(<ButtonRemoveFromCart lineItemId="someID" />);
+    const { getByText } = render(<ButtonRemoveFromCart lineItemId="someID" qty={12} />);
 
     const bttnText = getByText('❌ Remove');
 
