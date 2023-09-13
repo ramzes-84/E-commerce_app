@@ -102,4 +102,47 @@ export default class CartService extends ApiService {
       .execute();
     return result.body;
   }
+
+  public async addPromocode(cartID: string, cartVersion: number, promocode: string) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .post({
+        body: {
+          version: cartVersion,
+          actions: [
+            {
+              action: 'addDiscountCode',
+              code: promocode,
+            },
+          ],
+        },
+      })
+      .execute();
+    return result.body;
+  }
+
+  public async deletePromocode(cartID: string, cartVersion: number, promocodeID: string) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .post({
+        body: {
+          version: cartVersion,
+          actions: [
+            {
+              action: 'removeDiscountCode',
+              discountCode: {
+                typeId: 'discount-code',
+                id: promocodeID,
+              },
+            },
+          ],
+        },
+      })
+      .execute();
+    return result.body;
+  }
 }

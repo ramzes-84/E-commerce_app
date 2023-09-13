@@ -2,6 +2,8 @@ import CartService from '@/service/api/CartService';
 import { DrawListItems } from './components/DrawListItems';
 import { EmptyCart } from './components/emptyCart';
 import ClearCart from './components/clearCart';
+import Promocode from './components/promoCodeInput';
+import { act } from 'react-dom/test-utils';
 
 export default async function Page() {
   const cartService = new CartService();
@@ -19,6 +21,7 @@ export default async function Page() {
             <div className="flex flex-col items-end py-3 text-2xl font-bold">
               <div className="text-emerald-900">Total price: {activeCard.totalPrice.centAmount / 100} USD</div>
             </div>
+            <Promocode cartID={activeCardID} cartVersion={activeCard.version} />
           </>
         ) : (
           <EmptyCart />
