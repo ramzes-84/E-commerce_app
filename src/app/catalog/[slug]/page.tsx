@@ -24,7 +24,7 @@ export default async function Page({
   const pageProducts = await getPageProducts({ page: 0, filters: filters, sort: sort });
   return (
     <>
-      <CatalogNavPanel products={products} />
+      <CatalogNavPanel products={products} category={cat} />
       <FiltersApplied />
       <Pagination filters={filters} sort={sort} productsArr={pageProducts} maxProds={products.length} />
     </>
