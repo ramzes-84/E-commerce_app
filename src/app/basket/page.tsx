@@ -16,7 +16,7 @@ export default async function Page() {
         <h2 className="text-center uppercase text-2xl  my-5 font-bold text-emerald-900">Cart</h2>
         {cartProducts.length !== 0 ? (
           <>
-            <ClearCart cartId={activeCardID} cartVersion={activeCard.version} />
+            <ClearCart cartId={activeCardID} cartVersion={activeCard.version} activeCart={activeCard} />
             <DrawListItems lineItems={cartProducts} />
             <div className="flex flex-col items-end py-3 text-2xl font-bold">
               <div className="text-emerald-900">Total price: {activeCard.totalPrice.centAmount / 100} USD</div>

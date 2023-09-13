@@ -71,6 +71,7 @@ export default class CartService extends ApiService {
       })
       .execute();
     this.updateCartProdsQty(req.body);
+    return req.body;
   }
 
   public cartProdsQty() {

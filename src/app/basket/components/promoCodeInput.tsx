@@ -12,9 +12,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
   const addPromocodeToCart = () => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      const cartWithPromocode: Cart = await addPromocode(cartID, cartVersion, value);
-      const promo: DiscountCodeInfo[] = cartWithPromocode.discountCodes;
-      const promoID: string = promo.map((code) => code.discountCode.id).join('');
+      await addPromocode(cartID, cartVersion, value);
     };
   };
 
