@@ -3,7 +3,6 @@ import { DrawListItems } from './components/DrawListItems';
 import { EmptyCart } from './components/emptyCart';
 import ClearCart from './components/clearCart';
 import Promocode from './components/promoCodeInput';
-import { act } from 'react-dom/test-utils';
 
 export default async function Page() {
   const cartService = new CartService();

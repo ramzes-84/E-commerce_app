@@ -3,7 +3,7 @@
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
 import CartPopup from './popup';
-import { deletePromocode } from '../utils/promocode';
+import { deletePromocode } from '../utils/promocode-actions';
 import { Cart, DiscountCodeInfo } from '@commercetools/platform-sdk';
 
 export default function ClearCart({

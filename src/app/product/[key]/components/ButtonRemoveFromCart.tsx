@@ -1,4 +1,4 @@
-import { deletePromocode } from '@/app/basket/utils/promocode';
+import { deletePromocode } from '@/app/basket/utils/promocode-actions';
 import CartService from '@/service/api/CartService';
 import { DiscountCodeInfo } from '@commercetools/platform-sdk';
 

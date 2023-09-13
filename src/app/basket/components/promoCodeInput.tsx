@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { addPromocode } from '../utils/promocode';
+import { addPromocode } from '../utils/promocode-actions';
 import { Cart, DiscountCodeInfo } from '@commercetools/platform-sdk';
 
 export default function Promocode({ cartID, cartVersion }: { cartID: string; cartVersion: number }) {
@@ -9,16 +9,13 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
-  const addPromocodeToCart = () => {
-    return async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      await addPromocode(cartID, cartVersion, value);
-    };
-  };
+  async function addPromocodeToCart() {
+    await addPromocode(cartID, cartVersion, value);
+  }
 
   return (
     <>
-      <form onSubmit={addPromocodeToCart()}>
+      <form action={addPromocodeToCart}>
         <label htmlFor="">
           Promocode
           <input type="text" value={value} onChange={handleChange} />
