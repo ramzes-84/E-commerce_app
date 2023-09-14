@@ -12,7 +12,7 @@ export function ButtonRemoveFromCart({ lineItemId, qty }: { lineItemId: string; 
     <form action={removeFromCart}>
       <button
         type="submit"
-        className="border border-solid border-transparent rounded bg-emerald-900 text-white cursor-pointer p-2"
+        className="flex justify-center items-center border border-solid border-transparent rounded bg-emerald-900 text-white cursor-pointer sm:h-8 h-6 sm:w-8 w-6 "
       >
         <ImBin data-testid="delete" />
       </button>

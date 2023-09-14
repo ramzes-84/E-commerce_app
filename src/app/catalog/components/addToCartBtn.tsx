@@ -33,16 +33,22 @@ export default function AddToCartBtn({ inCart, itemId }: { inCart: number; itemI
     <>
       {productQty === 0 ? (
         <form onSubmit={addProduct()}>
-          <button className=" flex bg-emerald-900 text-white rounded px-2 py-1">Add to cart</button>
+          <button className=" flex bg-emerald-900 text-white rounded px-2 py-1 ">Add to cart</button>
         </form>
       ) : (
-        <div className="flex justify-between w-20 bg-emerald-900 text-white rounded py-1">
+        <div className="flex justify-between bg-emerald-900 text-white rounded py-1 leading-4 sm:leading-6 ">
           <form onSubmit={removeProduct()}>
             <button className="  border-r px-2 border-white " id="minus" name="minus">
               -
             </button>
           </form>
-          {isLoading ? <Loader size={22} /> : <span className=" w-3 text-center">{productQty}</span>}
+          {isLoading ? (
+            <div className="px-0 sm:px-2">
+              <Loader size={22} />
+            </div>
+          ) : (
+            <span className="w-[22px] sm:w-[38px] text-center">{productQty}</span>
+          )}
           <form onSubmit={addProduct()}>
             <button className=" border-l px-2 border-white" id="plus" name="plus">
               +
