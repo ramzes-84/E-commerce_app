@@ -1,7 +1,5 @@
 import CatalogService, { Filters, SortParams } from '@/service/api/CatalogService';
-import CatalogCard from '../../components/catalogCard';
 import { cardsInfo } from '../../utils/cards';
-import CatalogNavPanel from '../../components/navPanel';
 import FiltersApplied from '../../components/filtersApplied';
 import FiltersForm from '../../components/filters';
 import SortForm from '../../components/sort';
