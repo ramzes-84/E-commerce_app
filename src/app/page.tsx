@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Promocodes } from './promocodes';
 
 export default function Home() {
   return (
@@ -52,6 +53,7 @@ export default function Home() {
       >
         Registration
       </Link>
+      <Promocodes />
     </main>
   );
 }

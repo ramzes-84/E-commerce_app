@@ -8,9 +8,14 @@ export function ButtonRemoveFromCart({ lineItemId, qty }: { lineItemId: string; 
     const cartService = new CartService();
     const activeCart = await cartService.removeProductFromCart(lineItemId, qty);
     const qtyProducts = activeCart.lineItems.length;
-    const promo: DiscountCodeInfo[] = activeCart.discountCodes;
-    const promoID: string = promo.map((code) => code.discountCode.id).join('');
-    qtyProducts === 0 ? await deletePromocode(activeCart.id, activeCart.version, promoID) : null;
+    const promocodesInfo: DiscountCodeInfo[] = activeCart.discountCodes;
+    if (qtyProducts === 0) {
+      for (const promoInfo of promocodesInfo) {
+        const cartService = new CartService();
+        const newActiveCart = await cartService.getActiveCart();
+        await deletePromocode(newActiveCart.id, newActiveCart.version, promoInfo.discountCode.id);
+      }
+    }
   }
 
   return (

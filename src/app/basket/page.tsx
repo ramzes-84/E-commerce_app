@@ -15,7 +15,7 @@ export default async function Page() {
         <h2 className="text-center uppercase text-2xl  my-5 font-bold text-emerald-900">Cart</h2>
         {cartProducts.length !== 0 ? (
           <>
-            <ClearCart cartId={activeCardID} cartVersion={activeCard.version} activeCart={activeCard} />
+            <ClearCart cartId={activeCardID} cartVersion={activeCard.version} />
             <DrawListItems lineItems={cartProducts} />
             <Promocode cartID={activeCardID} cartVersion={activeCard.version} />
             <div className="flex flex-col items-end py-3 text-2xl font-bold">

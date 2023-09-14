@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { addPromocode, deletePromocode } from '../utils/promocode-actions';
 import SuccessPopup from '@/app/account/components/popup/successPopup';
 import { getActiveCart } from '../utils/getActiveCart';
+import { DiscountCodeInfo } from '@commercetools/platform-sdk';
 
 export default function Promocode({ cartID, cartVersion }: { cartID: string; cartVersion: number }) {
   const [value, setValue] = useState('');
   const [isApplyPromo, setIsApplyPromo] = useState(false);
+  const [successChange, setSuccessChange] = useState(false);
   const [chageMessage, setChageMessage] = useState('');
   const [errorChange, setErrorChange] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +18,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
   async function addPromocodeToCart() {
     try {
       const result = await addPromocode(cartID, cartVersion, value);
+      setIsApplyPromo(true);
       return result;
     } catch (err) {
       if (err instanceof Error) {
@@ -27,12 +30,21 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
       }
     }
   }
-  async function deletePromocodeToCart(e: React.MouseEvent<HTMLButtonElement>) {
+  async function deletePromocodeFromCart(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     try {
-      const updateCart = await getActiveCart();
-      const promoID: string = updateCart.discountCodes.map((code) => code.discountCode.id).join('');
-      await deletePromocode(updateCart.id, updateCart.version, promoID);
+      const activeCart = await getActiveCart();
+      const promocodesInfo: DiscountCodeInfo[] = activeCart.discountCodes;
+      for (const promoInfo of promocodesInfo) {
+        const newActiveCart = await getActiveCart();
+        await deletePromocode(newActiveCart.id, newActiveCart.version, promoInfo.discountCode.id);
+      }
+      setSuccessChange(true);
+      setChageMessage('Promocodes have been successfully removed');
+      setTimeout(() => {
+        setSuccessChange(false);
+      }, 3000);
+      setIsApplyPromo(false);
     } catch (err) {
       if (err instanceof Error) {
         setErrorChange(true);
@@ -46,8 +58,15 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
 
   return (
     <>
-      <SuccessPopup message={chageMessage} errorChange={errorChange} successChange={false} />
-      <h2 className="text-end font-serif font-bold text-rose-500 uppercase py-3">Enter promocode</h2>
+      <SuccessPopup message={chageMessage} errorChange={errorChange} successChange={successChange} />
+      <div className="flex justify-end items-center gap-1 py-4">
+        <h2 className="text-end font-serif font-bold text-rose-500 uppercase">Enter promocode</h2>
+        {isApplyPromo && (
+          <button className="flex bg-emerald-900 text-white rounded px-2 py-1" onClick={deletePromocodeFromCart}>
+            Remove Promocodes
+          </button>
+        )}
+      </div>
       <form className="flex justify-end gap-1 font-serif" action={addPromocodeToCart}>
         <button type="button" onClick={() => setValue('')}>
           &#10060;
