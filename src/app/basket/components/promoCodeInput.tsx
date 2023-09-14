@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addPromocode, deletePromocode } from '../utils/promocode-actions';
 import SuccessPopup from '@/app/account/components/popup/successPopup';
 import { getActiveCart } from '../utils/getActiveCart';
@@ -12,9 +12,22 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
   const [successChange, setSuccessChange] = useState(false);
   const [chageMessage, setChageMessage] = useState('');
   const [errorChange, setErrorChange] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    async function updatePrice() {
+      const activeCart = await getActiveCart();
+      const result = activeCart.totalPrice.centAmount / 100;
+      setTotalPrice(result);
+    }
+
+    updatePrice();
+  }, [isApplyPromo]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+
   async function addPromocodeToCart() {
     try {
       const result = await addPromocode(cartID, cartVersion, value);
@@ -30,6 +43,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
       }
     }
   }
+
   async function deletePromocodeFromCart(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     try {
@@ -62,9 +76,11 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
       <div className="flex justify-end items-center gap-1 py-4">
         <h2 className="text-end font-serif font-bold text-rose-500 uppercase">Enter promocode</h2>
         {isApplyPromo && (
-          <button className="flex bg-emerald-900 text-white rounded px-2 py-1" onClick={deletePromocodeFromCart}>
-            Remove Promocodes
-          </button>
+          <>
+            <button className="flex bg-emerald-900 text-white rounded px-2 py-1" onClick={deletePromocodeFromCart}>
+              Remove Promocodes
+            </button>
+          </>
         )}
       </div>
       <form className="flex justify-end gap-1 font-serif" action={addPromocodeToCart}>
@@ -82,6 +98,13 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
           Apply
         </button>{' '}
       </form>
+      {isApplyPromo && (
+        <>
+          <div className="flex flex-col items-end py-3 text-3xl font-bold">
+            <div className="text-rose-700">New total price with promocode: {totalPrice} USD</div>
+          </div>
+        </>
+      )}
     </>
   );
 }
