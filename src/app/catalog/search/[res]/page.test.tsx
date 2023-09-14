@@ -1,23 +1,16 @@
-import { ProductProjection } from '@commercetools/platform-sdk';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Filters from './filters';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn().mockReturnValue(''),
-  usePathname: jest.fn().mockReturnValue(''),
-  useSearchParams: jest.fn().mockReturnValue({
-    color: 'green',
-    has(prp: string) {
-      return true;
-    },
-    get(prp: string) {
-      return prp;
-    },
-  }),
-}));
+import Page from './page';
+import CatalogService from '@/service/api/CatalogService';
+import { cardsInfo } from '../../utils/cards';
+import FiltersApplied from '../../components/filtersApplied';
+import FiltersForm from '../../components/filters';
+import SortForm from '../../components/sort';
+import SearchHighlight from '../../components/searchHighlight';
+import CartService from '@/service/api/CartService';
+import { lineItems } from '@/app/basket/components/drawListItems.test';
 
-export const products: ProductProjection[] = [
+const products = [
   {
     id: '113496b7-5958-4130-8f32-b803059297da',
     version: 1,
@@ -214,14 +207,39 @@ export const products: ProductProjection[] = [
   },
 ];
 
-describe('Catalog filters', () => {
-  it('renders panel', () => {
-    render(<Filters prods={products} />);
+const mockGetAllProductsBySearch = jest.fn().mockReturnValue(products);
+const mockGetDiscoutedProducts = jest.fn().mockReturnValue(products);
+jest.mock('@/service/api/CatalogService', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      getAllProductsBySearch: mockGetAllProductsBySearch,
+      getDiscoutedProducts: mockGetDiscoutedProducts,
+    };
+  });
+});
 
-    const btn = screen.getByText('Filters');
-    fireEvent.click(btn);
+const mockGetActiveCart = jest.fn().mockReturnValue(lineItems.lineItems);
+jest.mock('@/service/api/CartService', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      getActiveCart: mockGetActiveCart,
+    };
+  });
+});
+jest.mock('../../utils/cards', () => ({ cardsInfo: jest.fn().mockReturnValue('') }));
 
-    expect(screen.getByLabelText('Price from:')).toBeInTheDocument();
-    expect(screen.getByText('green')).toBeInTheDocument();
+describe('Search page', () => {
+  it('should call CatalogService class & it`s method', async () => {
+    await Page({ params: { res: 'string' }, searchParams: { color: 'value' } });
+
+    expect(CatalogService).toHaveBeenCalled();
+    expect(mockGetAllProductsBySearch).toHaveBeenCalled();
+    expect(mockGetDiscoutedProducts).toHaveBeenCalled();
+  });
+  it('should call CartService class & it`s method', async () => {
+    await Page({ params: { res: 'string' }, searchParams: { color: 'value' } });
+
+    expect(CartService).toHaveBeenCalled();
+    expect(mockGetActiveCart).toHaveBeenCalled();
   });
 });

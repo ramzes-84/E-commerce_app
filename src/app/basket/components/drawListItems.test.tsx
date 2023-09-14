@@ -3,7 +3,7 @@ import { DrawListItems } from './DrawListItems';
 import { render } from '@testing-library/react';
 import { ButtonRemoveFromCart } from '@/app/product/[key]/components/ButtonRemoveFromCart';
 
-const lineItems: { lineItems: LineItem[] } = {
+export const lineItems: { lineItems: LineItem[] } = {
   lineItems: [
     {
       id: '345f65bb-1f1b-4f43-9db9-f5e5927acc3a',
