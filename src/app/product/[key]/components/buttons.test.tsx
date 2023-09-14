@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ButtonAddToCart } from './ButtonAddToCart';
 import { ButtonRemoveFromCart } from './ButtonRemoveFromCart';
@@ -15,20 +15,20 @@ describe('Button "Add to cart"', () => {
 });
 
 describe('Button "Remove from cart"', () => {
-  it('contains text', () => {
-    const { getByText } = render(<ButtonRemoveFromCart lineItemId="someID" qty={12} />);
+  it('contains del', () => {
+    render(<ButtonRemoveFromCart lineItemId="someID" qty={12} />);
 
-    const bttnText = getByText('❌ Remove');
+    const bttnText = screen.getByTestId('delete');
 
     expect(bttnText).toBeInTheDocument();
   });
 });
 
 describe('Button "Delete cart"', () => {
-  it('contains text', () => {
-    const { getByText } = render(<ButtonDeleteCart cartID="someID" cartVersion={4} />);
+  it('contains del', () => {
+    render(<ButtonDeleteCart cartID="someID" cartVersion={4} />);
 
-    const bttnText = getByText('❌ Delete cart');
+    const bttnText = screen.getByTestId('delete');
 
     expect(bttnText).toBeInTheDocument();
   });

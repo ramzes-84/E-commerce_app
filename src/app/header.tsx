@@ -7,13 +7,26 @@ import { useRouter } from 'next/navigation';
 import { logout } from './account/account-actions';
 import { FaShoppingCart } from 'react-icons/fa';
 
-function NavLink({ name, link, callback, img }: { name: string; link?: string; img?: boolean; callback?: () => void }) {
+function NavLink({
+  name,
+  link,
+  callback,
+  img,
+  close,
+}: {
+  name: string;
+  link?: string;
+  img?: boolean;
+  callback?: () => void;
+  close: () => void;
+}) {
   return (
     <li className="nav-item">
       {link && (
         <Link
           className="px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75"
           href={link}
+          onClick={close}
         >
           {img && <FaShoppingCart />}
           <span className="ml-2">{name}</span>
@@ -22,7 +35,10 @@ function NavLink({ name, link, callback, img }: { name: string; link?: string; i
       {callback && (
         <button
           className={'px-3 py-2 flex items-center text-xs uppercase leading-snug text-white hover:opacity-75'}
-          onClick={callback}
+          onClick={() => {
+            callback();
+            close();
+          }}
         >
           <span className="ml-2">{name}</span>
         </button>
@@ -37,6 +53,7 @@ type navItem = {
   visibleForAuthorized?: boolean;
   img?: boolean;
   callback?: () => void;
+  close: () => void;
 };
 
 export default function Navbar({ authorized, qty }: { authorized: boolean; qty: number }) {
@@ -48,15 +65,15 @@ export default function Navbar({ authorized, qty }: { authorized: boolean; qty: 
   }
 
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-
+  const closeOnClick = () => setNavbarOpen(false);
   const navItems: navItem[] = [
-    { name: `Cart (${qty})`, link: '/basket', img: true },
-    { name: 'Catalog', link: '/catalog' },
-    { name: 'About Us', link: '/about' },
-    { name: 'Account', visibleForAuthorized: true, link: '/account' },
-    { name: 'Log in', visibleForAuthorized: false, link: '/login' },
-    { name: 'Register', visibleForAuthorized: false, link: '/registration' },
-    { name: 'Log out', visibleForAuthorized: true, callback: () => handleLogout() },
+    { name: `Cart (${qty})`, link: '/basket', img: true, close: closeOnClick },
+    { name: 'Catalog', link: '/catalog', close: closeOnClick },
+    { name: 'About Us', link: '/about', close: closeOnClick },
+    { name: 'Account', visibleForAuthorized: true, link: '/account', close: closeOnClick },
+    { name: 'Log in', visibleForAuthorized: false, link: '/login', close: closeOnClick },
+    { name: 'Register', visibleForAuthorized: false, link: '/registration', close: closeOnClick },
+    { name: 'Log out', visibleForAuthorized: true, callback: () => handleLogout(), close: closeOnClick },
   ];
   return (
     <>
@@ -89,6 +106,7 @@ export default function Navbar({ authorized, qty }: { authorized: boolean; qty: 
                       name={item.name}
                       callback={item.callback}
                       img={item.img}
+                      close={item.close}
                     />
                   )
                 );
