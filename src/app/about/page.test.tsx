@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import Page from './page';
 
-describe('AboutUs', () => {
+describe('AboutUs component:', () => {
   it('should render with correct props', () => {
     const { getByText } = render(<Page />);
 
