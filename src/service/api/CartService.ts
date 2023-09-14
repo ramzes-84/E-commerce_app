@@ -121,6 +121,7 @@ export default class CartService extends ApiService {
         },
       })
       .execute();
+    this.updateCartProdsQty(result.body);
     return result.body;
   }
 
@@ -144,6 +145,7 @@ export default class CartService extends ApiService {
         },
       })
       .execute();
+    this.updateCartProdsQty(result.body);
     return result.body;
   }
 }

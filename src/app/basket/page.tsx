@@ -17,10 +17,10 @@ export default async function Page() {
           <>
             <ClearCart cartId={activeCardID} cartVersion={activeCard.version} activeCart={activeCard} />
             <DrawListItems lineItems={cartProducts} />
+            <Promocode cartID={activeCardID} cartVersion={activeCard.version} />
             <div className="flex flex-col items-end py-3 text-2xl font-bold">
               <div className="text-emerald-900">Total price: {activeCard.totalPrice.centAmount / 100} USD</div>
             </div>
-            <Promocode cartID={activeCardID} cartVersion={activeCard.version} />
           </>
         ) : (
           <EmptyCart />
