@@ -5,6 +5,9 @@ import {
   updateAddressField,
   updateUserField,
   userIsLogged,
+  updateEmail,
+  updatePassword,
+  removeSetAddress,
 } from './account-actions';
 import CustomerService from '@/service/api/CustomerService';
 
@@ -75,6 +78,9 @@ const mockGetCurrentCustomer = jest.fn();
 const mockIsLogged = jest.fn();
 const mockUpdateFieldName = jest.fn();
 const mockChangeAddAddress = jest.fn();
+const mockChangeEmail = jest.fn();
+const mockСhangePassword = jest.fn();
+const mockDeleteSetAddress = jest.fn();
 jest.mock('@/service/api/CustomerService', () => {
   return jest.fn().mockImplementation(() => {
     return {
@@ -83,6 +89,9 @@ jest.mock('@/service/api/CustomerService', () => {
       isLogged: mockIsLogged,
       updateFieldName: mockUpdateFieldName,
       changeAddAddress: mockChangeAddAddress,
+      changeEmail: mockChangeEmail,
+      changePassword: mockСhangePassword,
+      deleteSetAddress: mockDeleteSetAddress,
     };
   });
 });
@@ -108,6 +117,18 @@ describe('Account action functions', () => {
   it('should call class method on updateAddressField', () => {
     updateAddressField(expectedData, 'changeAddress', myAddress);
     expect(mockChangeAddAddress).toHaveBeenCalled();
+  });
+  it('should call class method on updateEmail', () => {
+    updateEmail(expectedData, 'changeEmail', 'test@test.ru');
+    expect(mockChangeEmail).toHaveBeenCalled();
+  });
+  it('should call class method on updatePassword', () => {
+    updatePassword(expectedData, '123456', '654321');
+    expect(mockСhangePassword).toHaveBeenCalled();
+  });
+  it('should call class method on removeSetAddress', () => {
+    removeSetAddress(expectedData, 'removeAddress', myAddress);
+    expect(mockDeleteSetAddress).toHaveBeenCalled();
   });
 });
 
