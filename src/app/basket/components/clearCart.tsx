@@ -9,7 +9,7 @@ export default function ClearCart({ cartId, cartVersion }: { cartId: string; car
   return (
     <>
       <button
-        className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white text-xl my-3"
+        className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white text-xl my-3 md:ml-10 ml-6"
         onClick={() => setPopupOpen(true)}
       >
         Clear cart

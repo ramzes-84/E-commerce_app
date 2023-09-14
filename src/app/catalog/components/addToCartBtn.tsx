@@ -1,12 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { addToCart, removeFromCart } from '../utils/addToCart';
 import Loader from './loader';
 
 export default function AddToCartBtn({ inCart, itemId }: { inCart: number; itemId: string }) {
   const [productQty, setProductQty] = useState(inCart);
   const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const product = window.document.getElementById(itemId);
+    if (productQty === 0) product?.classList.add('hidden');
+  }, [productQty]);
   const addProduct = () => {
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
