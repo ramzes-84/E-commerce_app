@@ -12,19 +12,23 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
       : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
 
     return (
-      <li key={item.id} className="flex flex-row items-center gap-2 py-3">
+      <li key={item.id} className="flex flex-row items-center gap-1 md:gap-2 py-3 border-b-4" id={item.productId}>
         <Image alt={item.name['en-US']} src={imgLink} width={50} height={150} className="rounded-[20%]" />
-        <Link href={link} className="grow dark:text-blue-600 hover:underline">
-          <div>{item.name['en-US']}</div>
+        <Link href={link} className="grow  hover:underline">
+          <div className="md:text-lg text-base font-bold">{item.name['en-US']}</div>
         </Link>
-        <AddToCartBtn inCart={item.quantity} itemId={item.productId} />
-        <div> *</div>
-        <div>{item.price.value.centAmount / 100} USD</div>
-        <div> =</div>
-        <div>{item.totalPrice.centAmount / 100} USD</div>
-        <ButtonRemoveFromCart lineItemId={item.id} qty={item.quantity} />
+        <div className="flex flex-col md:text-lg text-base">
+          <div className="flex gap-2 items-center flex-col sm:flex-row sm:items-end">
+            <div>{item.price.value.centAmount / 100} USD x</div>
+            <div className="flex gap-2">
+              <AddToCartBtn inCart={item.quantity} itemId={item.productId} />
+              <ButtonRemoveFromCart lineItemId={item.id} qty={item.quantity} />
+            </div>
+          </div>
+          <div className=" flex justify-end mt-1 font-bold">Overall: {item.totalPrice.centAmount / 100} USD</div>
+        </div>
       </li>
     );
   });
-  return <ul className="list-disc list-outside divide-y-4">{liArr}</ul>;
+  return <ul className="list-disc list-outside md:mx-10 mx-6">{liArr}</ul>;
 }

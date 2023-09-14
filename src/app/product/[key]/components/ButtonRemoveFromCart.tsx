@@ -1,4 +1,5 @@
 import CartService from '@/service/api/CartService';
+import { ImBin } from 'react-icons/im';
 
 export function ButtonRemoveFromCart({ lineItemId, qty }: { lineItemId: string; qty: number }) {
   async function removeFromCart() {
@@ -11,9 +12,9 @@ export function ButtonRemoveFromCart({ lineItemId, qty }: { lineItemId: string; 
     <form action={removeFromCart}>
       <button
         type="submit"
-        className="border border-solid border-transparent rounded bg-emerald-900 text-white cursor-pointer py-1 px-1"
+        className="flex justify-center items-center border border-solid border-transparent rounded bg-emerald-900 text-white cursor-pointer sm:h-8 h-6 sm:w-8 w-6 "
       >
-        &#10060; Remove
+        <ImBin data-testid="delete" />
       </button>
     </form>
   );
