@@ -18,14 +18,16 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
           <div className="md:text-lg text-base font-bold">{item.name['en-US']}</div>
         </Link>
         <div className="flex flex-col md:text-lg text-base">
-          <div className="flex gap-2 items-center flex-col sm:flex-row sm:items-end">
-            <div>{item.price.value.centAmount / 100} USD x</div>
+          <div className="flex gap-2 sm:items-center flex-col sm:flex-row items-end">
+            <div>{(item.totalPrice.centAmount / (100 * item.quantity)).toFixed(2)} USD x</div>
             <div className="flex gap-2">
               <AddToCartBtn inCart={item.quantity} itemId={item.productId} />
               <ButtonRemoveFromCart lineItemId={item.id} qty={item.quantity} />
             </div>
           </div>
-          <div className=" flex justify-end mt-1 font-bold">Overall: {item.totalPrice.centAmount / 100} USD</div>
+          <div className=" flex justify-end mt-1 font-bold">
+            Overall: {(item.totalPrice.centAmount / 100).toFixed(2)} USD
+          </div>
         </div>
       </li>
     );
