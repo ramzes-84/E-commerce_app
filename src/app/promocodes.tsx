@@ -54,22 +54,22 @@ export function Promocodes() {
       title: '$30 DISCOUNT',
       promocode: 'GIFT30',
       discount: '30 $ OFF',
-      description: 'When buy over $200, get a $30 discount!',
-      note: "Activ until 31/10/2023. Don't apply any further cart discounts after this promocode.",
+      description: 'Get a $30 discount for orders over $200!',
+      note: "Active until 31/10/2023. Don't apply any further cart discounts after this promocode.",
     },
     {
       title: 'Welcome BONUS!',
       promocode: 'WELCOME',
       discount: '5% OFF',
       description: 'All new guests who registered in September - an additional discount on everything!',
-      note: 'Activ until 31/09/2023. Only for new users.',
+      note: 'Active until 31/09/2023. Only for new users.',
     },
     {
       title: 'Autumn SALE',
       promocode: 'SUNNY',
       discount: '20 % OFF',
       description: 'Extending summer with sunny discounts!',
-      note: "Activ until 31/09/2023. Don't apply for categories on SALE.",
+      note: "Active until 31/09/2023. Don't apply for categories on SALE.",
     },
   ];
 
