@@ -2,7 +2,6 @@ import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
 import { getProductByKey } from './components/product-functions';
-import { ButtonAddToCart } from './components/ButtonAddToCart';
 import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
 import CartService from '@/service/api/CartService';
 
