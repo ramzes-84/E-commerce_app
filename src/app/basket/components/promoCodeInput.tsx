@@ -59,6 +59,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
         setSuccessChange(false);
       }, 3000);
       setIsApplyPromo(false);
+      setValue('');
     } catch (err) {
       if (err instanceof Error) {
         setErrorChange(true);
