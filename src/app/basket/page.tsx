@@ -20,7 +20,9 @@ export default async function Page() {
             <Promocode cartID={activeCartID} cartVersion={activeCart.version} />
             <div className="flex flex-col items-end py-3 text-2xl font-bold">
               <div className="text-emerald-900">
-                Total price: {activeCart.lineItems.reduce((acc, item) => acc + item.price?.value.centAmount, 0) / 100}{' '}
+                Total price:{' '}
+                {activeCart.lineItems.reduce((acc, item) => acc + item.price?.value.centAmount * item.quantity, 0) /
+                  100}{' '}
                 USD
               </div>
             </div>

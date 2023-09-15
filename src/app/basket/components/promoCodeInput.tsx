@@ -75,28 +75,30 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
       <SuccessPopup message={chageMessage} errorChange={errorChange} successChange={successChange} />
       <div className="flex justify-end items-center gap-1 py-4">
         <h2 className="text-end font-serif font-bold text-rose-500 uppercase">Enter promocode</h2>
-        {isApplyPromo && (
-          <>
-            <button className="flex bg-emerald-900 text-white rounded px-2 py-1" onClick={deletePromocodeFromCart}>
-              Remove Promocodes
-            </button>
-          </>
-        )}
       </div>
-      <form className="flex justify-end gap-1 font-serif" action={addPromocodeToCart}>
-        <button type="button" onClick={() => setValue('')}>
-          &#10060;
-        </button>{' '}
-        <input
-          className="text-center border border-emerald-900 focus:outline-none focus:border-emerald-900 rounded focus:shadow-sm focus:shadow-emerald-700"
-          type="text"
-          value={value}
-          onChange={handleChange}
-          required
-        />{' '}
-        <button className="flex bg-emerald-900 text-white rounded px-2 py-1" type="submit">
-          Apply
-        </button>{' '}
+      <form className="flex flex-col items-end gap-1 font-serif" action={addPromocodeToCart}>
+        <div className="">
+          <label className="relative" htmlFor="">
+            <button className="absolute right-0" type="button" onClick={() => setValue('')}>
+              &#10060;
+            </button>{' '}
+            <input
+              className="text-start px-2 border border-emerald-900 focus:outline-none focus:border-emerald-900 rounded focus:shadow-sm focus:shadow-emerald-700"
+              type="text"
+              value={value}
+              onChange={handleChange}
+              required
+            />{' '}
+          </label>
+        </div>
+        <div className="flex gap-1">
+          <button className="flex bg-emerald-900 text-white rounded px-2 py-1" type="submit">
+            Apply
+          </button>{' '}
+          <button className="flex bg-emerald-900 text-white rounded px-2 py-1" onClick={deletePromocodeFromCart}>
+            Remove Promocodes
+          </button>
+        </div>
       </form>
       {isApplyPromo && (
         <>
