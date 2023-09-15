@@ -9,7 +9,15 @@ export default async function Page() {
   const activeCart = await cartService.getActiveCart();
   const activeCartID = activeCart.id;
   const cartProducts = activeCart.lineItems;
-  const price = activeCart.lineItems.reduce((acc, item) => acc + item.price?.value.centAmount * item.quantity, 0) / 100;
+  const price =
+    activeCart.lineItems.reduce(
+      (acc, item) =>
+        acc +
+        (item.price?.discounted?.value.centAmount
+          ? item.price?.discounted?.value.centAmount * item.quantity
+          : item.price?.value.centAmount * item.quantity),
+      0
+    ) / 100;
   const salePrice = activeCart.totalPrice.centAmount / 100;
   return (
     <>

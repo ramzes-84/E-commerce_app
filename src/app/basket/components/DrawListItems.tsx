@@ -19,13 +19,26 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
         </Link>
         <div className="flex flex-col md:text-lg text-base">
           <div className="flex gap-2 items-center flex-col sm:flex-row sm:items-end">
-            <div>{item.price.value.centAmount / 100} USD x</div>
+            <div>
+              {(item.price?.discounted?.value.centAmount
+                ? item.price?.discounted?.value.centAmount
+                : item.price?.value.centAmount) / 100}{' '}
+              USD x
+            </div>
             <div className="flex gap-2">
               <AddToCartBtn inCart={item.quantity} itemId={item.productId} />
               <ButtonRemoveFromCart lineItemId={item.id} qty={item.quantity} />
             </div>
           </div>
-          <div className=" flex justify-end mt-1 font-bold">Overall: {item.totalPrice.centAmount / 100} USD</div>
+          <div className=" flex justify-end mt-1 font-bold">
+            Overall:{' '}
+            {((item.price?.discounted?.value.centAmount
+              ? item.price?.discounted?.value.centAmount
+              : item.price?.value.centAmount) /
+              100) *
+              item.quantity}{' '}
+            USD
+          </div>
         </div>
       </li>
     );
