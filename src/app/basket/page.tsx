@@ -18,7 +18,7 @@ export default async function Page() {
             <ClearCart cartId={activeCartID} cartVersion={activeCart.version} />
             <DrawListItems lineItems={cartProducts} />
             <Promocode cartID={activeCartID} cartVersion={activeCart.version} />
-            <div className="flex flex-col items-end py-3 text-2xl font-bold">
+            <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
               <div className="text-emerald-900">
                 Total price:{' '}
                 {activeCart.lineItems.reduce((acc, item) => acc + item.price?.value.centAmount * item.quantity, 0) /

@@ -102,7 +102,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
       </form>
       {isApplyPromo && (
         <>
-          <div className="flex flex-col items-end py-3 text-3xl font-bold">
+          <div className="flex flex-col items-end text-end py-3 text-2xl md:text-3xl sm:text-2xl font-bold">
             <div className="text-rose-700">New total price with promocode: {totalPrice} USD</div>
           </div>
         </>
