@@ -6,7 +6,17 @@ import SuccessPopup from '@/app/account/components/popup/successPopup';
 import { getActiveCart } from '../utils/getActiveCart';
 import { DiscountCodeInfo } from '@commercetools/platform-sdk';
 
-export default function Promocode({ cartID, cartVersion }: { cartID: string; cartVersion: number }) {
+export default function Promocode({
+  cartID,
+  cartVersion,
+  price,
+  discountPrice,
+}: {
+  cartID: string;
+  cartVersion: number;
+  price: number;
+  discountPrice: number;
+}) {
   const [value, setValue] = useState('');
   const [isApplyPromo, setIsApplyPromo] = useState(false);
   const [successChange, setSuccessChange] = useState(false);
@@ -101,10 +111,13 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
           </button>
         </div>
       </form>
-      {isApplyPromo && (
+      <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
+        <div className="text-emerald-900">Total price: {price.toFixed(2)} USD</div>
+      </div>
+      {price > discountPrice && (
         <>
           <div className="flex flex-col items-end text-end py-3 text-2xl md:text-3xl sm:text-2xl font-bold">
-            <div className="text-rose-700">New total price with promocode: {totalPrice} USD</div>
+            <div className="text-rose-700">New total price with promocode: {discountPrice.toFixed(2)} USD</div>
           </div>
         </>
       )}

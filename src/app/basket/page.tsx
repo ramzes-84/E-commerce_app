@@ -9,6 +9,8 @@ export default async function Page() {
   const activeCart = await cartService.getActiveCart();
   const activeCartID = activeCart.id;
   const cartProducts = activeCart.lineItems;
+  const price = activeCart.lineItems.reduce((acc, item) => acc + item.price?.value.centAmount * item.quantity, 0) / 100;
+  const salePrice = activeCart.totalPrice.centAmount / 100;
   return (
     <>
       <section className="mx-3 font-serif text-emerald-900">
@@ -17,15 +19,7 @@ export default async function Page() {
           <>
             <ClearCart cartId={activeCartID} cartVersion={activeCart.version} />
             <DrawListItems lineItems={cartProducts} />
-            <Promocode cartID={activeCartID} cartVersion={activeCart.version} />
-            <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
-              <div className="text-emerald-900">
-                Total price:{' '}
-                {activeCart.lineItems.reduce((acc, item) => acc + item.price?.value.centAmount * item.quantity, 0) /
-                  100}{' '}
-                USD
-              </div>
-            </div>
+            <Promocode cartID={activeCartID} cartVersion={activeCart.version} price={price} discountPrice={salePrice} />
           </>
         ) : (
           <EmptyCart />
