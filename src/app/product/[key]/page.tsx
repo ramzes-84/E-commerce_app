@@ -2,7 +2,6 @@ import { DrawAttributes } from './components/DrawAttributes';
 import { ProductNavBar } from './components/ProductNavBar';
 import Slider from './components/Slider';
 import { getProductByKey } from './components/product-functions';
-import { ButtonAddToCart } from './components/ButtonAddToCart';
 import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
 import CartService from '@/service/api/CartService';
 
@@ -15,7 +14,7 @@ export default async function Page({ params }: { params: { key: string } }) {
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
     ? product.masterVariant.images.map((item) => item.url)
-    : ['https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'];
+    : ['/no-image.png'];
   const masterVarAttrs = product.masterVariant.attributes;
   const masterVarSKU = product.masterVariant.sku || 'Not created';
   const discount = res?.discount;

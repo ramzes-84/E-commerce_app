@@ -1,7 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from './header';
-import { SessionProvider } from '@/controller/session/client';
 import { PropsWithChildren } from 'react';
 import { CustomerService } from '@/service/api';
 import CartService from '@/service/api/CartService';
@@ -17,10 +16,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body>
-        <SessionProvider>
-          <Navbar authorized={isLogged} qty={cartProdsQty ? cartProdsQty : 0} />
-          {children}
-        </SessionProvider>
+        <Navbar authorized={isLogged} qty={cartProdsQty ? cartProdsQty : 0} />
+        {children}
       </body>
     </html>
   );
