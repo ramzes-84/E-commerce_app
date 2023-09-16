@@ -24,8 +24,12 @@ export default function Page() {
       photoUrl: '/Shevyakov.jpg',
       githubUrl: 'https://github.com/ramzes-84',
       description:
-        'At this moment I am trying to achieve new knowledge and get a profession of JavaScript Front-End Developer.',
-      contributions: 'contributions: Something',
+        'Was born in 1984 in Tula`s region. Owns a binoculars. Worked as a lawyer for a long time but after moving to another country faced with a necessity to make some changes in profession. The RSSchool learning is the first attempt to enter the IT world.',
+      contributions: `In the "eCommerce Application" project was responsible for the next features:
+      - development of the Product Page;
+      - searching and integration of image slider and fullscreen image slider;
+      - Cart's Page development;
+      - help to other members in need.`,
     },
     {
       name: 'Lyubov Agulova',
@@ -73,7 +77,10 @@ export default function Page() {
         ))}
         <Border title="Our collaboration">
           <span>
-            Describe how the team effectively collaborated to carry out the project and achieve a successful outcome
+            The Ostara Glass Shop as a result of the development was made thanks to the numerous efforts of each team
+            member. Upon completion of the project, we can confidently say that the team united and accurately completed
+            all the assigned tasks. The development process was accompanied by mutual understanding and supporting to
+            each other.
           </span>
         </Border>
       </div>
