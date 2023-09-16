@@ -1,29 +1,33 @@
 'use client';
 
+import { IMyAddress } from '@/service/api/CustomerService';
 import style from '../../page.module.css';
-import React from 'react';
-import { IAddress } from '../../page';
+import React, { useState } from 'react';
 
 interface CountryProps {
   country: string;
-  setFormData: React.Dispatch<React.SetStateAction<IAddress>>;
+  // setFormData: React.Dispatch<React.SetStateAction<IMyAddress>>;
+  onUpdate: (street: string) => void;
 }
 
-export default function SelectCountry({ country, setFormData }: CountryProps) {
+export default function SelectCountry({ country, onUpdate }: CountryProps) {
+  const [countryState, setCountryState] = useState(country);
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setFormData((prevState) => ({
-      ...prevState,
-      country: event.target.value,
-    }));
+    const value = event.target.value;
+    setCountryState(value);
+    // setFormData((prevState) => ({
+    //   ...prevState,
+    //   country: event.target.value,
+    // }));
+    onUpdate(value);
   };
   return (
-    <label>
-      Country:<span className="text-rose-600">*</span>
+    <>
       <select
         className={style.selectCountry}
         name="country"
         form="formRegistr"
-        value={country}
+        value={countryState}
         onChange={handleCountryChange}
       >
         <option>Select a country</option>
@@ -35,6 +39,6 @@ export default function SelectCountry({ country, setFormData }: CountryProps) {
         <option value="ES">Spain</option>
         <option value="US">United States</option>
       </select>
-    </label>
+    </>
   );
 }

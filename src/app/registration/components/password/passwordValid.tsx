@@ -1,27 +1,22 @@
 'use client';
 
 import style from '../../page.module.css';
-import { IFormData } from '../../page';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface PasswordProps {
-  password: string;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+  password?: string;
+  onUpdate: (street: string) => void;
 }
 
-export default function PasswordValid({ password, setFormData }: PasswordProps) {
+export default function PasswordValid({ password: currentPassword, onUpdate }: PasswordProps) {
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [password, setPassword] = useState(currentPassword);
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value.trim();
-    setFormData(
-      (prevState): IFormData => ({
-        ...prevState,
-        password: value,
-      })
-    );
+    setPassword(value);
     if (!value) {
       setError('');
       return;
@@ -30,6 +25,7 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
       setError('Min 8 characters, at least 1 uppercase letter and 1 lowercase letter and 1 number');
       return;
     }
+    onUpdate(value);
     setError('');
   };
 
@@ -39,22 +35,23 @@ export default function PasswordValid({ password, setFormData }: PasswordProps) 
 
   return (
     <>
-      <label className={style.labelInput}>
-        Password: <span className="text-rose-600">*</span>
-        {error && <p className={style.errorMessage}>{error}</p>}
-        <input
-          type={passwordVisible ? 'text' : 'password'}
-          name="password"
-          pattern="^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$"
-          minLength={8}
-          value={password}
-          onChange={handlePasswordChange}
-          className={style.input}
-        />
-      </label>
-      <button className="absolute bottom-3.5 right-1" onClick={togglePasswordVisibility}>
+      <input
+        type={passwordVisible ? 'text' : 'password'}
+        name="password"
+        pattern="^(?=.*[a-zа-я])(?=.*[A-ZА-Я])(?=.*\d)[a-zA-Z\d\S]{8,}$"
+        minLength={8}
+        value={password ?? ''}
+        onChange={handleInputChange}
+        className={style.input}
+      />
+      <button className="absolute top-[28px] right-2" onClick={togglePasswordVisibility} type="button">
         {passwordVisible ? <FaEyeSlash /> : <FaEye />}
       </button>
+      {error && (
+        <div className="max-h-[40px]">
+          <p className={style.errorMessage}>{error}</p>
+        </div>
+      )}
     </>
   );
 }
