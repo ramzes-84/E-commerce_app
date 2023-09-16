@@ -17,7 +17,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
   useEffect(() => {
     async function updatePrice() {
       const activeCart = await getActiveCart();
-      const result = activeCart.totalPrice.centAmount / 100;
+      const result = activeCart?.totalPrice.centAmount / 100;
       setTotalPrice(result);
     }
 
@@ -36,7 +36,7 @@ export default function Promocode({ cartID, cartVersion }: { cartID: string; car
     } catch (err) {
       if (err instanceof Error) {
         setErrorChange(true);
-        setChageMessage(err.message);
+        setChageMessage('Invalid promocode');
         setTimeout(() => {
           setErrorChange(false);
         }, 3000);
