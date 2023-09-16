@@ -176,7 +176,7 @@ export function CustomerInfo({ customer: currentCustomer }: CustomerInfoProps) {
           processResult('Password updated!', newCustomer, true, undefined);
         }
       } catch (err) {
-        processResult('Password didnt update!', undefined, undefined, true);
+        processResult('Password has not been updated!', undefined, undefined, true);
       }
     };
   };

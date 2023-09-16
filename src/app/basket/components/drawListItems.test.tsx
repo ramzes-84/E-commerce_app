@@ -1,7 +1,6 @@
 import { LineItem } from '@commercetools/platform-sdk';
 import { DrawListItems } from './DrawListItems';
 import { render } from '@testing-library/react';
-import { ButtonRemoveFromCart } from '@/app/product/[key]/components/ButtonRemoveFromCart';
 
 export const lineItems: { lineItems: LineItem[] } = {
   lineItems: [
@@ -13,7 +12,6 @@ export const lineItems: { lineItems: LineItem[] } = {
       productType: {
         typeId: 'product-type',
         id: '4c576ca7-3f92-46a6-aa4e-d02ba9811e82',
-        // version: 1
       },
       productSlug: { 'en-US': 'blue-mirror', ru: 'blue-mirror' },
       variant: {

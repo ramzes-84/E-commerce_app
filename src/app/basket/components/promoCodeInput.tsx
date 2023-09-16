@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { addPromocode, deletePromocode } from '../utils/promocode-actions';
 import SuccessPopup from '@/app/account/components/popup/successPopup';
 import { getActiveCart } from '../utils/getActiveCart';
@@ -18,21 +18,9 @@ export default function Promocode({
   discountPrice: number;
 }) {
   const [value, setValue] = useState('');
-  const [isApplyPromo, setIsApplyPromo] = useState(false);
   const [successChange, setSuccessChange] = useState(false);
   const [chageMessage, setChageMessage] = useState('');
   const [errorChange, setErrorChange] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    async function updatePrice() {
-      const activeCart = await getActiveCart();
-      const result = activeCart?.totalPrice.centAmount / 100;
-      setTotalPrice(result);
-    }
-
-    updatePrice();
-  }, [isApplyPromo]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -41,7 +29,35 @@ export default function Promocode({
   async function addPromocodeToCart() {
     try {
       const result = await addPromocode(cartID, cartVersion, value);
-      setIsApplyPromo(true);
+      if (result.discountCodes[result.discountCodes.length - 1]?.state === 'DoesNotMatchCart') {
+        setErrorChange(true);
+        setChageMessage('The conditions of the promocode have not been met.');
+        setTimeout(() => {
+          setErrorChange(false);
+        }, 3000);
+      }
+      if (result.discountCodes[result.discountCodes.length - 1]?.state === 'MatchesCart') {
+        if (result.discountCodes.some((code) => code.state === 'ApplicationStoppedByPreviousDiscount')) {
+          setSuccessChange(true);
+          setChageMessage('Promocode has been successfully applyed, but previous promocode was cancelled.');
+          setTimeout(() => {
+            setSuccessChange(false);
+          }, 3000);
+          return;
+        }
+        setSuccessChange(true);
+        setChageMessage('Promocode has been successfully applyed');
+        setTimeout(() => {
+          setSuccessChange(false);
+        }, 3000);
+      }
+      if (result.discountCodes[result.discountCodes.length - 1]?.state === 'ApplicationStoppedByPreviousDiscount') {
+        setErrorChange(true);
+        setChageMessage('Promocode cannot be used together with previously applied promotional codes.');
+        setTimeout(() => {
+          setErrorChange(false);
+        }, 3000);
+      }
       return result;
     } catch (err) {
       if (err instanceof Error) {
@@ -68,7 +84,6 @@ export default function Promocode({
       setTimeout(() => {
         setSuccessChange(false);
       }, 3000);
-      setIsApplyPromo(false);
       setValue('');
     } catch (err) {
       if (err instanceof Error) {
@@ -111,15 +126,21 @@ export default function Promocode({
           </button>
         </div>
       </form>
-      <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
-        <div className="text-emerald-900">Total price: {price?.toFixed(2)} USD</div>
-      </div>
-      {price > discountPrice && (
+      {price > discountPrice ? (
         <>
+          <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
+            <div className="text-emerald-900 line-through decoration-rose-700">
+              Total price: {price?.toFixed(2)} USD
+            </div>
+          </div>
           <div className="flex flex-col items-end text-end py-3 text-2xl md:text-3xl sm:text-2xl font-bold">
             <div className="text-rose-700">New total price with promocode: {discountPrice.toFixed(2)} USD</div>
           </div>
         </>
+      ) : (
+        <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
+          <div className="text-emerald-900">Total price: {price?.toFixed(2)} USD</div>
+        </div>
       )}
     </>
   );

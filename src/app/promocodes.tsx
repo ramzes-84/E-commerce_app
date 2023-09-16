@@ -1,6 +1,6 @@
 'use client';
 
-import { FaCopy, FaExclamation, FaNotEqual } from 'react-icons/fa';
+import { FaCopy, FaExclamation } from 'react-icons/fa';
 
 function CardPromocode({
   title,
@@ -69,7 +69,7 @@ export function Promocodes() {
       promocode: 'SUNNY',
       discount: '20 % OFF',
       description: 'Extending summer with sunny discounts!',
-      note: "Active until 31/09/2023. Don't apply for categories on SALE.",
+      note: "Active until 31/09/2023. Don't apply for categories on SALE and any further cart discounts after this promocode.",
     },
   ];
 
