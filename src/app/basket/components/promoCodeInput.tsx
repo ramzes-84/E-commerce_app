@@ -27,7 +27,7 @@ export default function Promocode({
   useEffect(() => {
     async function updatePrice() {
       const activeCart = await getActiveCart();
-      const result = activeCart.totalPrice.centAmount / 100;
+      const result = activeCart?.totalPrice.centAmount / 100;
       setTotalPrice(result);
     }
 
