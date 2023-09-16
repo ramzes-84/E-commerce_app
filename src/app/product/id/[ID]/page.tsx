@@ -1,11 +1,8 @@
-import CatalogService from '@/service/api/CatalogService';
 import { DrawAttributes } from '../../[key]/components/DrawAttributes';
 import { ProductNavBar } from '../../[key]/components/ProductNavBar';
 import Slider from '../../[key]/components/Slider';
 import { getProductById } from '../../[key]/components/product-functions';
-import { ButtonAddToCart } from '../../[key]/components/ButtonAddToCart';
 import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
-import { LineItem } from '@commercetools/platform-sdk';
 import CartService from '@/service/api/CartService';
 
 export default async function Page({ params }: { params: { ID: string } }) {
@@ -15,7 +12,7 @@ export default async function Page({ params }: { params: { ID: string } }) {
   const productDesc = product.description ? product.description['en-US'] : 'Not created';
   const masterVarImgs = product.masterVariant.images
     ? product.masterVariant.images.map((item) => item.url)
-    : ['https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'];
+    : ['/no-image.png'];
   const masterVarAttrs = product.masterVariant.attributes;
   const masterVarSKU = product.masterVariant.sku || 'Not created';
   const discount = res?.discount;

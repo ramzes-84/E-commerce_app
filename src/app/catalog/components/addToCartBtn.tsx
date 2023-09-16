@@ -36,7 +36,7 @@ export default function AddToCartBtn({ inCart, itemId }: { inCart: number; itemI
           <button className=" flex bg-emerald-900 text-white rounded px-2 py-1 ">Add to cart</button>
         </form>
       ) : (
-        <div className="flex justify-between bg-emerald-900 text-white rounded py-1 leading-5 sm:leading-6 ">
+        <div className="flex justify-between items-center bg-emerald-900 text-white rounded py-1 leading-5 sm:leading-6 ">
           <form onSubmit={removeProduct()}>
             <button className="  border-r px-2 border-white " id="minus" name="minus">
               -
