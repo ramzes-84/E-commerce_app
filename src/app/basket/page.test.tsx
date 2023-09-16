@@ -26,7 +26,7 @@ describe('Cart page', () => {
     expect(DrawListItems).toHaveBeenCalled();
   });
   it('renders header & empty cart when lines does not exist', async () => {
-    mockGetActiveCart.mockReturnValue({ id: 'ident', lineItems: [] });
+    mockGetActiveCart.mockReturnValue({ id: 'ident', lineItems: [], totalPrice: { centAmount: 500000 } });
 
     const Result = await Page();
     render(Result);
