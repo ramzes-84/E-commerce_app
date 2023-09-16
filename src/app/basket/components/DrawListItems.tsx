@@ -7,9 +7,7 @@ import AddToCartBtn from '@/app/catalog/components/addToCartBtn';
 export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
   const liArr = lineItems.map((item) => {
     const link = item.productKey ? `/product/${item.productKey}` : `/product/id/${item.productId}`;
-    let imgLink = item.variant.images
-      ? item.variant.images[0].url
-      : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
+    let imgLink = item.variant.images ? item.variant.images[0].url : '/no-image.png';
 
     return (
       <li key={item.id} className="flex flex-row items-center gap-2 py-3">
