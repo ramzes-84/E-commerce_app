@@ -112,7 +112,7 @@ export default function Promocode({
         </div>
       </form>
       <div className="flex flex-col items-end py-3 sm:text-2xl min-[320px]:text-xl font-bold">
-        <div className="text-emerald-900">Total price: {price.toFixed(2)} USD</div>
+        <div className="text-emerald-900">Total price: {price?.toFixed(2)} USD</div>
       </div>
       {price > discountPrice && (
         <>
