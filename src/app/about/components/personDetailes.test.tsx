@@ -8,7 +8,7 @@ describe('PersonDetailes', () => {
     photoUrl: '/Merkulova.jpg',
     githubUrl: 'https://github.com',
     description: 'description',
-    contributions: 'contributions',
+    contributions: ['contributions'],
   };
   it('should render with correct data', () => {
     const { getByText } = render(<PersonDetailes {...data} />);
@@ -16,7 +16,7 @@ describe('PersonDetailes', () => {
     expect(getByText(data.name)).toBeInTheDocument();
     expect(getByText(data.role)).toBeInTheDocument();
     expect(getByText(data.description)).toBeInTheDocument();
-    expect(getByText(data.contributions)).toBeInTheDocument();
+    expect(getByText(data.contributions[0])).toBeInTheDocument();
   });
 
   it('should render Image component', () => {
