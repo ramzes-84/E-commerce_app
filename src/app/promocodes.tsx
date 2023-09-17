@@ -62,14 +62,14 @@ export function Promocodes() {
       promocode: 'WELCOME',
       discount: '5% OFF',
       description: 'All new guests who registered in September - an additional discount on everything!',
-      note: 'Active until 31/09/2023. Only for new users.',
+      note: 'Active until 31/09/2023. Only for new users and can be combined with all promocodes.',
     },
     {
       title: 'Autumn SALE',
       promocode: 'SUNNY',
       discount: '20 % OFF',
       description: 'Extending summer with sunny discounts!',
-      note: "Active until 31/09/2023. Don't apply for categories on SALE and any further cart discounts after this promocode.",
+      note: "Active until 31/09/2023. Don't apply for categories on SALE and will always be calculated first.",
     },
   ];
 

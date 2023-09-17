@@ -29,6 +29,7 @@ export default function AddToCartBtn({ inCart, itemId }: { inCart: number; itemI
       const cart = await removeFromCart(itemId);
       setProductQty(productQty - 1);
       if (cart.lineItems.length === 0 && cart.discountCodes.length !== 0) {
+        localStorage.removeItem('promocode');
         for (const promoInfo of cart.discountCodes) {
           const newActiveCart = await getActiveCart();
           await deletePromocode(newActiveCart.id, newActiveCart.version, promoInfo.discountCode.id);

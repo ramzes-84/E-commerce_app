@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addPromocode, deletePromocode } from '../utils/promocode-actions';
 import SuccessPopup from '@/app/account/components/popup/successPopup';
 import { getActiveCart } from '../utils/getActiveCart';
@@ -21,6 +21,18 @@ export default function Promocode({
   const [successChange, setSuccessChange] = useState(false);
   const [chageMessage, setChageMessage] = useState('');
   const [errorChange, setErrorChange] = useState(false);
+  const [appliedPromocodes, setAppliedPromocodes] = useState<(string | null)[]>([]);
+
+  useEffect(() => {
+    const savedPromocodes = localStorage.getItem('promocode');
+    if (savedPromocodes !== null) {
+      setAppliedPromocodes(JSON.parse(savedPromocodes));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('promocode', JSON.stringify(appliedPromocodes));
+  }, [appliedPromocodes]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -28,37 +40,50 @@ export default function Promocode({
 
   async function addPromocodeToCart() {
     try {
-      const result = await addPromocode(cartID, cartVersion, value);
-      if (result.discountCodes[result.discountCodes.length - 1]?.state === 'DoesNotMatchCart') {
+      if (appliedPromocodes.includes(value)) {
         setErrorChange(true);
-        setChageMessage('The conditions of the promocode have not been met.');
+        setChageMessage('Promocode applied already');
         setTimeout(() => {
           setErrorChange(false);
         }, 3000);
-      }
-      if (result.discountCodes[result.discountCodes.length - 1]?.state === 'MatchesCart') {
-        if (result.discountCodes.some((code) => code.state === 'ApplicationStoppedByPreviousDiscount')) {
+      } else {
+        const result = await addPromocode(cartID, cartVersion, value);
+
+        if (result.discountCodes[result.discountCodes.length - 1]?.state === 'DoesNotMatchCart') {
+          setErrorChange(true);
+          setChageMessage('The conditions of the promocode have not been met.');
+          setTimeout(() => {
+            setErrorChange(false);
+          }, 3000);
+        }
+        if (result.discountCodes[result.discountCodes.length - 1]?.state === 'MatchesCart') {
+          appliedPromocodes.includes(value) ? null : setAppliedPromocodes([...appliedPromocodes, value]);
+
+          if (result.discountCodes.some((code) => code.state === 'ApplicationStoppedByPreviousDiscount')) {
+            setSuccessChange(true);
+            setChageMessage('Promocode has been successfully applyed, but previous promocode was cancelled.');
+            setTimeout(() => {
+              setSuccessChange(false);
+            }, 3000);
+            setAppliedPromocodes(() => [...appliedPromocodes]);
+            localStorage.setItem('promocode', JSON.stringify(appliedPromocodes));
+            return;
+          }
           setSuccessChange(true);
-          setChageMessage('Promocode has been successfully applyed, but previous promocode was cancelled.');
+          setChageMessage('Promocode has been successfully applyed');
           setTimeout(() => {
             setSuccessChange(false);
           }, 3000);
-          return;
         }
-        setSuccessChange(true);
-        setChageMessage('Promocode has been successfully applyed');
-        setTimeout(() => {
-          setSuccessChange(false);
-        }, 3000);
+        if (result.discountCodes[result.discountCodes.length - 1]?.state === 'ApplicationStoppedByPreviousDiscount') {
+          setErrorChange(true);
+          setChageMessage('Promocode cannot be used together with previously applied promotional codes.');
+          setTimeout(() => {
+            setErrorChange(false);
+          }, 3000);
+        }
+        return result;
       }
-      if (result.discountCodes[result.discountCodes.length - 1]?.state === 'ApplicationStoppedByPreviousDiscount') {
-        setErrorChange(true);
-        setChageMessage('Promocode cannot be used together with previously applied promotional codes.');
-        setTimeout(() => {
-          setErrorChange(false);
-        }, 3000);
-      }
-      return result;
     } catch (err) {
       if (err instanceof Error) {
         setErrorChange(true);
@@ -85,6 +110,7 @@ export default function Promocode({
         setSuccessChange(false);
       }, 3000);
       setValue('');
+      setAppliedPromocodes([]);
     } catch (err) {
       if (err instanceof Error) {
         setErrorChange(true);
@@ -104,7 +130,7 @@ export default function Promocode({
       </div>
       <form className="flex flex-col items-end gap-1 font-serif" action={addPromocodeToCart}>
         <div className="">
-          <label className="relative" htmlFor="">
+          <label className="relative">
             <button className="absolute right-0" type="button" onClick={() => setValue('')}>
               &#10060;
             </button>{' '}
@@ -117,6 +143,16 @@ export default function Promocode({
             />{' '}
           </label>
         </div>
+        {appliedPromocodes.length > 0 && (
+          <div>
+            Used promocodes:
+            {appliedPromocodes.map((code, i) => (
+              <span className="block text-gray-500 text-end" key={i}>
+                {code?.toString()}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="flex gap-1">
           <button className="flex bg-emerald-900 text-white rounded px-2 py-1" type="submit">
             Apply

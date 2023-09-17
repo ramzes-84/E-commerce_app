@@ -36,7 +36,6 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
               100) *
               item.quantity}{' '}
             USD
-
           </div>
         </div>
       </li>
