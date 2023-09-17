@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { addToCart, removeFromCart } from '../utils/addToCart';
 import Loader from './loader';
+import { deletePromocode } from '@/app/basket/utils/promocode-actions';
+import { getActiveCart } from '@/app/basket/utils/getActiveCart';
 
 export default function AddToCartBtn({ inCart, itemId }: { inCart: number; itemId: string }) {
   const [productQty, setProductQty] = useState(inCart);
@@ -24,8 +26,14 @@ export default function AddToCartBtn({ inCart, itemId }: { inCart: number; itemI
     return async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setIsLoading(true);
-      await removeFromCart(itemId);
+      const cart = await removeFromCart(itemId);
       setProductQty(productQty - 1);
+      if (cart.lineItems.length === 0 && cart.discountCodes.length !== 0) {
+        for (const promoInfo of cart.discountCodes) {
+          const newActiveCart = await getActiveCart();
+          await deletePromocode(newActiveCart.id, newActiveCart.version, promoInfo.discountCode.id);
+        }
+      }
       setIsLoading(false);
     };
   };
