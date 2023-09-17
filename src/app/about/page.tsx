@@ -84,7 +84,7 @@ export default function Page() {
       </div>
       <div className="sm:mx-10">
         <Border title="Our collaboration">
-          <span className=" font-serif md:text-xl text-lg pt-5">
+          <span className=" font-serif md:text-xl text-lg block max-[392px]:pt-5">
             The Ostara Glass Shop as a result of the development was made thanks to the numerous efforts of each team
             member. Upon completion of the project, we can confidently say that the team united and accurately completed
             all the assigned tasks. The development process was accompanied by mutual understanding and supporting to
