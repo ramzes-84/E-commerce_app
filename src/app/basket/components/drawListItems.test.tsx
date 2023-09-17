@@ -1,7 +1,6 @@
 import { LineItem } from '@commercetools/platform-sdk';
 import { DrawListItems } from './DrawListItems';
 import { render } from '@testing-library/react';
-import { ButtonRemoveFromCart } from '@/app/product/[key]/components/ButtonRemoveFromCart';
 
 export const lineItems: { lineItems: LineItem[] } = {
   lineItems: [
@@ -13,7 +12,6 @@ export const lineItems: { lineItems: LineItem[] } = {
       productType: {
         typeId: 'product-type',
         id: '4c576ca7-3f92-46a6-aa4e-d02ba9811e82',
-        // version: 1
       },
       productSlug: { 'en-US': 'blue-mirror', ru: 'blue-mirror' },
       variant: {
@@ -33,14 +31,33 @@ export const lineItems: { lineItems: LineItem[] } = {
           centAmount: 3000,
           fractionDigits: 2,
         },
-        discounted: { value: [], discount: {} },
+        discounted: {
+          value: {
+            type: 'centPrecision',
+            currencyCode: 'USD',
+            centAmount: 4200,
+            fractionDigits: 2,
+          },
+          discount: {
+            id: '123456854',
+            typeId: 'product-discount',
+          },
+        },
       },
       quantity: 2,
       discountedPricePerQuantity: [],
       perMethodTaxRate: [],
       addedAt: '2023-09-09T08:46:41.403Z',
       lastModifiedAt: '2023-09-09T16:03:50.986Z',
-      state: [{ quantity: 2, state: [Object] }],
+      state: [
+        {
+          quantity: 2,
+          state: {
+            id: '7777',
+            typeId: 'state',
+          },
+        },
+      ],
       priceMode: 'Platform',
       lineItemMode: 'Standard',
       totalPrice: {

@@ -166,6 +166,7 @@ export default function Page() {
               </div>
             </div>
             <AddressSection
+              addressType="Shipping"
               formShippingAddress={formShippingAddress}
               onUpdate={(address: IMyAddress, isDefault: boolean) => {
                 const newState = { ...address, defaultShippingAddress: isDefault };
@@ -175,6 +176,7 @@ export default function Page() {
             <CheckboxAddress label="Use for Billing address" checked={isChecked} onChange={handleCheckboxChange} />
             {!isChecked && (
               <AddressSection
+                addressType="Billing"
                 formShippingAddress={formBillingAddress}
                 onUpdate={(address: IMyAddress, isDefault: boolean) => {
                   const newState = { ...address, defaultBillingAddress: isDefault };

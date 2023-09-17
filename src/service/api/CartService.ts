@@ -71,6 +71,7 @@ export default class CartService extends ApiService {
       })
       .execute();
     this.updateCartProdsQty(req.body);
+    return req.body;
   }
 
   public cartProdsQty() {
@@ -100,6 +101,51 @@ export default class CartService extends ApiService {
       .withId({ ID: cartID })
       .delete({ queryArgs: { version: cartVersion } })
       .execute();
+    return result.body;
+  }
+
+  public async addPromocode(cartID: string, cartVersion: number, promocode: string) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .post({
+        body: {
+          version: cartVersion,
+          actions: [
+            {
+              action: 'addDiscountCode',
+              code: promocode,
+            },
+          ],
+        },
+      })
+      .execute();
+    this.updateCartProdsQty(result.body);
+    return result.body;
+  }
+
+  public async deletePromocode(cartID: string, cartVersion: number, promocodeID: string) {
+    const result = await this.apiRoot
+      .me()
+      .carts()
+      .withId({ ID: cartID })
+      .post({
+        body: {
+          version: cartVersion,
+          actions: [
+            {
+              action: 'removeDiscountCode',
+              discountCode: {
+                typeId: 'discount-code',
+                id: promocodeID,
+              },
+            },
+          ],
+        },
+      })
+      .execute();
+    this.updateCartProdsQty(result.body);
     return result.body;
   }
 }

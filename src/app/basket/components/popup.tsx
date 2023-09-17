@@ -19,7 +19,12 @@ export default function CartPopup({
       <div className="flex justify-evenly w-full gap-2">
         <button
           className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded  bg-emerald-900 text-white md:text-xl "
-          onClick={() => clearHandler(cartId, cartVersion)}
+          onClick={() => {
+            try {
+              localStorage.removeItem('promocode');
+              clearHandler(cartId, cartVersion);
+            } catch {}
+          }}
         >
           Continue
         </button>
