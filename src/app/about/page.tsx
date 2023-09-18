@@ -26,10 +26,11 @@ export default function Page() {
       description:
         'Was born in 1984 in Tula`s region. Owns a binoculars. Worked as a lawyer for a long time but after moving to another country faced with a necessity to make some changes in profession. The RSSchool learning is the first attempt to enter the IT world.',
       contributions: [
-        'development of the Product Page;',
-        'searching and integration of image slider and fullscreen image slider;',
-        "Cart's Page development;",
-        'help to other members in need.',
+        'repository setup and development environment configuration;',
+        'Product`s Page development;',
+        'Cart`s Page development;',
+        'searching and integration of additional components and modules (sliders and others);',
+        'testing.',
       ],
     },
     {
@@ -40,7 +41,7 @@ export default function Page() {
       description:
         'Was born in Voronezh, Russia in 1992, now I live in Saint Petersburg . Graduated as a Bachelor of radiophysics from Voronezh State University in 2013. Currently working as a stained glass crafter in my small home workshop. I’m a self-taught glass artist and I think self education is a strong point of my personality. Also running business gave me skills such as flexibility, resourcefulness, and persistence in achieving goals.',
       contributions: [
-        ' Catalog page with pagination, sorting, search and filtering options;',
+        'Catalog page with pagination, sorting, search and filtering options;',
         'Header and routing;',
         'App design solutions;',
         'Content maker and owner.',
