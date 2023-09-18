@@ -5,7 +5,15 @@ import { Cart } from '@commercetools/platform-sdk';
 export default class CartService extends ApiService {
   public async getActiveCart() {
     try {
-      const response = await this.apiRoot.me().activeCart().get().execute();
+      const response = await this.apiRoot
+        .me()
+        .activeCart()
+        .get({
+          queryArgs: {
+            expand: ['discountCodes[*].discountCode.obj.code'],
+          },
+        })
+        .execute();
       this.updateCartProdsQty(response.body);
       return response.body;
     } catch (err) {

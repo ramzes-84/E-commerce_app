@@ -11,11 +11,13 @@ export default function Promocode({
   cartVersion,
   price,
   discountPrice,
+  promos,
 }: {
   cartID: string;
   cartVersion: number;
   price: number;
   discountPrice: number;
+  promos: (string | undefined)[];
 }) {
   const [value, setValue] = useState('');
   const [successChange, setSuccessChange] = useState(false);
@@ -133,22 +135,22 @@ export default function Promocode({
           <label className="relative">
             <button className="absolute right-0" type="button" onClick={() => setValue('')}>
               &#10060;
-            </button>{' '}
+            </button>
             <input
               className="text-start px-2 border border-emerald-900 focus:outline-none focus:border-emerald-900 rounded focus:shadow-sm focus:shadow-emerald-700"
               type="text"
               value={value}
               onChange={handleChange}
               required
-            />{' '}
+            />
           </label>
         </div>
-        {appliedPromocodes.length > 0 && (
+        {promos.length > 0 && (
           <div>
             Used promocodes:
-            {appliedPromocodes.map((code, i) => (
+            {promos.map((code, i) => (
               <span className="block text-gray-500 text-end" key={i}>
-                {code?.toString()}
+                {code}
               </span>
             ))}
           </div>
