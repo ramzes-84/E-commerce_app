@@ -5,18 +5,21 @@ import { Cart } from '@commercetools/platform-sdk';
 export default class CartService extends ApiService {
   public async getActiveCart() {
     try {
-      const response = await this.apiRoot.me().activeCart().get().execute();
+      const response = await this.apiRoot
+        .me()
+        .activeCart()
+        .get({
+          queryArgs: {
+            expand: ['discountCodes[*].discountCode.obj.code'],
+          },
+        })
+        .execute();
       this.updateCartProdsQty(response.body);
       return response.body;
     } catch (err) {
-      if (err instanceof Error) {
-        if (err.message === 'URI not found: /cyber-ducks-app/me/active-cart') {
-          const response = await this.createCart();
-          this.updateCartProdsQty(response);
-          return response;
-        }
-      }
-      throw new Error();
+      const response = await this.createCart();
+      this.updateCartProdsQty(response);
+      return response;
     }
   }
 

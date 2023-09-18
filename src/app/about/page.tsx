@@ -53,8 +53,13 @@ export default function Page() {
       photoUrl: '/Merkulova.jpg',
       githubUrl: 'https://github.com/mksenni',
       description:
-        'At this moment I am trying to achieve new knowledge and get a profession of JavaScript Front-End Developer.',
-      contributions: ['contributions: Something'],
+        'Born in Kurgan in 1992, Russia. Received an economic education and worked for 6 years as a financial consultant in a bank. But I always wanted to change my profession and see the result of my work. Then I became a mother, went to live in Tyumen, Russia, and while on maternity leave began my way into IT. I was HR in an IT company, then took a short course on basics of front-end development. Studying at RS School is first serious training in the IT world.',
+      contributions: [
+        'Development and validation of forms for Registration Page and Login Page;',
+        'Development of display and editing of User Profile Page;',
+        'Implementation of use of promocodes;',
+        'Creating an About Us page.',
+      ],
     },
   ];
   const [isOpen, setIsOpen] = useState<number | null>(null);
@@ -85,15 +90,30 @@ export default function Page() {
       </div>
       <div className="sm:mx-10">
         <Border title="Our collaboration">
-          <span className=" font-serif md:text-xl text-lg block max-[392px]:pt-5">
+          <p className=" font-serif md:text-xl text-lg block max-[392px]:pt-5 pb-2">
             The Ostara Glass Shop as a result of the development was made thanks to the numerous efforts of each team
             member. Upon completion of the project, we can confidently say that the team united and accurately completed
             all the assigned tasks. The development process was accompanied by mutual understanding and supporting to
             each other.
-          </span>
+            <span className=" font-bold text-emerald-900 block">Technology stack:</span>
+            <p>The application was built using modern web technologies such as Next.js, React, Typescript and Jest.</p>
+            <span className=" font-bold text-emerald-900">Work coordination:</span>
+            <p>
+              To distribute tasks, set intermediate deadlines, ensure everyone understands the progress of development
+              and avoid duplication we have used task tracking with Jira Kanban board. Communication in team took place
+              in Telegram group chat. Skype meetings with mentor helped us in solving problems that have arisen in the
+              development process.
+            </p>
+            <span className=" font-bold text-emerald-900">Code quality control:</span>
+            <p>
+              For automatic code formatting and linting checks during the commit process we used Husky with ESlint and
+              Prettier. Each PR should have gotten 2 approves before being merged in the sprint branch. In the
+              repository we organized CI/CD workflow with GitHub Actions for testing and Vercel Deployment for
+              continuous application build and deploy.
+            </p>
+          </p>
         </Border>
       </div>
-
       {isOpen !== null && (
         <BigPopup
           onClose={(event) => {
