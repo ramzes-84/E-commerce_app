@@ -16,12 +16,12 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
           <div className="md:text-lg text-base font-bold">{item.name['en-US']}</div>
         </Link>
         <div className="flex flex-col md:text-lg text-base">
-          <div className="flex gap-2 items-center flex-col sm:flex-row sm:items-end">
+          <div className="flex gap-2 items-end flex-col sm:flex-row sm:items-center">
             <div>
               {(item.price?.discounted?.value.centAmount
                 ? item.price?.discounted?.value.centAmount
-                : item.price?.value.centAmount) / 100}{' '}
-              USD x
+                : item.price?.value.centAmount) / 100}
+              <span className="pl-1">USD ×</span>
             </div>
             <div className="flex gap-2">
               <AddToCartBtn inCart={item.quantity} itemId={item.productId} />
@@ -29,13 +29,13 @@ export function DrawListItems({ lineItems }: { lineItems: LineItem[] }) {
             </div>
           </div>
           <div className=" flex justify-end mt-1 font-bold">
-            Overall:{' '}
+            <span className="pr-2">Overall:</span>
             {((item.price?.discounted?.value.centAmount
               ? item.price?.discounted?.value.centAmount
               : item.price?.value.centAmount) /
               100) *
-              item.quantity}{' '}
-            USD
+              item.quantity}
+            <span className="pl-1">USD</span>
           </div>
         </div>
       </li>
