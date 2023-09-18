@@ -17,7 +17,12 @@ jest.mock('@/service/api/CartService', () => {
 
 describe('Cart page', () => {
   it('renders header & draw lines when they exist', async () => {
-    mockGetActiveCart.mockReturnValue({ id: 'ident', lineItems: ['Text'], totalPrice: { centAmount: 500000 } });
+    mockGetActiveCart.mockReturnValue({
+      id: 'ident',
+      lineItems: ['Text'],
+      totalPrice: { centAmount: 500000 },
+      discountCodes: [],
+    });
 
     const Result = await Page();
     render(Result);
@@ -26,7 +31,12 @@ describe('Cart page', () => {
     expect(DrawListItems).toHaveBeenCalled();
   });
   it('renders header & empty cart when lines does not exist', async () => {
-    mockGetActiveCart.mockReturnValue({ id: 'ident', lineItems: [], totalPrice: { centAmount: 500000 } });
+    mockGetActiveCart.mockReturnValue({
+      id: 'ident',
+      lineItems: [],
+      totalPrice: { centAmount: 500000 },
+      discountCodes: [],
+    });
 
     const Result = await Page();
     render(Result);
