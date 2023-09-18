@@ -6,26 +6,26 @@ export default function Home() {
     <main className="font-serif flex flex-col items-center w-full">
       <div
         style={{
-          backgroundImage: `url("https://static.tildacdn.com/stor3634-3931-4131-b566-306139643231/30687257.jpg")`,
+          backgroundImage: `url("https://static.tildacdn.com/stor3363-3533-4231-b833-663035623631/27288658.jpg")`,
           width: '100%',
-          height: '900px',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           overflow: 'hidden',
           backgroundPosition: 'center',
           margin: 'auto',
         }}
+        className="md:h-[800px] h-[600px]"
       >
         <div
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            height: '800px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'space-between',
             position: 'relative',
           }}
+          className="md:h-[800px] h-[600px]"
         >
           <h1 className="py-10  mx-8 md:text-3xl sm:text-2xl text-xl uppercase font-light text-[#ffffff] opacity-90  text-center">
             Welcome to Ostara Glass Shop!
