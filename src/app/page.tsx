@@ -14,7 +14,7 @@ export default function Home() {
           backgroundPosition: 'center',
           margin: 'auto',
         }}
-        className="md:h-[800px] h-[600px]"
+        className="lg:h-[800px] sm:h-[600px] h-[400px]"
       >
         <div
           style={{
@@ -25,7 +25,7 @@ export default function Home() {
             justifyContent: 'space-between',
             position: 'relative',
           }}
-          className="md:h-[800px] h-[600px]"
+          className="lg:h-[800px] sm:h-[600px] h-[400px]"
         >
           <h1 className="py-10  mx-8 md:text-3xl sm:text-2xl text-xl uppercase font-light text-[#ffffff] opacity-90  text-center">
             Welcome to Ostara Glass Shop!
