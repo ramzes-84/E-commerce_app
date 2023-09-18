@@ -123,9 +123,9 @@ export default function Promocode({
   }
 
   return (
-    <>
+    <section className="md:mx-10 mx-6">
       <SuccessPopup message={chageMessage} errorChange={errorChange} successChange={successChange} />
-      <div className="flex justify-end items-center gap-1 py-4">
+      <div className="flex justify-end items-center gap-1 py-4 ">
         <h2 className="text-end font-serif font-bold text-rose-500 uppercase">Enter promocode</h2>
       </div>
       <form className="flex flex-col items-end gap-1 font-serif" action={addPromocodeToCart}>
@@ -178,6 +178,6 @@ export default function Promocode({
           <div className="text-emerald-900">Total price: {price?.toFixed(2)} USD</div>
         </div>
       )}
-    </>
+    </section>
   );
 }
