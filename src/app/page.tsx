@@ -51,11 +51,11 @@ export default function Home() {
           Here you can find home decor items, made by hand in stained glass technique
         </p>
         <p className=" text-lg text-emerald-900">
-          <span className="font-bold">Categories on sale:</span>{' '}
+          <span className="font-bold">Categories on sale:</span>
           <Link href="/catalog/mirrors" className="underline hover:cursor-pointer underline-offset-2">
             Mirrors
           </Link>
-          ,{' '}
+          ,
           <Link href="/catalog/flower-moons" className=" hover:cursor-pointer underline underline-offset-2">
             Flower moons
           </Link>

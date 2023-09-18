@@ -96,7 +96,7 @@ export default function Page() {
               To distribute tasks, set intermediate deadlines, ensure everyone understands the progress of development
               and avoid duplication we have used task tracking with Jira Kanban board. Communication in team took place
               in Telegram group chat. Skype meeteings with mentor helped us in solving problems that have arisen in the
-              development process.{' '}
+              development process.
             </p>
             <span className=" font-bold text-emerald-900">Code quality control:</span>
             <p>
@@ -108,7 +108,6 @@ export default function Page() {
           </p>
         </Border>
       </div>
-
       {isOpen !== null && (
         <BigPopup
           onClose={(event) => {
