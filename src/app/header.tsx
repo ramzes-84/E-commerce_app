@@ -85,8 +85,8 @@ export default function Navbar({ authorized, qty }: { authorized: boolean; qty: 
               className="text-sm font-bold leading-relaxed inline-block mr-4 py-2  whitespace-nowrap uppercase text-white"
               href="/"
             >
-              <Image src="/icon.svg" width={45} height={45} alt="Logo" className="inline-block" />
-              <Image src="/text.svg" width={180} height={50} alt="Logo" className="inline-block" />
+              <Image src="/icon.svg" width={45} height={45} alt="Logo" className="inline-block hover:opacity-75" />
+              <Image src="/text.svg" width={180} height={50} alt="Logo" className="inline-block hover:opacity-75" />
             </Link>
             <button
               className="cursor-pointer leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block md:hidden outline-none focus:outline-none"

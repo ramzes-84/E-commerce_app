@@ -20,7 +20,10 @@ function CardPromocode({
   };
   return (
     <>
-      <div className="flex flex-col justify-between	p-4 text-center border text-lg text-emerald-900 border-emerald-900 rounded shadow-sm shadow-emerald-700 transition">
+      <div
+        id="promo"
+        className="flex flex-col justify-between	p-4 text-center border text-lg text-emerald-900 border-emerald-900 rounded shadow-sm shadow-emerald-700 transition"
+      >
         <h2 className="font-bold">{title}</h2>
         <span className="font-bold text-rose-600">{discount}</span>
         <div
