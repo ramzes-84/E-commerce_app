@@ -9,6 +9,7 @@ export default async function Page() {
   const activeCart = await cartService.getActiveCart();
   const activeCartID = activeCart.id;
   const cartProducts = activeCart.lineItems;
+  const promos = activeCart.discountCodes.map((c) => c.discountCode.obj?.code);
   const price =
     activeCart.lineItems.reduce(
       (acc, item) =>
@@ -27,7 +28,13 @@ export default async function Page() {
           <>
             <ClearCart cartId={activeCartID} cartVersion={activeCart.version} />
             <DrawListItems lineItems={cartProducts} />
-            <Promocode cartID={activeCartID} cartVersion={activeCart.version} price={price} discountPrice={salePrice} />
+            <Promocode
+              cartID={activeCartID}
+              cartVersion={activeCart.version}
+              price={price}
+              discountPrice={salePrice}
+              promos={promos}
+            />
           </>
         ) : (
           <EmptyCart />

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { addPromocode, deletePromocode } from '../utils/promocode-actions';
 import SuccessPopup from '@/app/account/components/popup/successPopup';
 import { getActiveCart } from '../utils/getActiveCart';
@@ -11,28 +11,18 @@ export default function Promocode({
   cartVersion,
   price,
   discountPrice,
+  promos,
 }: {
   cartID: string;
   cartVersion: number;
   price: number;
   discountPrice: number;
+  promos: (string | undefined)[];
 }) {
   const [value, setValue] = useState('');
   const [successChange, setSuccessChange] = useState(false);
   const [chageMessage, setChageMessage] = useState('');
   const [errorChange, setErrorChange] = useState(false);
-  const [appliedPromocodes, setAppliedPromocodes] = useState<(string | null)[]>([]);
-
-  useEffect(() => {
-    const savedPromocodes = localStorage.getItem('promocode');
-    if (savedPromocodes !== null) {
-      setAppliedPromocodes(JSON.parse(savedPromocodes));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('promocode', JSON.stringify(appliedPromocodes));
-  }, [appliedPromocodes]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -40,7 +30,7 @@ export default function Promocode({
 
   async function addPromocodeToCart() {
     try {
-      if (appliedPromocodes.includes(value)) {
+      if (promos.includes(value)) {
         setErrorChange(true);
         setChageMessage('Promocode applied already');
         setTimeout(() => {
@@ -57,16 +47,12 @@ export default function Promocode({
           }, 3000);
         }
         if (result.discountCodes[result.discountCodes.length - 1]?.state === 'MatchesCart') {
-          appliedPromocodes.includes(value) ? null : setAppliedPromocodes([...appliedPromocodes, value]);
-
           if (result.discountCodes.some((code) => code.state === 'ApplicationStoppedByPreviousDiscount')) {
             setSuccessChange(true);
             setChageMessage('Promocode has been successfully applyed, but previous promocode was cancelled.');
             setTimeout(() => {
               setSuccessChange(false);
             }, 3000);
-            setAppliedPromocodes(() => [...appliedPromocodes]);
-            localStorage.setItem('promocode', JSON.stringify(appliedPromocodes));
             return;
           }
           setSuccessChange(true);
@@ -110,7 +96,6 @@ export default function Promocode({
         setSuccessChange(false);
       }, 3000);
       setValue('');
-      setAppliedPromocodes([]);
     } catch (err) {
       if (err instanceof Error) {
         setErrorChange(true);
@@ -133,22 +118,22 @@ export default function Promocode({
           <label className="relative">
             <button className="absolute right-0" type="button" onClick={() => setValue('')}>
               &#10060;
-            </button>{' '}
+            </button>
             <input
               className="text-start px-2 border border-emerald-900 focus:outline-none focus:border-emerald-900 rounded focus:shadow-sm focus:shadow-emerald-700"
               type="text"
               value={value}
               onChange={handleChange}
               required
-            />{' '}
+            />
           </label>
         </div>
-        {appliedPromocodes.length > 0 && (
+        {promos.length > 0 && (
           <div>
             Used promocodes:
-            {appliedPromocodes.map((code, i) => (
+            {promos.map((code, i) => (
               <span className="block text-gray-500 text-end" key={i}>
-                {code?.toString()}
+                {code}
               </span>
             ))}
           </div>
