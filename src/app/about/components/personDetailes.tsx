@@ -30,7 +30,7 @@ export default function PersonDetailes({
           <h2 className="uppercase">{name}</h2>
           <span className=" font-bold  text-emerald-900">{role}</span>
           <p className="text-left">{description}</p>
-          <p className="text-left font-bold text-emerald-900">Contributions to eCommerce Application project: </p>
+          <p className="text-left font-bold text-emerald-900">Contributions to eCommerce Application project:</p>
           <ul className="list-disc ml-4 text-left">
             {contributions.map((c) => {
               return <li key={c}>{c}</li>;
