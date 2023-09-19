@@ -59,7 +59,6 @@ type navItem = {
 export default function Navbar({ authorized, qty }: { authorized: boolean; qty: number }) {
   const router = useRouter();
   function handleLogout() {
-    localStorage.removeItem('promocode');
     logout();
     router.refresh();
     router.push('/login');

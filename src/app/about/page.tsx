@@ -53,7 +53,7 @@ export default function Page() {
       photoUrl: '/Merkulova.jpg',
       githubUrl: 'https://github.com/mksenni',
       description:
-        'Born in Kurgan in 1992, Russia. Received an economic education and worked for 6 years as a financial consultant in a bank. But I always wanted to change my profession and see the result of my work. Then I became a mother, went to live in Tyumen, Russia, and while on maternity leave began my way into IT. I was HR in an IT company, then took a short course on basics of front-end development. Studying at RS School is first serious training in the IT world.',
+        'Born in Petropavlovsk, Kazakhstan, in 1992 and soon my family moved to Russia. Received an economic education and worked for 6 years as a financial consultant in a bank. But I always wanted to change my profession and see the result of my work. Then I became a mother, went to live in Tyumen, Russia, and while on maternity leave began my way into IT. I was HR in an IT company, then took a short course on basics of front-end development. Studying at RS School is first serious training in the IT world.',
       contributions: [
         'Development and validation of forms for Registration Page and Login Page;',
         'Development of display and editing of User Profile Page;',
