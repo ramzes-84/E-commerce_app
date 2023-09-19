@@ -15,7 +15,7 @@ export default function PersonCard({ name, role, photoUrl, githubUrl, onClick }:
       <Border title={name}>
         <div className="flex items-center gap-x-3.5 mt-5 cursor-pointer font-serif" onClick={onClick}>
           <div className="overflow-hidden w-18 h-18 sm:w-24 sm:h-24 rounded-full ">
-            <Image width={100} height={100} className="inline-block" src={photoUrl} alt="photo" />
+            <Image width={100} height={100} className="inline-block" src={photoUrl} alt={name} />
           </div>
           <div>
             <span className=" sm:text-lg text-emerald-800 font-bold md:text-xl">{role}</span>
